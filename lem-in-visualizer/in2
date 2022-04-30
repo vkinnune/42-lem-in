@@ -1,0 +1,12 @@
+2
+##start
+Autovuokraamo 10 10
+##end
+Baari 0 10
+Katu 5 10
+Autovuokraamo-Katu
+Katu-Baari
+
+L1-Katu
+L1-Baari L2-Katu
+L2-Baari
