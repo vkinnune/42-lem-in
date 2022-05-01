@@ -6,16 +6,15 @@
 #include <assert.h>
 #define TIME_ANT_IS_MOVING 0.75f
 #define BYTES_PER_READ 64
-#define NAME_LENGTH 32
+#define NAME_LENGTH 64
 #define FPS 60
 #define FRAMES_PER_TICK 60
-
 
 void
 crash(char* p)
 {
     printf("%s\n", p);
-    exit(1);
+    exit(-1);
 }
 
 int
@@ -53,11 +52,11 @@ main()
     int* p_room_ys;
     size_t room_count;
 
-    int* p_links; // ints in pairs. to and from. (indexes to rooms)
+    int* p_links; // ints in pairs. to and from. (ints are indexes to rooms)
     size_t links_count;
 
-    int* p_ant_x_ticks; // xtick-0(ant-0 ant-1 ant-2... ant-ant_count) xtick-1(..)... xtick-tick_count(...)
-    int* p_ant_y_ticks; // tick_count grows with realloc
+    int* p_ant_x_ticks; // array with size tick_count made up of arrays with size ant_count.
+    int* p_ant_y_ticks; //  ant_count is stride
     size_t tick_count;
     {
         char* p = p_text;
@@ -101,13 +100,13 @@ main()
                 {
                     if(0 == strncmp(p, "##start", 7))
                     {
-                        printf("start: %d\n", start_index);
                         start_index = room_count;
+                        printf("start: %d\n", start_index);
                     }
                     else if(0 == strncmp(p, "##end", 5))
                     {
-                        printf("end: %d\n", end_index);
                         end_index = room_count;
+                        printf("end: %d\n", end_index);
                     }
                 }
                 while(*p != '\n') p++;
@@ -138,7 +137,7 @@ main()
                 if(i+1 >= NAME_LENGTH) crash("Error: too long room name");
                 if(*p == ' ') //this allows blank names
                 {
-                    p_room_names[room_count * NAME_LENGTH + i + 1] = '\0';
+                    p_room_names[room_count * NAME_LENGTH + i] = '\0';
                     printf("Room %lu: %s\n", room_count, p_room_names + (room_count * NAME_LENGTH));
                     p++;
                     break;
@@ -204,6 +203,18 @@ main()
                 links_allocated += 2;
                 p_links = realloc(p_links, sizeof(int) * 2 * links_allocated);
             }
+            size_t number = p - p_text;
+            if(number >= text_size)
+            {
+               printf("Read %li bytes over text\l", (long int)number - (long int)text_size);
+               break;
+            }
+            if(*p == '#')
+            {
+                while(*p != '\n') p++;
+                p++;
+                continue;
+            }
             for(int i = 0; i < room_count; i++)
             {
                 int ci = 0;
@@ -217,7 +228,7 @@ main()
                 }
             }
             if(match == -1) 
-                crash("Link name not found\n");
+                crash("Error: link name not found");
             if(seperator == '-')
             {
                 p_links[links_count*2] = match;
