@@ -23,6 +23,7 @@ t_path	*save_paths(t_room **pp_rooms, t_info info, t_path *paths, size_t set_cou
 			break ;
 		paths[set_count].count++;
 	}
+	free(visited.data);
 	return (paths);
 }
 

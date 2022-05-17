@@ -36,7 +36,10 @@ char	*construct_instructions(t_path *paths, size_t set_count, char *p_names, t_i
 				else
 					res++;
 				if (res >= info.ant_count)
+				{
+					free(flow);
 					return (str);
+				}
 				ant++;
 			}
 			i++;

@@ -11,7 +11,7 @@ OBJ = $(addprefix srcs/, $(SRCS:.c=.o))
 all: $(NAME)
 
 $(NAME):
-	@gcc -o $(NAME) $(FLAGS) $(SRCS)
+	gcc -o $(NAME) $(FLAGS) $(SRCS)
 
 clean:
 	rm -f $(OBJ)

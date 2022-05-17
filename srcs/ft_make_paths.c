@@ -29,7 +29,7 @@ t_path	*make_paths(t_path *paths, size_t *set_count, t_info info, t_room *p_room
 		(*set_count)++;
 	}
 	free(traversal_data.visited_stack);
-	free(traversal_data.queue_stack); //remember to free flows
+	free(traversal_data.queue_stack);
 	return (paths);
 
 }

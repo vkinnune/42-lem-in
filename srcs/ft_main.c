@@ -1,10 +1,13 @@
 #include "lem-in.h"
 
 void	read_input(char **av, char *buf);
-void	parse_input(char *p_buf, t_info *p_info, char **pp_names, t_room **pp_rooms);
+void	parse_input(char *p_buf, t_info *p_info,
+			char **pp_names, t_room **pp_rooms);
 char	*move_ants(t_info info, char *p_names, t_room *p_rooms);
-t_path	*make_paths(t_path *paths, size_t *set_count, t_info info, t_room *p_rooms);
-char	*construct_instructions(t_path *paths, size_t set_count, char *p_names, t_info info);
+t_path	*make_paths(t_path *paths,
+			size_t *set_count, t_info info, t_room *p_rooms);
+char	*construct_instructions(t_path *paths,
+			size_t set_count, char *p_names, t_info info);
 void	free_edges(t_room *p_rooms, size_t room_count);
 
 int	main(int argc, char **argv)
@@ -47,13 +50,16 @@ void	read_input(char **av, char *p_buf)
 	p_buf[size] = '\0';
 }
 
-void	parse_input(char *p_buf, t_info *p_info, char **pp_names, t_room **pp_rooms)
+void	parse_input(char *p_buf, t_info *p_info,
+		char **pp_names, t_room **pp_rooms)
 {
 	size_t	bytes_parsed;
 
 	bytes_parsed = parse_ant_count(p_buf, p_info);
-	bytes_parsed += parse_nodes(&p_buf[bytes_parsed], p_info, pp_names);
-	*pp_rooms = parse_edges(&p_buf[bytes_parsed], *pp_names, p_info->room_count);
+	bytes_parsed += parse_nodes(&p_buf[bytes_parsed],
+			p_info, pp_names);
+	*pp_rooms = parse_edges(&p_buf[bytes_parsed],
+			*pp_names, p_info->room_count);
 }
 
 char	*move_ants(t_info info, char *p_names, t_room *p_rooms)
@@ -61,11 +67,24 @@ char	*move_ants(t_info info, char *p_names, t_room *p_rooms)
 	t_path	*paths;
 	size_t	set_count;
 	char	*res;
+	size_t	i;
 
 	paths = 0;
 	set_count = 0;
 	paths = make_paths(paths, &set_count, info, p_rooms);
 	res = construct_instructions(paths, set_count, p_names, info);
+	while (set_count)
+	{
+		i = 0;
+		while (i != paths[set_count - 1].count)
+		{
+			free(paths[set_count - 1].data[i]);
+			i++;
+		}
+		free(paths[set_count - 1].sizes);
+		free(paths[set_count - 1].data);
+		set_count--;
+	}
 	free(paths);
 	return (res);
 }
