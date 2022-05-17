@@ -5,6 +5,7 @@ void	parse_input(char *p_buf, t_info *p_info, char **pp_names, t_room **pp_rooms
 char	*move_ants(t_info info, char *p_names, t_room *p_rooms);
 t_path	*make_paths(t_path *paths, size_t *set_count, t_info info, t_room *p_rooms);
 char	*construct_instructions(t_path *paths, size_t set_count, char *p_names, t_info info);
+void	free_edges(t_room *p_rooms, size_t room_count);
 
 int	main(int argc, char **argv)
 {
@@ -24,11 +25,11 @@ int	main(int argc, char **argv)
 	write(1, p_buf, strlen(p_buf));
 	write(1, "\n", 1);
 	write(1, res, strlen(res));
-	free(p_names); //free also edges
+	free_edges(p_rooms, info.room_count);
+	free(p_names);
 	free(p_rooms);
 	free(res);
 }
-
 
 void	read_input(char **av, char *p_buf)
 {
@@ -67,5 +68,18 @@ char	*move_ants(t_info info, char *p_names, t_room *p_rooms)
 	res = construct_instructions(paths, set_count, p_names, info);
 	free(paths);
 	return (res);
+}
+
+void	free_edges(t_room *p_rooms, size_t room_count)
+{
+	size_t	i;
+
+	i = 0;
+	while (i != room_count)
+	{
+		free(p_rooms[i].edges);
+		free(p_rooms[i].flows);
+		i++;
+	}
 }
 

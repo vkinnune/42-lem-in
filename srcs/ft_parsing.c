@@ -98,10 +98,14 @@ char	*save_name(char *p, char *p_save, char **pp_names, size_t room_count)
 	if (*p != ' ')
 		ft_out("Bad room name");
 	if (room_count == 0)
+	{
 		*pp_names = (char *)malloc(sizeof(char) * NAME_LENGTH);
+		bzero(*pp_names, sizeof(char) * NAME_LENGTH);
+	}
 	else
 	{
 		p_str = (char *)malloc((sizeof(char) * NAME_LENGTH) * (room_count + 1));
+		bzero(p_str, (sizeof(char) * NAME_LENGTH) * (room_count + 1));
 		memcpy(p_str, *pp_names, (sizeof(char) * NAME_LENGTH) * (room_count));
 		free(*pp_names);
 		*pp_names = p_str;
@@ -161,10 +165,14 @@ void	add_edges(size_t in, size_t out, t_room *p_rooms)
 	size_t	*edges;
 
 	if (p_rooms[in].edge_count == 0)
+	{
 		p_rooms[in].edges = (size_t *)malloc(sizeof(size_t) * 1);
+		bzero(p_rooms[in].edges, sizeof(size_t) * 1);
+	}
 	else
 	{
 		edges = (size_t *)malloc(sizeof(size_t) * (p_rooms[in].edge_count + 1));
+		bzero(edges, sizeof(size_t) * (p_rooms[in].edge_count + 1));
 		memcpy(edges, p_rooms[in].edges, (p_rooms[in].edge_count * sizeof(size_t)));
 		free(p_rooms[in].edges);
 		p_rooms[in].edges = edges;

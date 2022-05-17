@@ -56,17 +56,10 @@ typedef struct s_info {
 	size_t	end;
 }	t_info;
 
-/*
-   Parsing
-   */
 int	ft_out(char *reason);
 int	comment_or_command(char *p);
 size_t	parse_ant_count(const char *p_buf, t_info *info);
 size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names);
 t_room	*parse_edges(const char *p_buf, char *p_names, size_t room_count);
 char	*move_ants(t_info info, char *p_names, t_room *p_rooms);
-
-/*
-   Algo
-   */
 

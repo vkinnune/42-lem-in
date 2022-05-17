@@ -11,10 +11,12 @@ int	mark_path(t_stack *visited, t_room **pp_rooms, t_info info, t_path *paths);
 t_path	*save_paths(t_room **pp_rooms, t_info info, t_path *paths, size_t set_count)
 {
 	t_stack	visited;
+	size_t	max_count;
 
 	bzero(&visited, sizeof(t_stack));
 	paths = allocate_new_path(paths, set_count);
-	while (1)
+	max_count = (*pp_rooms)[info.start].edge_count;
+	while (paths[set_count].count != max_count)
 	{
 		allocate_path_data(&paths[set_count], paths[set_count].count);
 		if (!mark_path(&visited, pp_rooms, info, &paths[set_count]))

@@ -164,6 +164,8 @@ size_t	get_set(t_path *paths, size_t set_count)
 	save_i = -1;
 	while (i != set_count)
 	{
+		if (paths[i].latency < 0)
+			paths[i].latency *= -1;
 		if (paths[i].latency < latency && paths[i].latency >= 0)
 		{
 			latency = paths[i].latency;

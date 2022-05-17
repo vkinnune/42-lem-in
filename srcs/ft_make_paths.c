@@ -12,7 +12,9 @@ t_path	*make_paths(t_path *paths, size_t *set_count, t_info info, t_room *p_room
 	t_bfs	traversal_data;
 
 	traversal_data.visited_stack = (size_t *)malloc(sizeof(size_t) * info.room_count);
+	bzero(traversal_data.visited_stack, sizeof(size_t) * info.room_count);
 	traversal_data.queue_stack = (size_t *)malloc(sizeof(size_t) * info.room_count);
+	bzero(traversal_data.queue_stack, sizeof(size_t) * info.room_count);
 	alloc_flows(p_rooms, info.room_count);
 	while (1)
 	{
