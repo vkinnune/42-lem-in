@@ -1,16 +1,16 @@
 NAME = lem-in
 
-SRCS = 	main.c bfs.c parsing.c
-		
+SRCS = 	srcs/main.c srcs/bfs.c srcs/parsing.c
+
 INC = lem-in.h
 
 FLAGS = -Wall -Werror -Wextra -g
 
 OBJ = $(addprefix srcs/, $(SRCS:.c=.o))
 
-all: $(NAME) 
+all: $(NAME)
 
-$(NAME):  
+$(NAME):
 	@gcc -o $(NAME) $(FLAGS) $(SRCS)
 
 clean:
