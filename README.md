@@ -3,7 +3,7 @@ The goal of this project is to find the quickest way to get n ants across the fa
 ![Gif](box-220517-2345-01.gif)
 
 In Lem_in, we are given the number of ants, rooms and links to the rooms. There are the start and end rooms, and our goal is to get all the ants from beginning to end in the least amount of time.
-<h1>The input: <\h1>
+<h1>The input: </h1>
 ```
 10
 1 0 2
