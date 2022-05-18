@@ -6,15 +6,15 @@ In Lem_in, we are given the number of ants, rooms and links to the rooms. There 
 <h2>The input:</h2>
 
 ```
-10
-1 0 2
+10          //here are the number of ants
+1 0 2       //here is the room names and their x y coordinates
 ##start
 0 2 0
 ##end
 4 2 6
 2 4 2
 3 4 4
-0-1
+0-1         //room links are here
 0-2
 2-3
 3-4
