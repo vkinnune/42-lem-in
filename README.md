@@ -27,7 +27,7 @@ The problem in Lem_in is to find all the different "sets of paths" and find the 
 
 ![Screenshot](pic-selected-220518-2249-53.png)
 
-Only one ant can be in one room at a time, so finding the shortest path is not enough. We need to find the max flow of the graph and different "sets of paths" because there can be multiple solutions. After all, some paths can block others from forming.
+Only one ant can be in one room at a time, so finding the shortest path using something like Dijkstra's algorithm is not enough. We need to find the max flow of the graph and different "sets of paths" because there can be multiple solutions. After all, some paths can block others from forming.
 <h2>The output:</h2>
 
 ```
