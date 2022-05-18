@@ -1,19 +1,23 @@
 #include "lem-in.h"
 
+int		traverse_nodes(t_room **pp_rooms, t_info info, t_bfs *p_traversal_data);
 void	alloc_flows(t_room *p_rooms, size_t room_count);
 void	calculate_latency(t_info info, t_path *paths, size_t set_count);
 void	clear_distance(t_room **pp_rooms, size_t room_count);
-int	traverse_nodes(t_room **pp_rooms, t_info info, t_bfs *p_traversal_data);
 void	mark_flow(t_room **pp_rooms, t_info info);
-t_path	*save_paths(t_room **pp_rooms, t_info info, t_path *paths, size_t set_count);
+t_path	*save_paths(t_room **pp_rooms,
+			t_info info, t_path *paths, size_t set_count);
 
-t_path	*make_paths(t_path *paths, size_t *set_count, t_info info, t_room *p_rooms)
+t_path	*make_paths(t_path *paths, size_t *set_count,
+			t_info info, t_room *p_rooms)
 {
 	t_bfs	traversal_data;
 
-	traversal_data.visited_stack = (size_t *)malloc(sizeof(size_t) * info.room_count);
+	traversal_data.visited_stack = (size_t *)malloc(sizeof(size_t)
+			* info.room_count);
 	bzero(traversal_data.visited_stack, sizeof(size_t) * info.room_count);
-	traversal_data.queue_stack = (size_t *)malloc(sizeof(size_t) * info.room_count);
+	traversal_data.queue_stack = (size_t *)malloc(sizeof(size_t)
+			* info.room_count);
 	bzero(traversal_data.queue_stack, sizeof(size_t) * info.room_count);
 	alloc_flows(p_rooms, info.room_count);
 	while (1)
@@ -31,7 +35,6 @@ t_path	*make_paths(t_path *paths, size_t *set_count, t_info info, t_room *p_room
 	free(traversal_data.visited_stack);
 	free(traversal_data.queue_stack);
 	return (paths);
-
 }
 
 void	calculate_latency(t_info info, t_path *paths, size_t set_count)

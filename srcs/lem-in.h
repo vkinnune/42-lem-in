@@ -1,3 +1,6 @@
+#ifndef LEM_IN_H
+# define LEM_IN_H
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdint.h>
@@ -62,4 +65,6 @@ size_t	parse_ant_count(const char *p_buf, t_info *info);
 size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names);
 t_room	*parse_edges(const char *p_buf, char *p_names, size_t room_count);
 char	*move_ants(t_info info, char *p_names, t_room *p_rooms);
+
+#endif
 
