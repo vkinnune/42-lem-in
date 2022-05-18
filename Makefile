@@ -1,6 +1,6 @@
 NAME = lem-in
 
-SRCS = 	srcs/ft_construct_instructions.c srcs/ft_main.c srcs/ft_make_flow.c srcs/ft_make_paths.c srcs/ft_mark_path.c srcs/ft_parsing.c srcs/ft_save_paths.c srcs/ft_traverse_nodes.c
+SRCS = 	srcs/ft_construct_instructions.c srcs/ft_main.c srcs/ft_make_flow.c srcs/ft_make_paths.c srcs/ft_mark_path.c srcs/ft_parsing.c srcs/ft_save_paths.c srcs/ft_traverse_nodes.c srcs/ft_edges_queue.c
 
 INC = lem-in.h
 
