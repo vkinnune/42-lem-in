@@ -23,7 +23,7 @@ In Lem_in, we are given the number of ants, rooms and links to the rooms. There 
 0-2
 ```
 
-The problem in Lem_in is to find all the different "sets of paths" and find the set suited for the given ant amount. As in our other projects, in Lem_in, it's also a problem where there is no copy and pastes answers, and we had to think about the issue and make a custom solution based on the Edmonds–Karp algorithm. 
+The problem in Lem_in is to find all the different "sets of paths" and find the set suited for the given ant amount. As in our other projects, in Lem_in, it's also a problem where there is no copy and pastes answers, and we had to think about the issue and make a custom solution somewhat based on the Edmonds–Karp algorithm.
 
 ![Screenshot](pic-selected-220518-2249-53.png)
 
