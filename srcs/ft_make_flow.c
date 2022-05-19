@@ -37,7 +37,7 @@ void	add_flow(size_t current_node, size_t prev_node, t_room **pp_rooms)
 		}
 		i++;
 	}
-	ft_out("Error adding flow");
+	ft_out("Error");
 }
 
 void	negative_path(size_t current_node, size_t prev_node, t_room **pp_rooms)
@@ -80,7 +80,7 @@ size_t	next_node(t_room **pp_rooms, size_t current_node)
 			return (edges[i]);
 		i++;
 	}
-	ft_out("Error finding next node");
+	ft_out("Error");
 	return (-1);
 }
 

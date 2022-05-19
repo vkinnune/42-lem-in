@@ -70,7 +70,7 @@ int	not_in_path(t_room **pp_rooms, size_t current_node, size_t index_edges)
 		}
 		x++;
 	}
-	ft_out("Bad happen in not in path");
+	ft_out("Error");
 	return (-1);
 }
 
@@ -89,7 +89,7 @@ int	delete_first_element(t_bfs *p_traversal_data)
 	if (p_traversal_data->queue_size > 0)
 		p_traversal_data->queue_size--;
 	else
-		ft_out("Error solving");
+		ft_out("Error");
 	return (1);
 }
 

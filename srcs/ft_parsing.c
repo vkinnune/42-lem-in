@@ -20,7 +20,7 @@ size_t	parse_ant_count(const char *p_buf, t_info *info)
 		line_type = comment_or_command(p_str);
 		if (line_type == COMMENT)
 		{
-			while (*(p_str++) != '\n'); //SKIP LINE
+			while (*(p_str++) != '\n');
 			continue ;
 		}
 		break ;
@@ -139,7 +139,7 @@ t_room	*parse_edges(const char *p_buf, char *p_names, size_t room_count)
 	size_t		room_b;
 
 	p = (char *)p_buf;
-	p_rooms = (t_room *)malloc(sizeof(t_room) * room_count); //pointer does not change
+	p_rooms = (t_room *)malloc(sizeof(t_room) * room_count);
 	bzero(p_rooms, sizeof(t_room) * room_count);
 	while (*p != 0)
 	{
