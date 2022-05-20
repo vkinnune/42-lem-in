@@ -1,131 +1,76 @@
 #include "lem-in.h"
 
-char	*build_str(size_t ant, char *name, char *str);
-size_t	add_ants(size_t *flow, size_t path_index);
-size_t	*get_flow(t_path *path, size_t ant_count);
 size_t	get_set(t_path *paths, size_t set_count);
+size_t	*get_flow(t_path *path, size_t ant_count);
+int		loop_flows(t_info info, char *p_names, t_path *paths, char **str);
+int		loop_paths(t_info info, char *p_names, t_path *paths, char **str);
+size_t	add_ants(size_t *flow, size_t path_index);
+char	*build_str(size_t ant, char *name, char *str);
 
-char	*construct_instructions(t_path *paths, size_t set_count, char *p_names, t_info info)
+char	*construct_instructions(t_path *paths,
+			size_t set_count, char *p_names, t_info info)
 {
 	char	*str;
-	size_t	*flow;
-	size_t	set;
-	size_t	i;
-	size_t	ant;
-	size_t	res;
-	size_t	tick;
-	ssize_t	pos;
 
-	i = 0;
-	tick = 1;
-	set = get_set(paths, set_count);
-	flow = get_flow(&paths[set], info.ant_count);
 	str = 0;
+	info.ins.tick = 1;
+	info.ins.set = get_set(paths, set_count);
+	info.ins.flow = get_flow(&paths[info.ins.set], info.ant_count);
 	while (1)
 	{
-		i = 0;
-		res = 0;
-		while (i != paths[set].count)
-		{
-			ant = 1;
-			while (ant <= flow[i])
-			{
-				pos = tick - ant;
-				if (pos >= 0 && pos < (ssize_t)paths[set].sizes[i])
-					str = build_str(ant + add_ants(flow, i), &p_names[paths[set].data[i][pos] * NAME_LENGTH], str);
-				else
-					res++;
-				if (res >= info.ant_count)
-				{
-					free(flow);
-					return (str);
-				}
-				ant++;
-			}
-			i++;
-		}
-		{
-			char *p;
-
-			p = str;
-			while (*p != 0)
-				p++;
-			p--;
-			*p = '\n';
-		}
-		tick++;
+		if (loop_paths(info, p_names, paths, &str))
+			return (str);
+		info.ins.tick++;
 	}
 }
 
-char	*build_str(size_t ant, char *name, char *str)
+int	loop_paths(t_info info, char *p_names, t_path *paths, char **str)
 {
-	char	buf[1000];
 	char	*p;
+	size_t	res;
 
+	info.ins.i = 0;
+	res = 0;
+	info.ins.res = &res;
+	while (info.ins.i != paths[info.ins.set].count)
 	{
-		p = buf;
-		*p = 'L';
-		p++;
-		{
-			char	num[100];
-			char	*p_num;
-
-			p_num = &num[100 - 1];
-			*p_num = 0;
-			p_num--;
-			while (ant)
-			{
-				*p_num = (ant % 10) + '0';
-				ant /= 10;
-				p_num--;
-			}
-			p_num++;
-			strcpy(p, p_num);
-			while (*p != 0)
-				p++;
-		}
-		*p = '-';
-		p++;
-		strcpy(p, name);
-		while (*p != 0)
-			p++;
-		*p = ' ';
-		p++;
-		*p = 0;
+		info.ins.ant = 1;
+		if (loop_flows(info, p_names, paths, str))
+			return (1);
+		info.ins.i++;
 	}
-	{
-		char	*cpy;
-
-		if (str == 0)
-		{
-			str = (char *)malloc(((strlen(buf)) + 1)* sizeof(char));
-			strcpy(str, buf);
-		}
-		else
-		{
-			cpy = (char *)malloc(((strlen(str) + strlen(buf) + 1) * sizeof(char)));
-			strcpy(cpy, str);
-			strcat(cpy, buf);
-			free(str);
-			str = cpy;
-		}
-	}
-	return (str);
+	p = *str;
+	while (*p != 0)
+		p++;
+	p--;
+	*p = '\n';
+	return (0);
 }
 
-size_t	add_ants(size_t *flow, size_t path_index)
+int	loop_flows(t_info info, char *p_names, t_path *paths, char **str)
 {
-	size_t	res;
-	size_t	i;
+	t_ins	ins;
 
-	res = 0;
-	i = 0;
-	while (i != path_index)
+	ins = info.ins;
+	while (ins.ant <= ins.flow[ins.i])
 	{
-		res += flow[i];
-		i++;
+		ins.pos = ins.tick - ins.ant;
+		if (ins.pos >= 0 && ins.pos < (ssize_t)paths[ins.set].sizes[ins.i])
+			*str = build_str(ins.ant + add_ants(ins.flow, ins.i),
+					&p_names[paths[ins.set].data[ins.i][ins.pos]
+					* NAME_LENGTH], *str);
+		else
+			(*(ins.res))++;
+		if ((*(ins.res)) >= info.ant_count)
+		{
+			free(ins.flow);
+			info.ins = ins;
+			return (1);
+		}
+		ins.ant++;
 	}
-	return (res);
+	info.ins = ins;
+	return (0);
 }
 
 size_t	*get_flow(t_path *path, size_t ant_count)

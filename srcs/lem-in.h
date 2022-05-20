@@ -52,19 +52,30 @@ typedef struct s_bfs {
 	size_t	queue_size;
 }	t_bfs;
 
+typedef struct s_ins {
+	size_t	*flow;
+	size_t	set;
+	size_t	i;
+	size_t	ant;
+	size_t	*res;
+	size_t	tick;
+	ssize_t	pos;
+}	t_ins;
+
 typedef struct s_info {
 	size_t	ant_count;
 	size_t	room_count;
 	size_t	start;
 	size_t	end;
+	t_ins	ins;
 }	t_info;
 
 int	ft_out(char *reason);
-int	comment_or_command(char *p);
 size_t	parse_ant_count(const char *p_buf, t_info *info);
 size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names);
-t_room	*parse_edges(const char *p_buf, char *p_names, size_t room_count);
+t_room	*parse_edges(char *p, char *p_names, size_t room_count);
 char	*move_ants(t_info info, char *p_names, t_room *p_rooms);
+int	comment_or_command(char *p);
 
 #endif
 
