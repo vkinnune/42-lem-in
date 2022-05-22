@@ -4,6 +4,7 @@ void	check_last_type(enum e_type last_line_type,
 			t_info *p_info, size_t room_count);
 char	*save_name(char *p, char *p_save, char **pp_names, size_t room_count);
 char	*skip_cords(char *p);
+int	skip_comment_or_command(char **p, enum e_type line_type);
 
 size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names)
 {
@@ -20,16 +21,8 @@ size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names)
 	{
 		last_line_type = line_type;
 		line_type = comment_or_command(p);
-		if (line_type == COMMENT)
-		{
-			while (*(p++) != '\n');
+		if (skip_comment_or_command(&p, line_type))
 			continue ;
-		}
-		if (line_type == START || line_type == END)
-		{
-			while (*(p++) != '\n');
-			continue ;
-		}
 		res = save_name(p, p, pp_names, room_count);
 		if (res == p)
 			break ;
@@ -43,6 +36,25 @@ size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names)
 	}
 	p_info->room_count = room_count;
 	return (p - p_buf);
+}
+
+int	skip_comment_or_command(char **p, enum e_type line_type)
+{
+	if (line_type == COMMENT)
+	{
+		while (**p != '\n')
+			(*p)++;
+		(*p)++;
+		return (1);
+	}
+	if (line_type == START || line_type == END)
+	{
+		while (**p != '\n')
+			(*p)++;
+		(*p)++;
+		return (1);
+	}
+	return (0);
 }
 
 void	check_last_type(enum e_type last_line_type,
