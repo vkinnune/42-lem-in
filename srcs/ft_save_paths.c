@@ -18,7 +18,7 @@ t_path	*save_paths(t_room **pp_rooms, t_info info,
 	t_stack	visited;
 	size_t	max_count;
 
-	bzero(&visited, sizeof(t_stack));
+	ft_bzero(&visited, sizeof(t_stack));
 	paths = allocate_new_path(paths, set_count);
 	max_count = (*pp_rooms)[info.start].edge_count;
 	while (paths[set_count].count != max_count)
@@ -41,17 +41,17 @@ void	allocate_path_data(t_path *paths, size_t count)
 	{
 		paths->data = (size_t **)malloc(1 * sizeof(size_t *));
 		paths->sizes = (size_t *)malloc(1 * sizeof(size_t));
-		bzero(paths->data, sizeof(size_t *));
-		bzero(paths->sizes, sizeof(size_t));
+		ft_bzero(paths->data, sizeof(size_t *));
+		ft_bzero(paths->sizes, sizeof(size_t));
 	}
 	else
 	{
 		cpy_data = (size_t **)malloc((count + 1) * sizeof(size_t *));
 		cpy_sizes = (size_t *)malloc((count + 1) * sizeof(size_t));
-		bzero(cpy_data, sizeof(size_t *) * (count + 1));
-		bzero(cpy_sizes, sizeof(size_t *) * (count + 1));
-		memcpy(cpy_data, paths->data, sizeof(size_t *) * count);
-		memcpy(cpy_sizes, paths->sizes, sizeof(size_t) * count);
+		ft_bzero(cpy_data, sizeof(size_t *) * (count + 1));
+		ft_bzero(cpy_sizes, sizeof(size_t *) * (count + 1));
+		ft_memcpy(cpy_data, paths->data, sizeof(size_t *) * count);
+		ft_memcpy(cpy_sizes, paths->sizes, sizeof(size_t) * count);
 		free(paths->data);
 		free(paths->sizes);
 		paths->data = cpy_data;
@@ -66,13 +66,13 @@ t_path	*allocate_new_path(t_path *paths, size_t set_count)
 	if (set_count == 0)
 	{
 		paths = (t_path *)malloc(sizeof(t_path) * 1);
-		bzero(paths, sizeof(t_path) * 1);
+		ft_bzero(paths, sizeof(t_path) * 1);
 	}
 	else
 	{
 		cpy = (t_path *)malloc(sizeof(t_path) * (set_count + 1));
-		bzero(cpy, sizeof(t_path) * (set_count + 1));
-		memcpy(cpy, paths, sizeof(t_path) * set_count);
+		ft_bzero(cpy, sizeof(t_path) * (set_count + 1));
+		ft_memcpy(cpy, paths, sizeof(t_path) * set_count);
 		free(paths);
 		paths = cpy;
 	}

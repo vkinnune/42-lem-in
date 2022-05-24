@@ -19,10 +19,10 @@ t_path	*make_paths(t_path *paths, size_t *set_count,
 
 	traversal_data.visited_stack = (size_t *)malloc(sizeof(size_t)
 			* info.room_count);
-	bzero(traversal_data.visited_stack, sizeof(size_t) * info.room_count);
+	ft_bzero(traversal_data.visited_stack, sizeof(size_t) * info.room_count);
 	traversal_data.queue_stack = (size_t *)malloc(sizeof(size_t)
 			* info.room_count);
-	bzero(traversal_data.queue_stack, sizeof(size_t) * info.room_count);
+	ft_bzero(traversal_data.queue_stack, sizeof(size_t) * info.room_count);
 	alloc_flows(p_rooms, info.room_count);
 	while (1)
 	{
@@ -85,7 +85,7 @@ void	alloc_flows(t_room *p_rooms, size_t room_count)
 	{
 		edge_count = p_rooms[i].edge_count;
 		p_rooms[i].flows = (ssize_t *)malloc(sizeof(ssize_t) * edge_count);
-		bzero(p_rooms[i].flows, sizeof(ssize_t) * edge_count);
+		ft_bzero(p_rooms[i].flows, sizeof(ssize_t) * edge_count);
 		i++;
 	}
 }

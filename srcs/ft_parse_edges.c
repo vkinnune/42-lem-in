@@ -20,7 +20,7 @@ t_room	*parse_edges(char *p, char *p_names, size_t room_count)
 	size_t		room_b;
 
 	p_rooms = (t_room *)malloc(sizeof(t_room) * room_count);
-	bzero(p_rooms, sizeof(t_room) * room_count);
+	ft_bzero(p_rooms, sizeof(t_room) * room_count);
 	while (*p != 0)
 	{
 		line_type = comment_or_command(p);
@@ -47,13 +47,13 @@ void	add_edges(size_t in, size_t out, t_room *p_rooms)
 	if (p_rooms[in].edge_count == 0)
 	{
 		p_rooms[in].edges = (size_t *)malloc(sizeof(size_t) * 1);
-		bzero(p_rooms[in].edges, sizeof(size_t) * 1);
+		ft_bzero(p_rooms[in].edges, sizeof(size_t) * 1);
 	}
 	else
 	{
 		edges = (size_t *)malloc(sizeof(size_t) * (p_rooms[in].edge_count + 1));
-		bzero(edges, sizeof(size_t) * (p_rooms[in].edge_count + 1));
-		memcpy(edges, p_rooms[in].edges, (p_rooms[in].edge_count
+		ft_bzero(edges, sizeof(size_t) * (p_rooms[in].edge_count + 1));
+		ft_memcpy(edges, p_rooms[in].edges, (p_rooms[in].edge_count
 				* sizeof(size_t)));
 		free(p_rooms[in].edges);
 		p_rooms[in].edges = edges;
@@ -75,7 +75,7 @@ size_t	read_room_a(char **p, char *p_names, size_t room_count)
 		(*p)++;
 	if (*p - p_save > NAME_LENGTH)
 		ft_out("Too long edge name");
-	while (strncmp(p_save, &p_names[i * NAME_LENGTH],
+	while (ft_strncmp(p_save, &p_names[i * NAME_LENGTH],
 			(*p) - p_save) && i != room_count)
 		i++;
 	if (i == room_count)
@@ -99,7 +99,7 @@ size_t	read_room_b(char **p, char *p_names, size_t room_count)
 		ft_out("Error on edge name");
 	if (**p != '\n')
 		ft_out("No new line in edge");
-	while (strncmp(p_save, &p_names[i * NAME_LENGTH],
+	while (ft_strncmp(p_save, &p_names[i * NAME_LENGTH],
 			*p - p_save) && i != room_count)
 		i++;
 	if (i == room_count)

@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:31:21 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/05/24 15:36:03 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/05/24 16:31:55 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	add_to_visited(t_stack *visited, size_t current_node)
 	else
 	{
 		cpy = (size_t *)malloc(sizeof(size_t) * (visited->size + 1));
-		memcpy(cpy, visited->data, sizeof(size_t) * visited->size);
+		ft_memcpy(cpy, visited->data, sizeof(size_t) * visited->size);
 		free(visited->data);
 		visited->data = cpy;
 	}
@@ -78,7 +78,8 @@ void	add_to_path(t_path *paths, size_t current_node)
 	else
 	{
 		cpy = (size_t *)malloc(sizeof(size_t) * (paths->sizes[count] + 1));
-		memcpy(cpy, paths->data[count], sizeof(size_t) * paths->sizes[count]);
+		ft_memcpy(cpy, paths->data[count],
+			sizeof(size_t) * paths->sizes[count]);
 		free(paths->data[count]);
 		paths->data[count] = cpy;
 	}

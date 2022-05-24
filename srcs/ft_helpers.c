@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:38 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/05/24 15:34:35 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:55:08 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,38 +73,4 @@ char	*ft_strcat(char *dest, const char *src)
 {
 	ft_strcpy(dest + ft_strlen (dest), src);
 	return (dest);
-}
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	ft_memset(s, 0, n);
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	unsigned char	*ptr;
-
-	ptr = s;
-	while (n-- > 0)
-		*ptr++ = c;
-	return (s);
-}
-
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
-{
-	while (n-- != 0)
-		if (*((const unsigned char *)s1++) != *((const unsigned char *)s2++))
-			return (*(const unsigned char *)--s1
-				- *(const unsigned char *)--s2);
-	return (0);
 }

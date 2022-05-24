@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:32:10 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/05/24 15:36:50 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/05/24 16:32:15 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	skip_comment_or_command(char **p, enum e_type line_type)
 
 char	*save_name(char *p, char *p_save, char **pp_names, size_t room_count)
 {
-	while (isascii(*p) && *p != ' ' && *p != '-' && *p != '\0')
+	while (ft_isascii(*p) && *p != ' ' && *p != '-' && *p != '\0')
 		p++;
 	if (p - p_save > NAME_LENGTH)
 		ft_out("Too long name");
@@ -71,7 +71,7 @@ char	*save_name(char *p, char *p_save, char **pp_names, size_t room_count)
 	if (*p != ' ')
 		ft_out("Bad room name");
 	*pp_names = name_alloc(pp_names, room_count);
-	strncpy(&(*pp_names)[room_count * NAME_LENGTH], p_save, p - p_save);
+	ft_memcpy(&(*pp_names)[room_count * NAME_LENGTH], p_save, p - p_save);
 	(*pp_names)[p - p_save] = '\0';
 	p++;
 	return (p);
@@ -84,13 +84,14 @@ char	*name_alloc(char **pp_names, size_t room_count)
 	if (room_count == 0)
 	{
 		*pp_names = (char *)malloc(sizeof(char) * NAME_LENGTH);
-		bzero(*pp_names, sizeof(char) * NAME_LENGTH);
+		ft_bzero(*pp_names, sizeof(char) * NAME_LENGTH);
 	}
 	else
 	{
 		p_str = (char *)malloc((sizeof(char) * NAME_LENGTH) * (room_count + 1));
-		bzero(p_str, (sizeof(char) * NAME_LENGTH) * (room_count + 1));
-		memcpy(p_str, *pp_names, (sizeof(char) * NAME_LENGTH) * (room_count));
+		ft_bzero(p_str, (sizeof(char) * NAME_LENGTH) * (room_count + 1));
+		ft_memcpy(p_str, *pp_names,
+			(sizeof(char) * NAME_LENGTH) * (room_count));
 		free(*pp_names);
 		*pp_names = p_str;
 	}
@@ -99,12 +100,12 @@ char	*name_alloc(char **pp_names, size_t room_count)
 
 char	*skip_cords(char *p)
 {
-	while (isdigit(*p))
+	while (ft_isdigit(*p))
 		p++;
 	if (*p != ' ')
 		ft_out("Bad x coordinate");
 	p++;
-	while (isdigit(*p))
+	while (ft_isdigit(*p))
 		p++;
 	if (*p != '\n')
 		ft_out("Bad y coordinate");
