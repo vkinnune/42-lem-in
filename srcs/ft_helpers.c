@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-int		ft_out(char *reason)
+int	ft_out(char *reason)
 {
 	char	*p;
 
@@ -34,5 +34,15 @@ int	comment_or_command(char *p)
 			ft_out("Bad command");
 	}
 	return (UNKNOWN);
+}
+
+void	check_last_type(enum e_type last_line_type,
+		t_info *p_info, size_t *room_count)
+{
+	if (last_line_type == START)
+		p_info->start = *room_count;
+	else if (last_line_type == END)
+		p_info->end = *room_count;
+	(*room_count)++;
 }
 

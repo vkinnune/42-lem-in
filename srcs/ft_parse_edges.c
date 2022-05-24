@@ -67,7 +67,8 @@ size_t	read_room_a(char **p, char *p_names, size_t room_count)
 		(*p)++;
 	if (*p - p_save > NAME_LENGTH)
 		ft_out("Too long edge name");
-	while (strncmp(p_save, &p_names[i * NAME_LENGTH], (*p) - p_save) && i != room_count)
+	while (strncmp(p_save, &p_names[i * NAME_LENGTH],
+			(*p) - p_save) && i != room_count)
 		i++;
 	if (i == room_count)
 		ft_out("Error on edge name");

@@ -1,9 +1,10 @@
 #include "lem-in.h"
 
 void	add_to_visited(t_stack *visited, size_t current_node);
-ssize_t	next_flow_node(t_stack *visited, t_room **pp_rooms, size_t current_node);
+ssize_t	next_flow_node(t_stack *visited, t_room **pp_rooms,
+			size_t current_node);
 void	add_to_path(t_path *paths, size_t current_node);
-int	edge_not_visited(t_stack *visited, size_t edge);
+int		edge_not_visited(t_stack *visited, size_t edge);
 
 int	mark_path(t_stack *visited, t_room **pp_rooms, t_info info, t_path *paths)
 {

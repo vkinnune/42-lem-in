@@ -55,16 +55,6 @@ int	skip_comment_or_command(char **p, enum e_type line_type)
 	return (0);
 }
 
-void	check_last_type(enum e_type last_line_type,
-		t_info *p_info, size_t *room_count)
-{
-	if (last_line_type == START)
-		p_info->start = *room_count;
-	else if (last_line_type == END)
-		p_info->end = *room_count;
-	(*room_count)++;
-}
-
 char	*save_name(char *p, char *p_save, char **pp_names, size_t room_count)
 {
 	while (isascii(*p) && *p != ' ' && *p != '-' && *p != '\0')

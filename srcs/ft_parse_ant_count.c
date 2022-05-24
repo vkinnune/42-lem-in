@@ -1,5 +1,7 @@
 #include "lem-in.h"
 
+char	*ant_num(char *p_str, t_info *info);
+
 size_t	parse_ant_count(const char *p_buf, t_info *info)
 {
 	enum e_type	line_type;
@@ -18,15 +20,21 @@ size_t	parse_ant_count(const char *p_buf, t_info *info)
 		}
 		break ;
 	}
+	p_str = ant_num(p_str, info);
+	if (*p_str != '\n')
+		ft_out("Error on ant number");
+	p_str++;
+	return (p_str - p_buf);
+}
+
+char	*ant_num(char *p_str, t_info *info)
+{
 	while (isdigit(*p_str))
 	{
 		info->ant_count *= 10;
 		info->ant_count += *p_str - '0';
 		p_str++;
 	}
-	if (*p_str != '\n')
-		ft_out("Error on ant number");
-	p_str++;
-	return (p_str - p_buf);
+	return (p_str);
 }
 

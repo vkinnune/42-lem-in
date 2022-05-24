@@ -11,10 +11,6 @@
 # include <limits.h>
 # include <stdbool.h>
 
-/*
-   One megabyte allocated for reading
-   */
-
 # define BUFF_SIZE 1000000
 # define NAME_LENGTH 32
 
@@ -70,12 +66,12 @@ typedef struct s_info {
 	t_ins	ins;
 }	t_info;
 
-int	ft_out(char *reason);
+int		ft_out(char *reason);
+int		comment_or_command(char *p);
 size_t	parse_ant_count(const char *p_buf, t_info *info);
 size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names);
 t_room	*parse_edges(char *p, char *p_names, size_t room_count);
 char	*move_ants(t_info info, char *p_names, t_room *p_rooms);
-int	comment_or_command(char *p);
 
 #endif
 
