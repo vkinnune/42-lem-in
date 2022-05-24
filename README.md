@@ -1,7 +1,9 @@
 # 42-lem-in
 Lem-in is an algorithmic project focusing on graphs. The goal is to reproduce the behaviours of an ant farm manager.
 
-I built a program that takes in the number of ants, and the graph nodes and edges with the source and the sink defined. The program outputs the instructions for each ant to get from the source to the sink in the least amount of time.
+Our goal is to get the most ants from the source to the sink in the least time possible. The input data tells us the number of ants, nodes, and edges.
+
+My solution uses a variation of Edmond-Karp’s with the breadth-first search algorithm. With 4000 nodes and 8000 edges my solution generates in 2-3 seconds. For less than that it's almost instant.
 
 ## Usage
 Run `make`. Works with Linux and MacOS.
