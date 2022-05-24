@@ -100,4 +100,3 @@ int	edge_not_visited(t_stack *visited, size_t edge)
 	}
 	return (1);
 }
-

@@ -107,4 +107,3 @@ size_t	read_room_b(char **p, char *p_names, size_t room_count)
 	(*p)++;
 	return (i);
 }
-

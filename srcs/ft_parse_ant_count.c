@@ -49,4 +49,3 @@ char	*ant_num(char *p_str, t_info *info)
 	}
 	return (p_str);
 }
-

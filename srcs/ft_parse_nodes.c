@@ -111,4 +111,3 @@ char	*skip_cords(char *p)
 		ft_out("ERROR");
 	return (p);
 }
-

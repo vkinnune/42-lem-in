@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:18 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/05/24 15:34:04 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/05/24 19:15:28 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,4 +130,3 @@ size_t	get_set(t_path *paths, size_t set_count)
 		ft_out("ERROR");
 	return (save_i);
 }
-

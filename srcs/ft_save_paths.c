@@ -78,4 +78,3 @@ t_path	*allocate_new_path(t_path *paths, size_t set_count)
 	}
 	return (paths);
 }
-

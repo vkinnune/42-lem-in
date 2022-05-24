@@ -101,4 +101,3 @@ void	free_edges(t_room *p_rooms, size_t room_count)
 		i++;
 	}
 }
-
