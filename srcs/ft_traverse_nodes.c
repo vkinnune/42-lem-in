@@ -18,7 +18,7 @@ int	traverse_nodes(t_room **pp_rooms, t_info info, t_bfs *p_traversal_data)
 
 	current_node = info.start;
 	(*pp_rooms)[current_node].distance = 1;
-	while (current_node != info.end)
+	while (current_node != (size_t)info.end)
 	{
 		add_edges_to_queue(current_node, pp_rooms, p_traversal_data);
 		p_traversal_data->visited_stack[p_traversal_data->visited_size++]
@@ -76,7 +76,7 @@ int	not_in_path(t_room **pp_rooms, size_t current_node, size_t index_edges)
 		}
 		x++;
 	}
-	ft_out("Error");
+	ft_out("ERROR");
 	return (-1);
 }
 
@@ -95,6 +95,7 @@ int	delete_first_element(t_bfs *p_traversal_data)
 	if (p_traversal_data->queue_size > 0)
 		p_traversal_data->queue_size--;
 	else
-		ft_out("Error");
+		ft_out("ERROR");
 	return (1);
 }
+

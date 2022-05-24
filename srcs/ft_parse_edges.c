@@ -25,8 +25,8 @@ t_room	*parse_edges(char *p, char *p_names, size_t room_count)
 	{
 		line_type = comment_or_command(p);
 		if (line_type == START || line_type == END)
-			ft_out("Error on edges");
-		else if (line_type == COMMENT)
+			ft_out("ERROR");
+		else if (line_type == COMMENT || line_type == IGNORE)
 		{
 			while (*p != '\n')
 				p++;
@@ -69,17 +69,17 @@ size_t	read_room_a(char **p, char *p_names, size_t room_count)
 
 	i = 0;
 	if (**p == '-')
-		ft_out("No edge name");
+		ft_out("ERROR");
 	p_save = *p;
 	while (**p != '-' && **p != 0)
 		(*p)++;
 	if (*p - p_save > NAME_LENGTH)
-		ft_out("Too long edge name");
+		ft_out("ERROR");
 	while (ft_strncmp(p_save, &p_names[i * NAME_LENGTH],
 			(*p) - p_save) && i != room_count)
 		i++;
 	if (i == room_count)
-		ft_out("Error on edge name");
+		ft_out("ERROR");
 	(*p)++;
 	return (i);
 }
@@ -94,16 +94,17 @@ size_t	read_room_b(char **p, char *p_names, size_t room_count)
 	while (**p != '\n' && **p != 0)
 		(*p)++;
 	if (*p - p_save > NAME_LENGTH)
-		ft_out("Too long edge name");
+		ft_out("ERROR");
 	if (*p == p_save)
-		ft_out("Error on edge name");
+		ft_out("ERROR");
 	if (**p != '\n')
-		ft_out("No new line in edge");
+		ft_out("ERROR");
 	while (ft_strncmp(p_save, &p_names[i * NAME_LENGTH],
 			*p - p_save) && i != room_count)
 		i++;
 	if (i == room_count)
-		ft_out("Error on edge name");
+		ft_out("ERROR");
 	(*p)++;
 	return (i);
 }
+

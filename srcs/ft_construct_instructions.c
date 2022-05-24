@@ -127,6 +127,7 @@ size_t	get_set(t_path *paths, size_t set_count)
 		i++;
 	}
 	if (save_i == -1)
-		ft_out("Error on getting a set");
+		ft_out("ERROR");
 	return (save_i);
 }
+

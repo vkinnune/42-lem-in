@@ -22,7 +22,7 @@ size_t	parse_ant_count(const char *p_buf, t_info *info)
 	while (1)
 	{
 		line_type = comment_or_command(p_str);
-		if (line_type == COMMENT)
+		if (line_type == COMMENT || line_type == IGNORE)
 		{
 			while (*p_str != '\n')
 				p_str++;
@@ -32,13 +32,15 @@ size_t	parse_ant_count(const char *p_buf, t_info *info)
 	}
 	p_str = ant_num(p_str, info);
 	if (*p_str != '\n')
-		ft_out("Error on ant number");
+		ft_out("ERROR");
 	p_str++;
 	return (p_str - p_buf);
 }
 
 char	*ant_num(char *p_str, t_info *info)
 {
+	if (*p_str == '0')
+		ft_out("ERROR");
 	while (isdigit(*p_str))
 	{
 		info->ant_count *= 10;
@@ -47,3 +49,4 @@ char	*ant_num(char *p_str, t_info *info)
 	}
 	return (p_str);
 }
+

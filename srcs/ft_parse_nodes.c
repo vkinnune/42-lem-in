@@ -43,7 +43,7 @@ size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names)
 
 int	skip_comment_or_command(char **p, enum e_type line_type)
 {
-	if (line_type == COMMENT)
+	if (line_type == COMMENT || line_type == IGNORE)
 	{
 		while (**p != '\n')
 			(*p)++;
@@ -65,11 +65,11 @@ char	*save_name(char *p, char *p_save, char **pp_names, size_t room_count)
 	while (ft_isascii(*p) && *p != ' ' && *p != '-' && *p != '\0')
 		p++;
 	if (p - p_save > NAME_LENGTH)
-		ft_out("Too long name");
+		ft_out("ERROR");
 	if (*p == '-')
 		return (p_save);
 	if (*p != ' ')
-		ft_out("Bad room name");
+		ft_out("ERROR");
 	*pp_names = name_alloc(pp_names, room_count);
 	ft_memcpy(&(*pp_names)[room_count * NAME_LENGTH], p_save, p - p_save);
 	(*pp_names)[p - p_save] = '\0';
@@ -103,11 +103,12 @@ char	*skip_cords(char *p)
 	while (ft_isdigit(*p))
 		p++;
 	if (*p != ' ')
-		ft_out("Bad x coordinate");
+		ft_out("ERROR");
 	p++;
 	while (ft_isdigit(*p))
 		p++;
 	if (*p != '\n')
-		ft_out("Bad y coordinate");
+		ft_out("ERROR");
 	return (p);
 }
+

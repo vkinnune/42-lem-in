@@ -31,7 +31,8 @@ enum	e_type
 	UNKNOWN,
 	COMMENT,
 	START,
-	END
+	END,
+	IGNORE
 };
 
 typedef struct s_stack {
@@ -73,8 +74,8 @@ typedef struct s_ins {
 typedef struct s_info {
 	size_t	ant_count;
 	size_t	room_count;
-	size_t	start;
-	size_t	end;
+	ssize_t	start;
+	ssize_t	end;
 	t_ins	ins;
 }	t_info;
 
@@ -108,7 +109,7 @@ char	*build_str(size_t ant, char *name, char *str);
 
 int		not_visited(size_t edge, size_t *visited_stack, size_t visited_size);
 
-void	read_input(char **av, char *buf);
+void	read_input(char *buf);
 void	parse_input(char *p_buf, t_info *p_info,
 			char **pp_names, t_room **pp_rooms);
 char	*move_ants(t_info info, char *p_names, t_room *p_rooms);
@@ -165,3 +166,4 @@ int		not_in_path(t_room **pp_rooms, size_t current_node, size_t index_edges);
 int		delete_first_element(t_bfs *p_traversal_data);
 
 #endif
+

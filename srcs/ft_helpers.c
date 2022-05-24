@@ -42,8 +42,10 @@ int	comment_or_command(char *p)
 			return (START);
 		else if (!ft_memcmp(p, "##end\n", 6))
 			return (END);
+		else if (!ft_memcmp(p, "##", 2))
+			return (IGNORE);
 		else
-			ft_out("Bad command");
+			ft_out("ERROR");
 	}
 	return (UNKNOWN);
 }
@@ -74,3 +76,4 @@ char	*ft_strcat(char *dest, const char *src)
 	ft_strcpy(dest + ft_strlen (dest), src);
 	return (dest);
 }
+

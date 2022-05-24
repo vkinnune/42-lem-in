@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	char	p_buf[BUFF_SIZE];
 	char	*p_names;
@@ -20,11 +20,7 @@ int	main(int argc, char **argv)
 	t_info	info;
 	char	*res;
 
-	if (argc < 2)
-		ft_out("Give a file");
-	else if (argc > 2)
-		ft_out("Too many files");
-	read_input(argv, p_buf);
+	read_input(p_buf);
 	parse_input(p_buf, &info, &p_names, &p_rooms);
 	res = move_ants(info, p_names, p_rooms);
 	write(1, p_buf, ft_strlen(p_buf));
@@ -36,18 +32,14 @@ int	main(int argc, char **argv)
 	free(res);
 }
 
-void	read_input(char **av, char *p_buf)
+void	read_input(char *p_buf)
 {
-	int	fd;
 	int	size;
 
-	fd = open(av[1], O_RDONLY);
-	if (fd <= 0)
-		ft_out("Wrong file");
-	size = read(fd, p_buf, BUFF_SIZE);
+	size = read(0, p_buf, BUFF_SIZE);
 	if (size <= 0)
 		ft_out("Error reading");
-	if (read(fd, 0, 0) != 0)
+	if (read(0, 0, 0) != 0)
 		ft_out("File too big");
 	p_buf[size] = '\0';
 }
@@ -57,9 +49,15 @@ void	parse_input(char *p_buf, t_info *p_info,
 {
 	size_t	bytes_parsed;
 
+	p_info->start = -1;
+	p_info->end = -1;
 	bytes_parsed = parse_ant_count(p_buf, p_info);
 	bytes_parsed += parse_nodes(&p_buf[bytes_parsed],
 			p_info, pp_names);
+	if (*pp_names == 0)
+		ft_out("ERROR");
+	if (p_info->start == -1 || p_info->end == -1)
+		ft_out("ERROR");
 	*pp_rooms = parse_edges(&p_buf[bytes_parsed],
 			*pp_names, p_info->room_count);
 }
@@ -103,3 +101,4 @@ void	free_edges(t_room *p_rooms, size_t room_count)
 		i++;
 	}
 }
+
