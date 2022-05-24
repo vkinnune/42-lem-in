@@ -1,5 +1,7 @@
 # 42-lem-in
-The goal of this project is to find the quickest way to get n ants across the farm.
+Lem-in is an algorithmic project focusing on graphs. The goal is to reproduce the behaviours of an ant farm manager.
+
+I built a program that takes in the number of ants, and the graph nodes and edges with the source and the sink defined. The program outputs the instructions for each ant to get from the source to the sink in the least amount of time.
 
 ## Usage
 Run `make`. Works with Linux and MacOS.
