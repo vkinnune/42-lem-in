@@ -16,7 +16,7 @@ char	*build_str(size_t ant, char *name, char *str)
 		p++;
 	*p = '-';
 	p++;
-	strcpy(p, name);
+	ft_strcpy(p, name);
 	while (*p != 0)
 		p++;
 	*p = ' ';
@@ -41,7 +41,7 @@ void	handle_nums(char *p, size_t ant)
 		p_num--;
 	}
 	p_num++;
-	strcpy(p, p_num);
+	ft_strcpy(p, p_num);
 }
 
 char	*allocate_more(char *str, char *buf)
@@ -50,14 +50,14 @@ char	*allocate_more(char *str, char *buf)
 
 	if (str == 0)
 	{
-		str = (char *)malloc(((strlen(buf)) + 1) * sizeof(char));
-		strcpy(str, buf);
+		str = (char *)malloc(((ft_strlen(buf)) + 1) * sizeof(char));
+		ft_strcpy(str, buf);
 	}
 	else
 	{
-		cpy = (char *)malloc(((strlen(str) + strlen(buf) + 1) * sizeof(char)));
-		strcpy(cpy, str);
-		strcat(cpy, buf);
+		cpy = (char *)malloc(((ft_strlen(str) + ft_strlen(buf) + 1) * sizeof(char)));
+		ft_strcpy(cpy, str);
+		ft_strcat(cpy, buf);
 		free(str);
 		str = cpy;
 	}

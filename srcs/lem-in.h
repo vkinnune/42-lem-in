@@ -72,6 +72,12 @@ size_t	parse_ant_count(const char *p_buf, t_info *info);
 size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names);
 t_room	*parse_edges(char *p, char *p_names, size_t room_count);
 char	*move_ants(t_info info, char *p_names, t_room *p_rooms);
+char	*ft_strcpy(char *dest, const char *src);
+size_t	ft_strlen(const char *str);
+char	*ft_strcat(char *dest, const char *src);
+void	*ft_memset(void *s, int c, size_t n);
+void	ft_bzero(void *s, size_t n);
+int	ft_memcmp(const void *s1, const void *s2, size_t n);
 
 #endif
 

@@ -84,7 +84,7 @@ size_t	*get_flow(t_path *path, size_t ant_count)
 	sizes = path->sizes;
 	path_count = path->count;
 	flow = (size_t *)malloc(path_count * sizeof(size_t));
-	bzero(flow, path_count * sizeof(size_t));
+	ft_bzero(flow, path_count * sizeof(size_t));
 	while (ant_count)
 	{
 		i = 0;

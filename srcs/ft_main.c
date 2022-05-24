@@ -25,9 +25,9 @@ int	main(int argc, char **argv)
 	read_input(argv, p_buf);
 	parse_input(p_buf, &info, &p_names, &p_rooms);
 	res = move_ants(info, p_names, p_rooms);
-	write(1, p_buf, strlen(p_buf));
+	write(1, p_buf, ft_strlen(p_buf));
 	write(1, "\n", 1);
-	write(1, res, strlen(res));
+	write(1, res, ft_strlen(res));
 	free_edges(p_rooms, info.room_count);
 	free(p_names);
 	free(p_rooms);
