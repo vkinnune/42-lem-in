@@ -1,13 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_save_paths.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:31:43 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:37:17 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	allocate_path_data(t_path *paths, size_t count);
-t_path	*allocate_new_path(t_path *paths, size_t set_count);
-void	mark_flow(t_room **pp_rooms, t_info info);
-void	add_flow(size_t current_node, size_t prev_node, t_room **pp_rooms);
-void	negative_path(size_t current_node, size_t prev_node, t_room **pp_rooms);
-size_t	next_node(t_room **pp_rooms, size_t current_node);
-int		mark_path(t_stack *visited,
-			t_room **pp_rooms, t_info info, t_path *paths);
+#include "lem_in.h"
 
 t_path	*save_paths(t_room **pp_rooms, t_info info,
 		t_path *paths, size_t set_count)
@@ -75,4 +78,3 @@ t_path	*allocate_new_path(t_path *paths, size_t set_count)
 	}
 	return (paths);
 }
-

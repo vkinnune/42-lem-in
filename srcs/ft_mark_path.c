@@ -1,10 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_mark_path.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:31:21 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:36:03 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	add_to_visited(t_stack *visited, size_t current_node);
-ssize_t	next_flow_node(t_stack *visited, t_room **pp_rooms,
-			size_t current_node);
-void	add_to_path(t_path *paths, size_t current_node);
-int		edge_not_visited(t_stack *visited, size_t edge);
+#include "lem_in.h"
 
 int	mark_path(t_stack *visited, t_room **pp_rooms, t_info info, t_path *paths)
 {
@@ -93,4 +99,3 @@ int	edge_not_visited(t_stack *visited, size_t edge)
 	}
 	return (1);
 }
-

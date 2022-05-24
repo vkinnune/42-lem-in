@@ -1,6 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_edges_queue.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:30:26 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:34:25 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	not_visited(size_t edge, size_t *visited_stack, size_t visited_size);
+#include "lem_in.h"
 
 void	add_edges_to_queue(size_t current_node,
 			t_room **pp_rooms, t_bfs *p_traversal_data)
@@ -43,4 +53,3 @@ int	not_visited(size_t edge, size_t *visited_stack, size_t visited_size)
 	}
 	return (1);
 }
-

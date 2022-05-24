@@ -1,14 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_main.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:30:49 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:34:45 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	read_input(char **av, char *buf);
-void	parse_input(char *p_buf, t_info *p_info,
-			char **pp_names, t_room **pp_rooms);
-char	*move_ants(t_info info, char *p_names, t_room *p_rooms);
-t_path	*make_paths(t_path *paths,
-			size_t *set_count, t_info info, t_room *p_rooms);
-char	*construct_instructions(t_path *paths,
-			size_t set_count, char *p_names, t_info info);
-void	free_edges(t_room *p_rooms, size_t room_count);
+#include "lem_in.h"
 
 int	main(int argc, char **argv)
 {
@@ -101,4 +103,3 @@ void	free_edges(t_room *p_rooms, size_t room_count)
 		i++;
 	}
 }
-

@@ -1,10 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_traverse_nodes.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:31:56 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:37:30 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-size_t	get_distance(size_t current_node, t_room **pp_rooms);
-void	add_edges_to_queue(size_t current_node, t_room **pp_rooms,
-			t_bfs *p_traversal_data);
-int		not_in_path(t_room **pp_rooms, size_t current_node, size_t index_edges);
-int		delete_first_element(t_bfs *p_traversal_data);
+#include "lem_in.h"
 
 int	traverse_nodes(t_room **pp_rooms, t_info info, t_bfs *p_traversal_data)
 {
@@ -92,4 +98,3 @@ int	delete_first_element(t_bfs *p_traversal_data)
 		ft_out("Error");
 	return (1);
 }
-

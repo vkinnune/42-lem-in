@@ -1,6 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_ant_count.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:31:29 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:36:21 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char	*ant_num(char *p_str, t_info *info);
+#include "lem_in.h"
 
 size_t	parse_ant_count(const char *p_buf, t_info *info)
 {
@@ -37,4 +47,3 @@ char	*ant_num(char *p_str, t_info *info)
 	}
 	return (p_str);
 }
-

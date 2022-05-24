@@ -1,11 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_nodes.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:32:10 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:36:50 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	check_last_type(enum e_type last_line_type,
-			t_info *p_info, size_t *room_count);
-char	*save_name(char *p, char *p_save, char **pp_names, size_t room_count);
-char	*skip_cords(char *p);
-int		skip_comment_or_command(char **p, enum e_type line_type);
-char	*name_alloc(char **pp_names, size_t room_count);
+#include "lem_in.h"
 
 size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names)
 {
@@ -105,4 +110,3 @@ char	*skip_cords(char *p)
 		ft_out("Bad y coordinate");
 	return (p);
 }
-

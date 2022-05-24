@@ -1,12 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_make_paths.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:31:08 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:35:43 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		traverse_nodes(t_room **pp_rooms, t_info info, t_bfs *p_traversal_data);
-void	alloc_flows(t_room *p_rooms, size_t room_count);
-void	calculate_latency(t_info info, t_path *paths, size_t set_count);
-void	clear_distance(t_room **pp_rooms, size_t room_count);
-void	mark_flow(t_room **pp_rooms, t_info info);
-t_path	*save_paths(t_room **pp_rooms,
-			t_info info, t_path *paths, size_t set_count);
+#include "lem_in.h"
 
 t_path	*make_paths(t_path *paths, size_t *set_count,
 			t_info info, t_room *p_rooms)
@@ -85,4 +89,3 @@ void	alloc_flows(t_room *p_rooms, size_t room_count)
 		i++;
 	}
 }
-

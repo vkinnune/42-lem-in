@@ -1,11 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_construct_instructions.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:30:18 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:34:04 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-size_t	get_set(t_path *paths, size_t set_count);
-size_t	*get_flow(t_path *path, size_t ant_count);
-int		loop_flows(t_info info, char *p_names, t_path *paths, char **str);
-int		loop_paths(t_info info, char *p_names, t_path *paths, char **str);
-size_t	add_ants(size_t *flow, size_t path_index);
-char	*build_str(size_t ant, char *name, char *str);
+#include "lem_in.h"
 
 char	*construct_instructions(t_path *paths,
 			size_t set_count, char *p_names, t_info info)
@@ -125,4 +130,3 @@ size_t	get_set(t_path *paths, size_t set_count)
 		ft_out("Error on getting a set");
 	return (save_i);
 }
-

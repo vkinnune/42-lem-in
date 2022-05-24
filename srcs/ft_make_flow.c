@@ -1,8 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_make_flow.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:30:56 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:35:27 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	add_flow(size_t current_node, size_t prev_node, t_room **pp_rooms);
-void	negative_path(size_t current_node, size_t prev_node, t_room **pp_rooms);
-size_t	next_node(t_room **pp_rooms, size_t current_node);
+#include "lem_in.h"
 
 void	mark_flow(t_room **pp_rooms, t_info info)
 {
@@ -83,4 +91,3 @@ size_t	next_node(t_room **pp_rooms, size_t current_node)
 	ft_out("Error");
 	return (-1);
 }
-

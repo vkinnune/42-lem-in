@@ -1,8 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_edges.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:31:35 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:36:33 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	add_edges(size_t in, size_t out, t_room *p_rooms);
-size_t	read_room_a(char **p, char *p_names, size_t room_count);
-size_t	read_room_b(char **p, char *p_names, size_t room_count);
+#include "lem_in.h"
 
 t_room	*parse_edges(char *p, char *p_names, size_t room_count)
 {
@@ -99,4 +107,3 @@ size_t	read_room_b(char **p, char *p_names, size_t room_count)
 	(*p)++;
 	return (i);
 }
-

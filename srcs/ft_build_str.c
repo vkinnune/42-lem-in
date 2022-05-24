@@ -1,7 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_build_str.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/24 15:30:03 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/05/24 15:38:20 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char	*allocate_more(char *str, char *buf);
-void	handle_nums(char *p, size_t ant);
+#include "lem_in.h"
 
 char	*build_str(size_t ant, char *name, char *str)
 {
@@ -55,7 +64,8 @@ char	*allocate_more(char *str, char *buf)
 	}
 	else
 	{
-		cpy = (char *)malloc(((ft_strlen(str) + ft_strlen(buf) + 1) * sizeof(char)));
+		cpy = (char *)malloc(((ft_strlen(str)
+						+ ft_strlen(buf) + 1) * sizeof(char)));
 		ft_strcpy(cpy, str);
 		ft_strcat(cpy, buf);
 		free(str);
@@ -78,4 +88,3 @@ size_t	add_ants(size_t *flow, size_t path_index)
 	}
 	return (res);
 }
-
