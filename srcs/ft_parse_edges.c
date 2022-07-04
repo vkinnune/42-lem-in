@@ -21,7 +21,7 @@ t_room	*parse_edges(char *p, char *p_names, size_t room_count)
 
 	p_rooms = (t_room *)malloc(sizeof(t_room) * room_count);
 	ft_bzero(p_rooms, sizeof(t_room) * room_count);
-	while (*p != 0)
+	while (*p != 0 && p[1] != 0)
 	{
 		line_type = comment_or_command(p);
 		if (line_type == START || line_type == END)
@@ -69,17 +69,17 @@ size_t	read_room_a(char **p, char *p_names, size_t room_count)
 
 	i = 0;
 	if (**p == '-')
-		ft_out("ERROR");
+		ft_out("ERROR4");
 	p_save = *p;
 	while (**p != '-' && **p != 0)
 		(*p)++;
 	if (*p - p_save > NAME_LENGTH)
-		ft_out("ERROR");
-	while (ft_strncmp(p_save, &p_names[i * NAME_LENGTH],
-			(*p) - p_save) && i != room_count)
+		ft_out("ERROR3");
+	while (ft_strncmp(p_save, &p_names[i * NAME_LENGTH], (*p) - p_save)
+		&& i != room_count)
 		i++;
 	if (i == room_count)
-		ft_out("ERROR");
+		ft_out("ERROR2");
 	(*p)++;
 	return (i);
 }
@@ -107,3 +107,4 @@ size_t	read_room_b(char **p, char *p_names, size_t room_count)
 	(*p)++;
 	return (i);
 }
+

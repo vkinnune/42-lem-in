@@ -41,7 +41,7 @@ char	*ant_num(char *p_str, t_info *info)
 {
 	if (*p_str == '0')
 		ft_out("ERROR");
-	while (isdigit(*p_str))
+	while (ft_isdigit(*p_str))
 	{
 		info->ant_count *= 10;
 		info->ant_count += *p_str - '0';
@@ -49,3 +49,4 @@ char	*ant_num(char *p_str, t_info *info)
 	}
 	return (p_str);
 }
+

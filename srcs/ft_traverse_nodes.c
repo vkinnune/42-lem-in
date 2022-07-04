@@ -68,7 +68,7 @@ int	not_in_path(t_room **pp_rooms, size_t current_node, size_t index_edges)
 	{
 		if ((*pp_rooms)[edges[index_edges]].edges[x] == current_node)
 		{
-			if ((*pp_rooms)[edges[index_edges]].flows[x] == 0)
+			if ((*pp_rooms)[edges[index_edges]].flows[x] <= 0)
 				return (1);
 			else
 				return (0);
@@ -98,3 +98,4 @@ int	delete_first_element(t_bfs *p_traversal_data)
 		ft_out("ERROR");
 	return (1);
 }
+

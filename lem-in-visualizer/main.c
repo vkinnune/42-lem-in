@@ -76,7 +76,7 @@ main()
                 ant_count = ant_count + (*p - '0');
                 p++;
             }
-            if(*p == '\n') 
+            if(*p == '\n')
             {
                 p++;
                 break;
@@ -227,7 +227,7 @@ main()
                     break;
                 }
             }
-            if(match == -1) 
+            if(match == -1)
                 crash("Error: link name not found");
             if(seperator == '-')
             {
@@ -335,7 +335,7 @@ main()
                         i++;
                         continue;
                     }
-                    else 
+                    else
                     {
                         n++;
                         continue;
@@ -502,3 +502,4 @@ main()
     }
     return 0;
 }
+

@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	char	p_buf[BUFF_SIZE];
 	char	*p_names;
@@ -20,7 +20,7 @@ int	main(void)
 	t_info	info;
 	char	*res;
 
-	read_input(p_buf);
+	read_input(p_buf, argc, argv);
 	parse_input(p_buf, &info, &p_names, &p_rooms);
 	res = move_ants(info, p_names, p_rooms);
 	write(1, p_buf, ft_strlen(p_buf));
@@ -32,14 +32,18 @@ int	main(void)
 	free(res);
 }
 
-void	read_input(char *p_buf)
+void	read_input(char *p_buf, int argc, char **argv)
 {
 	int	size;
+	int	fd;
 
-	size = read(0, p_buf, BUFF_SIZE);
+	fd = 0;
+	if (argc >= 2)
+		fd = open(argv[1], O_RDONLY);
+	size = read(fd, p_buf, BUFF_SIZE);
 	if (size <= 0)
 		ft_out("Error reading");
-	if (read(0, 0, 0) != 0)
+	if (read(fd, 0, 0) != 0)
 		ft_out("File too big");
 	p_buf[size] = '\0';
 }
@@ -101,3 +105,4 @@ void	free_edges(t_room *p_rooms, size_t room_count)
 		i++;
 	}
 }
+

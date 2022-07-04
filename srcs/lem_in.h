@@ -13,15 +13,12 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-# include <stdio.h>
-# include <stdlib.h>
 # include <stdint.h>
+# include <stdlib.h>
 # include <unistd.h>
-# include <ctype.h>
-# include <fcntl.h>
-# include <string.h>
 # include <limits.h>
 # include <stdbool.h>
+# include <fcntl.h>
 
 # define BUFF_SIZE 1000000
 # define NAME_LENGTH 32
@@ -52,6 +49,7 @@ typedef struct s_room {
 	ssize_t	*flows;
 	size_t	distance;
 	size_t	edge_count;
+	bool	visited;
 }	t_room;
 
 typedef struct s_bfs {
@@ -109,7 +107,7 @@ char	*build_str(size_t ant, char *name, char *str);
 
 int		not_visited(size_t edge, size_t *visited_stack, size_t visited_size);
 
-void	read_input(char *buf);
+void	read_input(char *p_buf, int argc, char **argv);
 void	parse_input(char *p_buf, t_info *p_info,
 			char **pp_names, t_room **pp_rooms);
 char	*move_ants(t_info info, char *p_names, t_room *p_rooms);
@@ -166,3 +164,4 @@ int		not_in_path(t_room **pp_rooms, size_t current_node, size_t index_edges);
 int		delete_first_element(t_bfs *p_traversal_data);
 
 #endif
+

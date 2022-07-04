@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <stdio.h>
 
 char	*construct_instructions(t_path *paths,
 			size_t set_count, char *p_names, t_info info)
@@ -130,3 +131,4 @@ size_t	get_set(t_path *paths, size_t set_count)
 		ft_out("ERROR");
 	return (save_i);
 }
+

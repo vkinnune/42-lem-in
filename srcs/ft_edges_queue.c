@@ -26,11 +26,13 @@ void	add_edges_to_queue(size_t current_node,
 	i = 0;
 	while (i != edge_count)
 	{
-		if (flows[i] == 0 && not_visited(edges[i],
+		if (flows[i] <= 0 && not_visited(edges[i],
 				p_traversal_data->visited_stack,
 				p_traversal_data->visited_size)
 			&& not_visited(edges[i], p_traversal_data->queue_stack,
-				p_traversal_data->queue_size))
+				p_traversal_data->queue_size)
+			&& (((*pp_rooms)[edges[i]].visited == true && flows[i] == -1)
+			|| ((*pp_rooms)[edges[i]].visited == false && flows[i] == 0)))
 		{
 			p_traversal_data->queue_stack[p_traversal_data->queue_size]
 				= edges[i];
@@ -53,3 +55,4 @@ int	not_visited(size_t edge, size_t *visited_stack, size_t visited_size)
 	}
 	return (1);
 }
+

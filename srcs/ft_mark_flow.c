@@ -22,6 +22,7 @@ void	mark_flow(t_room **pp_rooms, t_info info)
 	{
 		prev_node = current_node;
 		current_node = next_node(pp_rooms, current_node);
+		(*pp_rooms)[current_node].visited = true;
 		add_flow(current_node, prev_node, pp_rooms);
 	}
 }
@@ -64,7 +65,7 @@ void	negative_path(size_t current_node, size_t prev_node, t_room **pp_rooms)
 		if (edges[i] == current_node)
 		{
 			if (flows[i] != 0)
-				flows[i] = 2;
+				flows[i] = -1;
 			break ;
 		}
 		i++;
@@ -91,3 +92,4 @@ size_t	next_node(t_room **pp_rooms, size_t current_node)
 	ft_out("ERROR");
 	return (-1);
 }
+
