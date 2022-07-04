@@ -164,4 +164,3 @@ int		not_in_path(t_room **pp_rooms, size_t current_node, size_t index_edges);
 int		delete_first_element(t_bfs *p_traversal_data);
 
 #endif
-

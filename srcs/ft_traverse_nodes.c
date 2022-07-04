@@ -98,4 +98,3 @@ int	delete_first_element(t_bfs *p_traversal_data)
 		ft_out("ERROR");
 	return (1);
 }
-

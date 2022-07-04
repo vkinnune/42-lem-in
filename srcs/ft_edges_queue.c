@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:26 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/05/24 15:34:25 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/07/04 16:47:59 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,3 @@ int	not_visited(size_t edge, size_t *visited_stack, size_t visited_size)
 	}
 	return (1);
 }
-
