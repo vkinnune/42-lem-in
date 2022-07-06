@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+int	check_flow(t_room **pp_rooms, size_t current_node);
 
 void	add_edges_to_queue(size_t current_node,
 			t_room **pp_rooms, t_bfs *p_traversal_data)
@@ -31,7 +32,8 @@ void	add_edges_to_queue(size_t current_node,
 				p_traversal_data->visited_size)
 			&& not_visited(edges[i], p_traversal_data->queue_stack,
 				p_traversal_data->queue_size)
-			&& (((*pp_rooms)[edges[i]].visited == true && flows[i] == -1)
+			&& (((*pp_rooms)[edges[i]].visited == true
+			&& check_flow(pp_rooms, edges[i]))
 			|| ((*pp_rooms)[edges[i]].visited == false && flows[i] == 0)))
 		{
 			p_traversal_data->queue_stack[p_traversal_data->queue_size]
@@ -40,6 +42,25 @@ void	add_edges_to_queue(size_t current_node,
 		}
 		i++;
 	}
+}
+
+int	check_flow(t_room **pp_rooms, size_t current_node)
+{
+	size_t	i;
+	size_t	edge_count;
+	size_t	*edges;
+
+	i = 0;
+	edge_count = (*pp_rooms)[current_node].edge_count;
+	edges = (*pp_rooms)[current_node].edges;
+	while (i != edge_count)
+	{
+		//if ((*pp_rooms)[edges[i]].visited == true)
+		if ((*pp_rooms)[edges[i]].flows[i] == -1)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int	not_visited(size_t edge, size_t *visited_stack, size_t visited_size)
@@ -55,3 +76,4 @@ int	not_visited(size_t edge, size_t *visited_stack, size_t visited_size)
 	}
 	return (1);
 }
+
