@@ -14,25 +14,20 @@
 
 int	main(int argc, char **argv)
 {
-	char	p_buf[BUFF_SIZE];
-	char	*p_names;
-	t_room	*p_rooms;
 	t_info	info;
+	t_node	*nodes;
+	char	*names;
+	char	input_str[READ_SIZE];
 	char	*res;
 
-	read_input(p_buf, argc, argv);
-	parse_input(p_buf, &info, &p_names, &p_rooms);
-	res = move_ants(info, p_names, p_rooms);
-	//write(1, p_buf, ft_strlen(p_buf));
-	//write(1, "\n", 1);
-	write(1, res, ft_strlen(res));
-	free_edges(p_rooms, info.room_count);
-	free(p_names);
-	free(p_rooms);
-	free(res);
+	read_input(input_str, argc, argv);
+	parse_input(input_str, &info, &names, &nodes);
+	res = generate_result(info, names, nodes);
+	//write (1, input_str, ft_strlen(input_str));
+	write (1, res, ft_strlen(res));
 }
 
-void	read_input(char *p_buf, int argc, char **argv)
+void	read_input(char *input_str, int argc, char **argv)
 {
 	int	size;
 	int	fd;
@@ -40,69 +35,166 @@ void	read_input(char *p_buf, int argc, char **argv)
 	fd = 0;
 	if (argc >= 2)
 		fd = open(argv[1], O_RDONLY);
-	size = read(fd, p_buf, BUFF_SIZE);
-	if (size <= 0)
-		ft_out("Error reading");
-	if (read(fd, 0, 0) != 0)
-		ft_out("File too big");
-	p_buf[size] = '\0';
+	size = read(fd, input_str, READ_SIZE);
+	if (size <= 0 || read(fd, 0, 0) != 0)
+		ft_out("ERROR");
+	input_str[size] = '\n';
+	input_str[size + 1] = '\0';
 }
 
-void	parse_input(char *p_buf, t_info *p_info,
-		char **pp_names, t_room **pp_rooms)
+void	parse_input(char *input_str, t_info *info,
+		char **names, t_node **nodes)
 {
-	size_t	bytes_parsed;
-
-	p_info->start = -1;
-	p_info->end = -1;
-	bytes_parsed = parse_ant_count(p_buf, p_info);
-	bytes_parsed += parse_nodes(&p_buf[bytes_parsed],
-			p_info, pp_names);
-	if (*pp_names == 0)
+	info->start = -1;
+	info->end = -1;
+	input_str = parse_ant_count(input_str, info);
+	input_str = parse_nodes(input_str, info, names);
+	if (*names == 0 || info->start == -1 || info->end == -1)
 		ft_out("ERROR");
-	if (p_info->start == -1 || p_info->end == -1)
-		ft_out("ERROR");
-	*pp_rooms = parse_edges(&p_buf[bytes_parsed],
-			*pp_names, p_info->room_count);
+	*nodes = parse_edges(input_str, *names, info->node_count);
 }
 
-char	*move_ants(t_info info, char *p_names, t_room *p_rooms)
+size_t	add_ants(size_t *flow, size_t path_index)
 {
-	t_path	*paths;
-	size_t	set_count;
-	char	*res;
+	size_t	res;
 	size_t	i;
 
-	paths = 0;
-	set_count = 0;
-	paths = make_paths(paths, &set_count, info, p_rooms);
-	res = construct_instructions(paths, set_count, p_names, info);
-	while (set_count)
+	res = 0;
+	i = 0;
+	while (i != path_index)
 	{
-		i = 0;
-		while (i != paths[set_count - 1].count)
-		{
-			free(paths[set_count - 1].data[i]);
-			i++;
-		}
-		free(paths[set_count - 1].sizes);
-		free(paths[set_count - 1].data);
-		set_count--;
+		res += flow[i];
+		i++;
 	}
-	free(paths);
 	return (res);
 }
 
-void	free_edges(t_room *p_rooms, size_t room_count)
+
+char	*build_result(t_path path, size_t ant_count, char *names)
 {
+	size_t	tick;
+	size_t	path_index;
+	size_t	ant;
+	ssize_t	pos;
+	char	*str;
+
+	tick = 0;
+	str = 0;
+	while (tick <= path.latency - 1)
+	{
+		path_index = 0;
+		while (path_index != path.path_count)
+		{
+			ant = 1;
+			while (ant <= path.flow[path_index])
+			{
+				pos = tick - ant;
+				if (pos > 0 && pos < path.size[path_index])
+					str = result_cat(str, make_instruction(pos, ant + add_ants(path.flow, path_index), names, path.data[path_index]));
+				ant++;
+			}
+			path_index++;
+		}
+		str = add_newline(str);
+		tick++;
+	}
+	return (str);
+}
+
+char	*add_newline(char *str)
+{
+	size_t	size;
+
+	if (str == 0)
+		return (0);
+	size = ft_strlen(str) + 1;
+	str = ft_realloc(str, size + 1, size);
+	str[size - 2] = '\n';
+	str[size - 1] = 0;
+	return (str);
+}
+
+char	*make_instruction(ssize_t pos, size_t ant, char *names, size_t *path)
+{
+	char	str[1000];
 	size_t	i;
 
 	i = 0;
-	while (i != room_count)
+	str[i++] = 'L';
+	i += handle_nums(&str[i], ant);
+	str[i++] = '-';
+	ft_strcpy(&str[i], &names[path[pos] * NAME_LENGTH]);
+	i += ft_strlen(&names[path[pos] * NAME_LENGTH]);
+	str[i++] = ' ';
+	str[i] = 0;
+	return (ft_strdup(str));
+}
+
+char	*result_cat(char *str, char *ins)
+{
+	size_t	oldlen;
+	size_t	newlen;
+
+	oldlen = ft_strlen(str);
+	newlen = oldlen + (ft_strlen(ins) + 1);
+	str = ft_realloc(str, newlen, oldlen);
+	ft_strcpy(&str[oldlen], ins);
+	free(ins);
+	return (str);
+}
+
+size_t	handle_nums(char *str, size_t ant)
+{
+	char	num[100];
+	char	*p_num;
+
+	p_num = &num[100 - 1];
+	*p_num = 0;
+	p_num--;
+	while (ant)
 	{
-		free(p_rooms[i].edges);
-		free(p_rooms[i].flows);
-		i++;
+		*p_num = (ant % 10) + '0';
+		ant /= 10;
+		p_num--;
 	}
+	p_num++;
+	ft_strcpy(str, p_num);
+	return (ft_strlen(p_num));
+}
+
+t_path	stuff_ants(t_path path, t_info info)
+{
+	size_t	ant_count;
+	size_t	i;
+	size_t	save_index;
+
+	ant_count = info.ant_count;
+	path.flow = (size_t *)malloc(path.path_count * sizeof(size_t *));
+	ft_bzero(path.flow, path.path_count * sizeof(size_t *));
+	while (ant_count)
+	{
+		i = 0;
+		save_index = 0;
+		while (i != path.path_count)
+		{
+			if ((path.flow[save_index] + path.size[save_index]) > (path.flow[i] + path.size[i]))
+				save_index = i;
+			i++;
+		}
+		path.flow[save_index]++;
+		ant_count--;
+	}
+	return (path);
+}
+
+char	*generate_result(t_info info, char *names, t_node *nodes)
+{
+	char	*res;
+	t_path	path;
+
+	path = find_augmenting_paths(nodes, info);
+	path = stuff_ants(path, info);
+	res = build_result(path, info.ant_count, names);
+	return (res);
 }
 

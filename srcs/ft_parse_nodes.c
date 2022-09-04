@@ -12,17 +12,17 @@
 
 #include "lem_in.h"
 
-size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names)
+char	*parse_nodes(const char *input_str, t_info *info, char **names)
 {
 	enum e_type	line_type;
 	enum e_type	last_line_type;
 	char		*p;
 	char		*res;
-	size_t		room_count;
+	size_t		node_count;
 
-	room_count = 0;
+	node_count = 0;
 	line_type = UNKNOWN;
-	p = (char *)p_buf;
+	p = (char *)input_str;
 	while (1)
 	{
 		last_line_type = line_type;
@@ -30,15 +30,15 @@ size_t	parse_nodes(const char *p_buf, t_info *p_info, char **pp_names)
 		if (skip_comment_or_command(&p, line_type))
 			continue ;
 		res = p;
-		p = save_name(p, p, pp_names, room_count);
+		p = save_name(p, p, names, node_count);
 		if (res == p)
 			break ;
 		p = skip_cords(p);
-		check_last_type(last_line_type, p_info, &room_count);
+		check_last_type(last_line_type, info, &node_count);
 		p++;
 	}
-	p_info->room_count = room_count;
-	return (p - p_buf);
+	info->node_count = node_count;
+	return (p);
 }
 
 int	skip_comment_or_command(char **p, enum e_type line_type)
@@ -60,42 +60,42 @@ int	skip_comment_or_command(char **p, enum e_type line_type)
 	return (0);
 }
 
-char	*save_name(char *p, char *p_save, char **pp_names, size_t room_count)
+char	*save_name(char *p, char *save, char **names, size_t node_count)
 {
 	while (ft_isascii(*p) && *p != ' ' && *p != '-' && *p != '\0')
 		p++;
-	if (p - p_save > NAME_LENGTH)
+	if (p - save > NAME_LENGTH)
 		ft_out("ERROR");
 	if (*p == '-')
-		return (p_save);
+		return (save);
 	if (*p != ' ')
 		ft_out("ERROR");
-	*pp_names = name_alloc(pp_names, room_count);
-	ft_memcpy(&(*pp_names)[room_count * NAME_LENGTH], p_save, p - p_save);
-	(*pp_names)[p - p_save] = '\0';
+	*names = name_alloc(names, node_count);
+	ft_memcpy(&(*names)[node_count * NAME_LENGTH], save, p - save);
+	(*names)[p - save] = '\0';
 	p++;
 	return (p);
 }
 
-char	*name_alloc(char **pp_names, size_t room_count)
+char	*name_alloc(char **names, size_t node_count)
 {
-	char	*p_str;
+	char	*p;
 
-	if (room_count == 0)
+	if (node_count == 0)
 	{
-		*pp_names = (char *)malloc(sizeof(char) * NAME_LENGTH);
-		ft_bzero(*pp_names, sizeof(char) * NAME_LENGTH);
+		*names = (char *)malloc(sizeof(char) * NAME_LENGTH);
+		ft_bzero(*names, sizeof(char) * NAME_LENGTH);
 	}
 	else
 	{
-		p_str = (char *)malloc((sizeof(char) * NAME_LENGTH) * (room_count + 1));
-		ft_bzero(p_str, (sizeof(char) * NAME_LENGTH) * (room_count + 1));
-		ft_memcpy(p_str, *pp_names,
-			(sizeof(char) * NAME_LENGTH) * (room_count));
-		free(*pp_names);
-		*pp_names = p_str;
+		p = (char *)malloc((sizeof(char) * NAME_LENGTH) * (node_count + 1));
+		ft_bzero(p, (sizeof(char) * NAME_LENGTH) * (node_count + 1));
+		ft_memcpy(p, *names,
+			(sizeof(char) * NAME_LENGTH) * (node_count));
+		free(*names);
+		*names = p;
 	}
-	return (*pp_names);
+	return (*names);
 }
 
 char	*skip_cords(char *p)
@@ -111,3 +111,4 @@ char	*skip_cords(char *p)
 		ft_out("ERROR");
 	return (p);
 }
+

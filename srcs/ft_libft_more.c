@@ -36,3 +36,16 @@ int	ft_isdigit(int c)
 		return (1);
 	return (0);
 }
+
+char	*ft_strdup(const char *s)
+{
+	void	*ns;
+	size_t	len;
+
+	len = ft_strlen((void *)s) + 1;
+	ns = (char *)malloc(len);
+	if (ns == 0)
+		return (0);
+	return ((char *)ft_memcpy(ns, s, len));
+}
+

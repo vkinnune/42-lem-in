@@ -12,40 +12,41 @@
 
 #include "lem_in.h"
 
-size_t	parse_ant_count(const char *p_buf, t_info *info)
+char	*parse_ant_count(const char *input_str, t_info *info)
 {
 	enum e_type	line_type;
-	char		*p_str;
+	char		*p;
 
-	p_str = (char *)p_buf;
+	p = (char *)input_str;
 	info->ant_count = 0;
 	while (1)
 	{
-		line_type = comment_or_command(p_str);
+		line_type = comment_or_command(p);
 		if (line_type == COMMENT || line_type == IGNORE)
 		{
-			while (*p_str != '\n')
-				p_str++;
+			while (*p != '\n')
+				p++;
 			continue ;
 		}
 		break ;
 	}
-	p_str = ant_num(p_str, info);
-	if (*p_str != '\n')
+	p = ant_num(p, info);
+	if (*p != '\n')
 		ft_out("ERROR");
-	p_str++;
-	return (p_str - p_buf);
+	p++;
+	return (p);
 }
 
-char	*ant_num(char *p_str, t_info *info)
+char	*ant_num(char *p, t_info *info)
 {
-	if (*p_str == '0')
+	if (*p == '0')
 		ft_out("ERROR");
-	while (ft_isdigit(*p_str))
+	while (ft_isdigit(*p))
 	{
 		info->ant_count *= 10;
-		info->ant_count += *p_str - '0';
-		p_str++;
+		info->ant_count += *p - '0';
+		p++;
 	}
-	return (p_str);
+	return (p);
 }
+
