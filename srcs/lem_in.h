@@ -64,7 +64,7 @@ typedef struct s_stack {
 
 void	read_input(char *input_str, int argc, char **argv);
 void	parse_input(char *input_str, t_info *info,
-		char **names, t_node **nodes);
+			char **names, t_node **nodes);
 char	*parse_ant_count(const char *input_str, t_info *info);
 char	*ant_num(char *p, t_info *info);
 t_node	*parse_edges(char *p, char *names, size_t node_count);
@@ -72,7 +72,7 @@ void	add_edges(size_t in, size_t out, t_node *nodes);
 size_t	read_node_a(char **p, char *names, size_t node_count);
 size_t	read_node_b(char **p, char *names, size_t node_count);
 char	*parse_nodes(const char *input_str, t_info *info, char **names);
-int	skip_comment_or_command(char **p, enum e_type line_type);
+int		skip_comment_or_command(char **p, enum e_type line_type);
 char	*save_name(char *p, char *save, char **names, size_t node_count);
 char	*name_alloc(char **names, size_t node_count);
 char	*skip_cords(char *p);
@@ -81,15 +81,15 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
 size_t	ft_strlen(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-int	ft_memcmp(const void *s1, const void *s2, size_t n);
-int	ft_isascii(int c);
-int	ft_isdigit(int c);
-int	ft_out(char *reason);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_memcmp(const void *s1, const void *s2, size_t n);
+int		ft_isascii(int c);
+int		ft_isdigit(int c);
+int		ft_out(char *reason);
 char	*ft_strdup(const char *s);
-int	comment_or_command(char *p);
+int		comment_or_command(char *p);
 void	check_last_type(enum e_type last_line_type,
-		t_info *p_info, size_t *room_count);
+			t_info *p_info, size_t *room_count);
 char	*ft_strcpy(char *dest, const char *src);
 char	*ft_strcat(char *dest, const char *src);
 void	*ft_realloc(void *ptr, size_t new_size, size_t old_size);
@@ -99,16 +99,20 @@ void	create_path(t_path paths[2], t_node *nodes, t_info info);
 void	convert_route_to_flow(t_node *nodes, t_info info);
 ssize_t	find_edge_id(ssize_t current_node, ssize_t next_node, t_node *nodes);
 ssize_t	go_deeper(t_node *nodes, t_info info, size_t current_node);
-int	augment_path(t_node *nodes, t_info info);
+int		augment_path(t_node *nodes, t_info info);
 size_t	get_depth(t_node *nodes, ssize_t current_node);
 ssize_t	delete_from_queue(t_stack *queue);
-int	add_to_queue(ssize_t current_node, ssize_t prev_node, t_node *nodes, t_stack *queue);
+int		add_to_queue(ssize_t current_node, ssize_t prev_node,
+			t_node *nodes, t_stack *queue);
 char	*generate_result(t_info info, char *names, t_node *nodes);
 ssize_t	calculate_latency(size_t *sizes, size_t ant_count, size_t path_count);
 size_t	handle_nums(char *str, size_t ant);
 char	*make_instruction(ssize_t pos, size_t ant, char *names, size_t *path);
 char	*result_cat(char *str, char *ins);
 char	*add_newline(char *str);
+size_t	cmp_latency(size_t path_count, size_t *sizes, size_t *sizes_copy);
+char	*build_result(t_path path, size_t ant_count, char *names);
+t_path	stuff_ants(t_path path, t_info info);
 
 #endif
 

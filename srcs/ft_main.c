@@ -54,112 +54,15 @@ void	parse_input(char *input_str, t_info *info,
 	*nodes = parse_edges(input_str, *names, info->node_count);
 }
 
-size_t	add_ants(size_t *flow, size_t path_index)
+char	*generate_result(t_info info, char *names, t_node *nodes)
 {
-	size_t	res;
-	size_t	i;
+	char	*res;
+	t_path	path;
 
-	res = 0;
-	i = 0;
-	while (i != path_index)
-	{
-		res += flow[i];
-		i++;
-	}
+	path = find_augmenting_paths(nodes, info);
+	path = stuff_ants(path, info);
+	res = build_result(path, info.ant_count, names);
 	return (res);
-}
-
-
-char	*build_result(t_path path, size_t ant_count, char *names)
-{
-	size_t	tick;
-	size_t	path_index;
-	size_t	ant;
-	ssize_t	pos;
-	char	*str;
-
-	tick = 0;
-	str = 0;
-	while (tick <= path.latency - 1)
-	{
-		path_index = 0;
-		while (path_index != path.path_count)
-		{
-			ant = 1;
-			while (ant <= path.flow[path_index])
-			{
-				pos = tick - ant;
-				if (pos > 0 && pos < path.size[path_index])
-					str = result_cat(str, make_instruction(pos, ant + add_ants(path.flow, path_index), names, path.data[path_index]));
-				ant++;
-			}
-			path_index++;
-		}
-		str = add_newline(str);
-		tick++;
-	}
-	return (str);
-}
-
-char	*add_newline(char *str)
-{
-	size_t	size;
-
-	if (str == 0)
-		return (0);
-	size = ft_strlen(str) + 1;
-	str = ft_realloc(str, size + 1, size);
-	str[size - 2] = '\n';
-	str[size - 1] = 0;
-	return (str);
-}
-
-char	*make_instruction(ssize_t pos, size_t ant, char *names, size_t *path)
-{
-	char	str[1000];
-	size_t	i;
-
-	i = 0;
-	str[i++] = 'L';
-	i += handle_nums(&str[i], ant);
-	str[i++] = '-';
-	ft_strcpy(&str[i], &names[path[pos] * NAME_LENGTH]);
-	i += ft_strlen(&names[path[pos] * NAME_LENGTH]);
-	str[i++] = ' ';
-	str[i] = 0;
-	return (ft_strdup(str));
-}
-
-char	*result_cat(char *str, char *ins)
-{
-	size_t	oldlen;
-	size_t	newlen;
-
-	oldlen = ft_strlen(str);
-	newlen = oldlen + (ft_strlen(ins) + 1);
-	str = ft_realloc(str, newlen, oldlen);
-	ft_strcpy(&str[oldlen], ins);
-	free(ins);
-	return (str);
-}
-
-size_t	handle_nums(char *str, size_t ant)
-{
-	char	num[100];
-	char	*p_num;
-
-	p_num = &num[100 - 1];
-	*p_num = 0;
-	p_num--;
-	while (ant)
-	{
-		*p_num = (ant % 10) + '0';
-		ant /= 10;
-		p_num--;
-	}
-	p_num++;
-	ft_strcpy(str, p_num);
-	return (ft_strlen(p_num));
 }
 
 t_path	stuff_ants(t_path path, t_info info)
@@ -177,7 +80,8 @@ t_path	stuff_ants(t_path path, t_info info)
 		save_index = 0;
 		while (i != path.path_count)
 		{
-			if ((path.flow[save_index] + path.size[save_index]) > (path.flow[i] + path.size[i]))
+			if ((path.flow[save_index]
+					+ path.size[save_index]) > (path.flow[i] + path.size[i]))
 				save_index = i;
 			i++;
 		}
@@ -185,16 +89,5 @@ t_path	stuff_ants(t_path path, t_info info)
 		ant_count--;
 	}
 	return (path);
-}
-
-char	*generate_result(t_info info, char *names, t_node *nodes)
-{
-	char	*res;
-	t_path	path;
-
-	path = find_augmenting_paths(nodes, info);
-	path = stuff_ants(path, info);
-	res = build_result(path, info.ant_count, names);
-	return (res);
 }
 
