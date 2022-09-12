@@ -40,6 +40,7 @@ typedef struct s_node {
 	ssize_t	*flows;
 	bool	visited;
 	bool	flow;
+	ssize_t	prev_node;
 }	t_node;
 
 typedef struct s_info {
@@ -102,8 +103,6 @@ ssize_t	go_deeper(t_node *nodes, t_info info, size_t current_node);
 int		augment_path(t_node *nodes, t_info info);
 size_t	get_depth(t_node *nodes, ssize_t current_node);
 ssize_t	delete_from_queue(t_stack *queue);
-int		add_to_queue(ssize_t current_node, ssize_t prev_node,
-			t_node *nodes, t_stack *queue);
 char	*generate_result(t_info info, char *names, t_node *nodes);
 ssize_t	calculate_latency(size_t *sizes, size_t ant_count, size_t path_count);
 size_t	handle_nums(char *str, size_t ant);
@@ -113,6 +112,8 @@ char	*add_newline(char *str);
 size_t	cmp_latency(size_t path_count, size_t *sizes, size_t *sizes_copy);
 char	*build_result(t_path path, size_t ant_count, char *names);
 t_path	stuff_ants(t_path path, t_info info);
+int	add_to_queue(ssize_t current_node,
+		ssize_t prev_node, t_node *nodes, t_stack *queue, t_info info);
 
 #endif
 

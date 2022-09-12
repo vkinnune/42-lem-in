@@ -44,9 +44,9 @@ void	convert_route_to_flow(t_node *nodes, t_info info)
 					current_node, nodes)] == 1)
 		{
 			nodes[current_node].flows[find_edge_id(next_node,
-					current_node, nodes)] = -1;
+					current_node, nodes)] = 0;
 			nodes[next_node].flows[find_edge_id(current_node,
-					next_node, nodes)] = -1;
+					next_node, nodes)] = 0;
 		}
 		current_node = next_node;
 	}
@@ -88,9 +88,10 @@ int	augment_path(t_node *nodes, t_info info)
 	t_stack	queue;
 	ssize_t	prev_node;
 
-	queue.data = (size_t *)malloc((sizeof(size_t) * info.node_count * 100));
+	queue.data = (size_t *)malloc((sizeof(size_t) * info.node_count * 200));
 	queue.size = 0;
 	current_node = info.start;
+	nodes[current_node].prev_node = info.start;
 	prev_node = -1;
 	while (1)
 	{
@@ -98,9 +99,9 @@ int	augment_path(t_node *nodes, t_info info)
 		nodes[current_node].visited = true;
 		if (current_node == info.end)
 			break ;
-		if (!add_to_queue(current_node, prev_node, nodes, &queue))
+		prev_node = nodes[current_node].prev_node;
+		if (!add_to_queue(current_node, prev_node, nodes, &queue, info))
 			return (0);
-		prev_node = current_node;
 		current_node = delete_from_queue(&queue);
 	}
 	return (1);

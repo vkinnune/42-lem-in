@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	read_input(input_str, argc, argv);
 	parse_input(input_str, &info, &names, &nodes);
 	res = generate_result(info, names, nodes);
-	//write (1, input_str, ft_strlen(input_str));
+	write (1, input_str, ft_strlen(input_str));
 	write (1, res, ft_strlen(res));
 }
 
@@ -61,6 +61,20 @@ char	*generate_result(t_info info, char *names, t_node *nodes)
 
 	path = find_augmenting_paths(nodes, info);
 	path = stuff_ants(path, info);
+	/*
+	{
+		for (int i = 0; i != path.path_count; i++)
+		{
+			for (int x = 0; x != path.size[i]; x++)
+			{
+				//printf("%s	", &names[path.data[i][x] * NAME_LENGTH]);
+				printf("%d	", path.data[i][x]);
+			}
+			printf("\n");
+		}
+
+	}
+	*/
 	res = build_result(path, info.ant_count, names);
 	return (res);
 }
