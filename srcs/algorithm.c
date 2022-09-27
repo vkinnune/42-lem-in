@@ -29,6 +29,7 @@ t_path	find_augmenting_paths(t_node *nodes, t_info info)
 		{
 			nodes[i].depth = 0;
 			nodes[i].visited = false;
+			nodes[i].prev_node = -1;
 			i++;
 		}
 		if (!augment_path(nodes, info))
