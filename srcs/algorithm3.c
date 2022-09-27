@@ -1,28 +1,5 @@
 #include "lem_in.h"
 
-size_t	get_depth(t_node *nodes, ssize_t current_node)
-{
-	size_t	i;
-	size_t	depth;
-
-	i = 0;
-	depth = INT_MAX;
-	while (i != nodes[current_node].edge_count)
-	{
-		if (nodes[nodes[current_node].edges[i]].depth < depth
-			&& nodes[nodes[current_node].edges[i]].visited == true
-			&& nodes[nodes[current_node].edges[i]].flows
-			[find_edge_id(current_node, nodes[current_node].edges[i],
-					nodes)] != 1)
-			depth = nodes[nodes[current_node].edges[i]].depth;
-		i++;
-	}
-	if (depth == INT_MAX)
-		return (0);
-	else
-		return (depth + 1);
-}
-
 ssize_t	delete_from_queue(t_stack *queue)
 {
 	size_t	i;
@@ -60,11 +37,10 @@ int	add_to_queue(ssize_t current_node,
 	i = 0;
 	while (i != nodes[current_node].edge_count)
 	{
-		if (	nodes[nodes[current_node].edges[i]].visited == false && nodes[current_node].flows[i] == 0 && (prev_node == -1 || nodes[current_node].flow == false
-			|| (nodes[nodes[current_node].edges[i]].flows[find_edge_id(nodes[current_node].edges[i], current_node, nodes)] == true
-			&& nodes[nodes[current_node].edges[i]].flow == true) || nodes[prev_node].flow == true))
+		if (nodes[nodes[current_node].edges[i]].visited == false &&
+		nodes[nodes[current_node].edges[i]].out[find_edge_id(nodes[current_node].edges[i], current_node, nodes)] == 0)
 		{
-			nodes[nodes[current_node].edges[i]].prev_node = current_node;
+			nodes[current_node].visited = true;
 			queue->data[queue->size++] = nodes[current_node].edges[i];
 		}
 		i++;

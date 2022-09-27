@@ -72,7 +72,7 @@ char	*save_name(char *p, char *save, char **names, size_t node_count)
 		ft_out("ERROR");
 	*names = name_alloc(names, node_count);
 	ft_memcpy(&(*names)[node_count * NAME_LENGTH], save, p - save);
-	(*names)[p - save] = '\0';
+	(*names)[(p - save) + (node_count * NAME_LENGTH)] = '\0';
 	p++;
 	return (p);
 }

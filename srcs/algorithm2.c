@@ -28,7 +28,7 @@ ssize_t	calculate_latency(size_t *sizes, size_t ant_count, size_t path_count)
 	return (latency);
 }
 
-void	convert_route_to_flow(t_node *nodes, t_info info)
+void	convert(t_node *nodes, t_info info)
 {
 	ssize_t	current_node;
 	ssize_t	next_node;
@@ -38,14 +38,14 @@ void	convert_route_to_flow(t_node *nodes, t_info info)
 	{
 		nodes[current_node].flow = true;
 		next_node = go_deeper(nodes, info, current_node);
-		nodes[next_node].flows[find_edge_id(current_node,
-				next_node, nodes)] = 1;
-		if (nodes[current_node].flows[find_edge_id(next_node,
+		nodes[next_node].in[find_edge_id(current_node,
+				next_node, nodes)] = 1; //confirms flow
+		if (nodes[current_node].out[find_edge_id(next_node,
 					current_node, nodes)] == 1)
 		{
-			nodes[current_node].flows[find_edge_id(next_node,
+			nodes[current_node].out[find_edge_id(next_node,
 					current_node, nodes)] = 0;
-			nodes[next_node].flows[find_edge_id(current_node,
+			nodes[next_node].out[find_edge_id(current_node,
 					next_node, nodes)] = 0;
 		}
 		current_node = next_node;
@@ -73,22 +73,23 @@ ssize_t	go_deeper(t_node *nodes, t_info info, size_t current_node)
 	i = 0;
 	while (i != nodes[current_node].edge_count)
 	{
-		if (nodes[nodes[current_node].edges[i]].depth
-			== (nodes[current_node].depth - 1))
+		if (nodes[current_node].depth - 1 == nodes[nodes[current_node].edges[i]].depth)
 			break ;
 		i++;
 	}
+	if (i == nodes[current_node].edge_count)
+		ft_out("ERROR");
 	return (nodes[current_node].edges[i]);
 }
 
-int	augment_path(t_node *nodes, t_info info)
+int	augment(t_node *nodes, t_info info)
 {
 	ssize_t	current_node;
 	t_stack	visited;
 	t_stack	queue;
 	ssize_t	prev_node;
 
-	queue.data = (size_t *)malloc((sizeof(size_t) * info.node_count * 200));
+	queue.data = (size_t *)malloc((sizeof(size_t) * info.node_count * 300));
 	queue.size = 0;
 	current_node = info.start;
 	nodes[current_node].prev_node = info.start;
@@ -96,14 +97,35 @@ int	augment_path(t_node *nodes, t_info info)
 	while (1)
 	{
 		nodes[current_node].depth = get_depth(nodes, current_node);
-		nodes[current_node].visited = true;
 		if (current_node == info.end)
 			break ;
 		prev_node = nodes[current_node].prev_node;
 		if (!add_to_queue(current_node, prev_node, nodes, &queue, info))
 			return (0);
 		current_node = delete_from_queue(&queue);
+		nodes[nodes[current_node].prev_node].out[find_edge_id(nodes[current_node].prev_node, current_node, nodes)] = 1;
 	}
+	free(queue.data);
 	return (1);
+}
+
+size_t	get_depth(t_node *nodes, ssize_t current_node)
+{
+	size_t	i;
+	size_t	depth;
+
+	i = 0;
+	depth = INT_MAX;
+	while (i != nodes[current_node].edge_count)
+	{
+		if (nodes[nodes[current_node].edges[i]].depth < depth && nodes[nodes[current_node].edges[i]].depth == -1 &&
+				nodes[nodes[current_node].edges[i]].in[find_edge_id(current_node, nodes[current_node].edges[i], nodes)] != 1)
+			depth = nodes[nodes[current_node].edges[i]].depth;
+		i++;
+	}
+	if (depth == INT_MAX)
+		return (0);
+	else
+		return (depth + 1);
 }
 

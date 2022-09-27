@@ -24,6 +24,7 @@
 # define READ_SIZE 2000000
 # define NAME_LENGTH 32
 
+
 enum	e_type
 {
 	UNKNOWN,
@@ -34,13 +35,14 @@ enum	e_type
 };
 
 typedef struct s_node {
-	size_t	depth;
 	size_t	edge_count;
 	size_t	*edges;
-	ssize_t	*flows;
+	ssize_t	*in;
+	ssize_t	*out;
 	bool	visited;
 	bool	flow;
 	ssize_t	prev_node;
+	ssize_t	depth;
 }	t_node;
 
 typedef struct s_info {
@@ -48,6 +50,7 @@ typedef struct s_info {
 	size_t	node_count;
 	ssize_t	start;
 	ssize_t	end;
+	char	*global_names;
 }	t_info;
 
 typedef struct s_path {
@@ -97,11 +100,8 @@ void	*ft_realloc(void *ptr, size_t new_size, size_t old_size);
 
 t_path	find_augmenting_paths(t_node *nodes, t_info info);
 void	create_path(t_path paths[2], t_node *nodes, t_info info);
-void	convert_route_to_flow(t_node *nodes, t_info info);
 ssize_t	find_edge_id(ssize_t current_node, ssize_t next_node, t_node *nodes);
 ssize_t	go_deeper(t_node *nodes, t_info info, size_t current_node);
-int		augment_path(t_node *nodes, t_info info);
-size_t	get_depth(t_node *nodes, ssize_t current_node);
 ssize_t	delete_from_queue(t_stack *queue);
 char	*generate_result(t_info info, char *names, t_node *nodes);
 ssize_t	calculate_latency(size_t *sizes, size_t ant_count, size_t path_count);
@@ -114,6 +114,9 @@ char	*build_result(t_path path, size_t ant_count, char *names);
 t_path	stuff_ants(t_path path, t_info info);
 int	add_to_queue(ssize_t current_node,
 		ssize_t prev_node, t_node *nodes, t_stack *queue, t_info info);
+size_t	get_depth(t_node *nodes, ssize_t current_node);
+int		augment(t_node *nodes, t_info info);
+void	convert(t_node *nodes, t_info info);
 
 #endif
 
