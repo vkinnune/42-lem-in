@@ -103,8 +103,6 @@ ssize_t	delete_from_queue(t_stack *queue);
 char	*generate_result(t_info info, char *names, t_node *nodes);
 ssize_t	calculate_latency(size_t *sizes, size_t ant_count, size_t path_count);
 size_t	handle_nums(char *str, size_t ant);
-char	*make_instruction(ssize_t pos, size_t ant, char *names, size_t *path);
-char	*result_cat(char *str, char *ins);
 char	*add_newline(char *str);
 size_t	cmp_latency(size_t path_count, size_t *sizes, size_t *sizes_copy);
 char	*build_result(t_path path, size_t ant_count, char *names);
@@ -113,6 +111,8 @@ int	add_to_queue(ssize_t current_node,
 		ssize_t prev_node, t_node *nodes, t_stack *queue, t_info info);
 int	augment(t_node *nodes, t_info info);
 void	convert(t_node *nodes, t_info info);
+char	*make_instruction(ssize_t pos, size_t ant, char *names, size_t *path);
+char	*result_cat(char *str, char *ins);
 
 #endif
 
