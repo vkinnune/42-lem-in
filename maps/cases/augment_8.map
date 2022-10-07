@@ -1,0 +1,63 @@
+16
+##start
+a 0 0
+b 0 0
+c 0 0
+d 0 0
+e 0 0
+f 0 0
+g 0 0
+h 0 0
+i 0 0
+j 0 0
+##end
+k 0 0
+l 0 0
+m 0 0
+n 0 0
+o 0 0
+p 0 0
+q 0 0
+a-b
+b-c
+c-d
+d-e
+e-f
+f-a
+b-g
+g-h
+h-i
+i-j
+j-c
+j-k
+k-l
+l-m
+m-d
+o-a
+o-b
+o-c
+o-d
+o-e
+o-f
+p-g
+p-h
+p-i
+p-j
+p-c
+p-b
+q-c
+q-j
+q-k
+q-l
+q-m
+q-d
+#         g - h
+#        / \ / \
+#   a - b - p - i
+#  / \ / \ / \ /
+# f - o - c - j
+#  \ / \ / \ / \
+#   e - d - q - k
+#        \ / \ /
+#         m - l
+# Here is the number of lines required: 9

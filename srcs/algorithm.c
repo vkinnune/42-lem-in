@@ -7,31 +7,9 @@ void	alloc_flows(t_node *nodes, t_info info)
 	i = 0;
 	while (i != info.node_count)
 	{
-		nodes[i].in = (ssize_t *)malloc(sizeof(ssize_t)
+		nodes[i].flows = (ssize_t *)malloc(sizeof(ssize_t)
 				* nodes[i].edge_count);
-		nodes[i].out = (ssize_t *)malloc(sizeof(ssize_t)
-				* nodes[i].edge_count);
-		ft_bzero(nodes[i].in, sizeof(ssize_t) * nodes[i].edge_count);
-		ft_bzero(nodes[i].out, sizeof(ssize_t) * nodes[i].edge_count);
-		i++;
-	}
-}
-
-void	clear(t_node *nodes, t_info info)
-{
-	size_t	i;
-	size_t	x;
-
-	i = 0;
-	while (i != info.node_count)
-	{
-		x = 0;
-		while (x != nodes[i].edge_count)
-		{
-			if (nodes[i].in[x] == 0)
-				nodes[i].out[x] = 0;
-			x++;
-		}
+		ft_bzero(nodes[i].flows, sizeof(ssize_t) * nodes[i].edge_count);
 		i++;
 	}
 }
@@ -50,18 +28,12 @@ t_path	find_augmenting_paths(t_node *nodes, t_info info)
 		while (i != info.node_count)
 		{
 			nodes[i].visited = false;
-			nodes[i].depth = -1;
+			nodes[i].prev_node = -1;
 			i++;
 		}
-		/*
-		   mark flow true to nodes going to end --> (augment)
-		   when going back mark flows that way true <--- (convert route to flow)
-		   clear all flows not confirmed
-		   */
 		if (!augment(nodes, info))
 			break ;
 		convert(nodes, info);
-		clear(nodes, info);
 		create_path(paths, nodes, info);
 		if (paths[1].latency < paths[0].latency)
 			paths[0] = paths[1];
@@ -86,7 +58,7 @@ t_path	alloc_path(t_node *nodes, t_info info, size_t path_count, size_t i)
 	while (current_node != info.end)
 	{
 		x = 0;
-		while (nodes[current_node].out[x] != 1)
+		while (nodes[current_node].flows[x] != 1)
 			x++;
 		if (x == nodes[current_node].edge_count)
 			break ;
@@ -109,7 +81,7 @@ void	create_path(t_path paths[2], t_node *nodes, t_info info)
 	i = 0;
 	while (i != nodes[info.start].edge_count)
 	{
-		if (nodes[info.start].out[i] == 1)
+		if (nodes[info.start].flows[i] == 1)
 		{
 			paths[1] = alloc_path(nodes, info, path_count, i);
 			path_count++;
