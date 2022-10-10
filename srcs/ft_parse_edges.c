@@ -76,7 +76,7 @@ size_t	read_node_a(char **p, char *names, size_t node_count)
 		(*p)++;
 	if (*p - save > NAME_LENGTH)
 		ft_out("ERROR");
-	while (ft_strncmp(save, &names[i * NAME_LENGTH], (*p) - save)
+	while (ft_strncmp(save, &names[i * NAME_LENGTH], ft_strlen(&names[i * NAME_LENGTH]))
 		&& i != node_count)
 		i++;
 	if (i == node_count)
@@ -100,8 +100,8 @@ size_t	read_node_b(char **p, char *names, size_t node_count)
 		ft_out("ERROR");
 	if (**p != '\n')
 		ft_out("ERROR");
-	while (ft_strncmp(save, &names[i * NAME_LENGTH],
-			*p - save) && i != node_count)
+	while (ft_strncmp(save, &names[i * NAME_LENGTH], ft_strlen(&names[i * NAME_LENGTH]))
+		&& i != node_count)
 		i++;
 	if (i == node_count)
 		ft_out("ERROR");

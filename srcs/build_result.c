@@ -21,8 +21,7 @@ char	*loop_flows(t_path path, size_t tick, char *names, size_t path_index, char 
 	ssize_t	pos;
 
 	ant = 1;
-	while (ant <= path.flow[path_index])
-	{
+	while (ant <= path.flow[path_index]) {
 		pos = tick - ant;
 		if (pos > 0 && pos < path.size[path_index])
 			str = result_cat(str,
