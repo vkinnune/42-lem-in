@@ -89,15 +89,13 @@ int	bfs(t_node *nodes, t_info info)
 		prev_node = nodes[current_node].prev_node;
 		if (!(nodes[current_node].flow == true && nodes[prev_node].flow == false))
 			nodes[current_node].path_id = nodes[prev_node].path_id;
-		ret = add_to_queue(current_node, prev_node, nodes, &queue, info);
+		ret = add_to_queue(current_node, prev_node, nodes, &queue);
 		if (ret == 0)
 			return (0);
 		if (ret == 2)
 			break ;
 		current_node = delete_from_queue(&queue);
 	}
-	//printf("\n");
-	//printf("\n");
 	free(queue.data);
 	return (1);
 }

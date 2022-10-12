@@ -10,9 +10,11 @@ void	alloc_flows(t_node *nodes, t_info info)
 		nodes[i].flows = (ssize_t *)malloc(sizeof(ssize_t)
 				* nodes[i].edge_count);
 		nodes[i].path_id = -1;
+		nodes[i].is_end = false;
 		ft_bzero(nodes[i].flows, sizeof(ssize_t) * nodes[i].edge_count);
 		i++;
 	}
+	nodes[info.end].is_end = true;
 }
 
 t_path	find_augmenting_paths(t_node *nodes, t_info info)
