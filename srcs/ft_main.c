@@ -46,13 +46,21 @@ void	read_input(char *input_str, int argc, char **argv)
 void	parse_input(char *input_str, t_info *info,
 		char **names, t_node **nodes)
 {
+	char	*copy;
+	unsigned int size;
+
+	size = ft_strlen(input_str);
+
+	copy = (char *)malloc(sizeof(char) * (size + 1));
+	ft_memcpy(copy, input_str, sizeof(char) * size);
+	copy[size] = 0;
 	info->start = -1;
 	info->end = -1;
-	input_str = parse_ant_count(input_str, info);
-	input_str = parse_nodes(input_str, info, names);
+	copy = parse_ant_count(copy, info);
+	copy = parse_nodes(copy, info, names);
 	if (*names == 0 || info->start == -1 || info->end == -1)
 		ft_out("ERROR");
-	*nodes = parse_edges(input_str, *names, info->node_count);
+	*nodes = parse_edges(copy, *names, info->node_count);
 }
 
 char	*generate_result(t_info info, char *names, t_node *nodes)
@@ -62,6 +70,7 @@ char	*generate_result(t_info info, char *names, t_node *nodes)
 
 	path = find_augmenting_paths(nodes, info);
 	path = stuff_ants(path, info);
+	/*
 	{
 		for (int i = 0; i != path.path_count; i++)
 		{
@@ -73,7 +82,6 @@ char	*generate_result(t_info info, char *names, t_node *nodes)
 			printf("\n");
 		}
 	}
-	/*
 	*/
 	res = build_result(path, info.ant_count, names);
 	return (res);

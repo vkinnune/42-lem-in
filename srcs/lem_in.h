@@ -41,6 +41,7 @@ typedef struct s_node {
 	bool	visited;
 	bool	flow;
 	ssize_t	prev_node;
+	ssize_t	path_id;
 }	t_node;
 
 typedef struct s_info {
@@ -111,8 +112,8 @@ char	*build_result(t_path path, size_t ant_count, char *names);
 t_path	stuff_ants(t_path path, t_info info);
 int	add_to_queue(ssize_t current_node,
 		ssize_t prev_node, t_node *nodes, t_stack *queue, t_info info);
-int	augment(t_node *nodes, t_info info);
-void	convert(t_node *nodes, t_info info);
+int	bfs(t_node *nodes, t_info info);
+void	augment(t_node *nodes, t_info info);
 
 #endif
 

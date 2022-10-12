@@ -9,6 +9,7 @@ void	alloc_flows(t_node *nodes, t_info info)
 	{
 		nodes[i].flows = (ssize_t *)malloc(sizeof(ssize_t)
 				* nodes[i].edge_count);
+		nodes[i].path_id = -1;
 		ft_bzero(nodes[i].flows, sizeof(ssize_t) * nodes[i].edge_count);
 		i++;
 	}
@@ -29,11 +30,13 @@ t_path	find_augmenting_paths(t_node *nodes, t_info info)
 		{
 			nodes[i].visited = false;
 			nodes[i].prev_node = -1;
+			nodes[info.start].path_id = -1;
+			nodes[info.end].path_id = -1;
 			i++;
 		}
-		if (!augment(nodes, info))
+		if (!bfs(nodes, info))
 			break ;
-		convert(nodes, info);
+		augment(nodes, info);
 		create_path(paths, nodes, info);
 		if (paths[1].latency < paths[0].latency)
 			paths[0] = paths[1];

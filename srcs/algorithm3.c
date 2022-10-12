@@ -1,4 +1,5 @@
 #include "lem_in.h"
+
 ssize_t	delete_from_queue(t_stack *queue) {
 	size_t	i;
 	ssize_t	ret;
@@ -20,9 +21,13 @@ int	add_to_queue(ssize_t current_node,
 	size_t	i;
 	i = 0;
 
+	//printf("%s: ", &info.global_names[current_node * 32]);
 	while (i != nodes[current_node].edge_count)
 	{
-		if (!(nodes[nodes[current_node].edges[i]].prev_node != -1 && nodes[nodes[current_node].edges[i]].flow == false) && nodes[nodes[current_node].edges[i]].visited == false && nodes[current_node].flows[i] == 0
+		if (!(nodes[current_node].flow == true && nodes[nodes[current_node].edges[i]].flow == true && nodes[current_node].path_id != nodes[nodes[current_node].edges[i]].path_id) &&
+		!(nodes[current_node].path_id == nodes[nodes[current_node].edges[i]].path_id && nodes[current_node].flow == false && nodes[nodes[current_node].edges[i]].flow == true)
+		&& !(nodes[nodes[current_node].edges[i]].prev_node != -1 && nodes[nodes[current_node].edges[i]].flow == false)
+		&& nodes[nodes[current_node].edges[i]].visited == false && nodes[current_node].flows[i] == 0
 		&& (nodes[current_node].flow == false || (nodes[nodes[current_node].edges[i]].flow == true && nodes[prev_node].flow == false)
 		|| (nodes[nodes[current_node].edges[i]].flow == false && nodes[prev_node].flow == true)))
 		{
@@ -30,9 +35,13 @@ int	add_to_queue(ssize_t current_node,
 				nodes[current_node].visited = true;
 			nodes[nodes[current_node].edges[i]].prev_node = current_node;
 			queue->data[queue->size++] = nodes[current_node].edges[i];
+			//printf("%s ", &info.global_names[nodes[current_node].edges[i] * 32]);
+			if (nodes[current_node].edges[i] == info.end)
+				return (2);
 		}
 		i++;
 	}
+	//printf("\n");
 	if (queue->size == 0)
 		return (0);
 	else

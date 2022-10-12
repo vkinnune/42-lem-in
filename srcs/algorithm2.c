@@ -28,16 +28,19 @@ ssize_t	calculate_latency(size_t *sizes, size_t ant_count, size_t path_count)
 	return (latency);
 }
 
-void	convert(t_node *nodes, t_info info)
+void	augment(t_node *nodes, t_info info)
 {
 	ssize_t	current_node;
 	ssize_t	next_node;
 	size_t	i;
+	ssize_t	path_id;
 
 	current_node = info.end;
 	i = 0;
+	path_id = nodes[current_node].prev_node;
 	while (current_node != info.start)
 	{
+		nodes[current_node].path_id = path_id;
 		next_node = nodes[current_node].prev_node;
 		nodes[current_node].flow = true;
 		nodes[next_node].flows[find_edge_id(current_node,
@@ -68,26 +71,33 @@ ssize_t	find_edge_id(ssize_t current_node, ssize_t next_node, t_node *nodes)
 	return (i);
 }
 
-int	augment(t_node *nodes, t_info info)
+int	bfs(t_node *nodes, t_info info)
 {
 	ssize_t	current_node;
 	t_stack	queue;
 	ssize_t	prev_node;
+	int	ret;
 
 	queue.data = (size_t *)malloc((sizeof(size_t) * info.node_count * 300));
 	queue.size = 0;
 	current_node = info.start;
 	nodes[current_node].prev_node = info.start;
+	nodes[current_node].path_id = info.start;
 	prev_node = -1;
 	while (1)
 	{
 		prev_node = nodes[current_node].prev_node;
-		if (current_node == info.end)
-			break ;
-		if (!add_to_queue(current_node, prev_node, nodes, &queue, info))
+		if (!(nodes[current_node].flow == true && nodes[prev_node].flow == false))
+			nodes[current_node].path_id = nodes[prev_node].path_id;
+		ret = add_to_queue(current_node, prev_node, nodes, &queue, info);
+		if (ret == 0)
 			return (0);
+		if (ret == 2)
+			break ;
 		current_node = delete_from_queue(&queue);
 	}
+	//printf("\n");
+	//printf("\n");
 	free(queue.data);
 	return (1);
 }

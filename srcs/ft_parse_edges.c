@@ -21,7 +21,7 @@ t_node	*parse_edges(char *p, char *names, size_t node_count)
 
 	nodes = (t_node *)malloc(sizeof(t_node) * node_count);
 	ft_bzero(nodes, sizeof(t_node) * node_count);
-	while (*p != 0 && p[2] != 0)
+	while (*p != 0 && p[1] != 0)
 	{
 		line_type = comment_or_command(p);
 		if (line_type == START || line_type == END)
@@ -67,6 +67,9 @@ size_t	read_node_a(char **p, char *names, size_t node_count)
 {
 	size_t	i;
 	char	*save;
+	size_t	size;
+	size_t	name_size;
+	size_t	name_size2;
 
 	i = 0;
 	if (**p == '-')
@@ -76,9 +79,12 @@ size_t	read_node_a(char **p, char *names, size_t node_count)
 		(*p)++;
 	if (*p - save > NAME_LENGTH)
 		ft_out("ERROR");
-	while (ft_strncmp(save, &names[i * NAME_LENGTH], ft_strlen(&names[i * NAME_LENGTH]))
+	**p = 0;
+	size = (*p - save) + 1;
+	while (ft_strncmp(save, &names[i * NAME_LENGTH], size)
 		&& i != node_count)
 		i++;
+	**p = '\n';
 	if (i == node_count)
 		ft_out("ERROR");
 	(*p)++;
@@ -89,6 +95,9 @@ size_t	read_node_b(char **p, char *names, size_t node_count)
 {
 	size_t	i;
 	char	*save;
+	size_t	size;
+	ssize_t	name_size;
+	ssize_t	name_size2;
 
 	i = 0;
 	save = *p;
@@ -100,9 +109,12 @@ size_t	read_node_b(char **p, char *names, size_t node_count)
 		ft_out("ERROR");
 	if (**p != '\n')
 		ft_out("ERROR");
-	while (ft_strncmp(save, &names[i * NAME_LENGTH], ft_strlen(&names[i * NAME_LENGTH]))
+	**p = 0;
+	size = (*p - save) + 1;
+	while (ft_strncmp(save, &names[i * NAME_LENGTH], size)
 		&& i != node_count)
 		i++;
+	**p = '\n';
 	if (i == node_count)
 		ft_out("ERROR");
 	(*p)++;
