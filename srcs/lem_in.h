@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:33:02 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 14:41:16 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:05:10 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ typedef struct s_stack {
 	size_t	*data;
 	size_t	size;
 }	t_stack;
+
+typedef struct s_data {
+	char	*str;
+	size_t	tick;
+}	t_data;
 
 void	read_input(char *input_str, int argc, char **argv);
 void	parse_input(char *input_str, t_info *info,
