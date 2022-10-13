@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:54:33 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/05/24 16:30:50 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:44:51 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,3 @@ char	*ft_strdup(const char *s)
 		return (0);
 	return ((char *)ft_memcpy(ns, s, len));
 }
-

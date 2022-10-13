@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algorithm.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 14:06:42 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/10/13 14:22:32 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 void	alloc_flows(t_node *nodes, t_info info)
@@ -46,6 +58,17 @@ t_path	find_augmenting_paths(t_node *nodes, t_info info)
 	return (paths[0]);
 }
 
+t_path	init_alloc_path(t_info info, size_t path_count,
+		size_t current_node, t_path paths)
+{
+	paths.data = ft_realloc(paths.data, 8 * (path_count + 1), 8 * path_count);
+	paths.data[path_count] = (ssize_t *)malloc(sizeof(ssize_t)
+			* info.node_count);
+	paths.data[path_count][0] = info.start;
+	paths.data[path_count][1] = current_node;
+	return (paths);
+}
+
 t_path	alloc_path(t_node *nodes, t_info info, size_t path_count, size_t i)
 {
 	size_t	current_node;
@@ -55,11 +78,7 @@ t_path	alloc_path(t_node *nodes, t_info info, size_t path_count, size_t i)
 
 	len = 2;
 	current_node = nodes[info.start].edges[i];
-	paths.data = ft_realloc(paths.data, 8 * (path_count + 1), 8 * path_count);
-	paths.data[path_count] = (ssize_t *)malloc(sizeof(ssize_t)
-			* info.node_count);
-	paths.data[path_count][0] = info.start;
-	paths.data[path_count][1] = current_node;
+	paths = init_alloc_path(info, path_count, current_node, paths);
 	while (current_node != info.end)
 	{
 		x = 0;
@@ -97,20 +116,3 @@ void	create_path(t_path paths[2], t_node *nodes, t_info info)
 	paths[1].latency = calculate_latency(paths[1].size,
 			info.ant_count, path_count);
 }
-
-size_t	cmp_latency(size_t path_count, size_t *sizes, size_t *sizes_copy)
-{
-	size_t	x;
-	size_t	latency;
-
-	x = 1;
-	latency = sizes_copy[0] + sizes[0];
-	while (x != path_count)
-	{
-		if (latency < sizes_copy[x] + sizes[x])
-			latency = sizes_copy[x] + sizes[x];
-		x++;
-	}
-	return (latency);
-}
-

@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:49 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/07/06 16:27:03 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:44:43 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,10 @@ void	read_input(char *input_str, int argc, char **argv)
 void	parse_input(char *input_str, t_info *info,
 		char **names, t_node **nodes)
 {
-	char	*copy;
-	unsigned int size;
+	char			*copy;
+	unsigned int	size;
 
 	size = ft_strlen(input_str);
-
 	copy = (char *)malloc(sizeof(char) * (size + 1));
 	ft_memcpy(copy, input_str, sizeof(char) * size);
 	copy[size] = 0;
@@ -70,19 +69,6 @@ char	*generate_result(t_info info, char *names, t_node *nodes)
 
 	path = find_augmenting_paths(nodes, info);
 	path = stuff_ants(path, info);
-	/*
-	{
-		for (int i = 0; i != path.path_count; i++)
-		{
-			for (int x = 0; x != path.size[i]; x++)
-			{
-				printf("%s	", &names[path.data[i][x] * NAME_LENGTH]);
-				//printf("%d	", path.data[i][x]);
-			}
-			printf("\n");
-		}
-	}
-	*/
 	res = build_result(path, info.ant_count, names);
 	return (res);
 }
@@ -112,4 +98,3 @@ t_path	stuff_ants(t_path path, t_info info)
 	}
 	return (path);
 }
-

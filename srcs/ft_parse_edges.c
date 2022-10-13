@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:31:35 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/05/24 15:36:33 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:43:22 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,7 @@ size_t	read_node_b(char **p, char *names, size_t node_count)
 	save = *p;
 	while (**p != '\n' && **p != 0)
 		(*p)++;
-	if (*p - save > NAME_LENGTH)
-		ft_out("ERROR");
-	if (*p == save)
-		ft_out("ERROR");
-	if (**p != '\n')
+	if (*p - save > NAME_LENGTH || *p == save || **p != '\n')
 		ft_out("ERROR");
 	**p = 0;
 	size = (*p - save) + 1;
@@ -120,4 +116,3 @@ size_t	read_node_b(char **p, char *names, size_t node_count)
 	(*p)++;
 	return (i);
 }
-

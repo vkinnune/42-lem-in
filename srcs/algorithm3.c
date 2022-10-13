@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algorithm3.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 14:06:58 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/10/13 14:36:21 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 ssize_t	delete_from_queue(t_stack *queue)
@@ -16,6 +28,30 @@ ssize_t	delete_from_queue(t_stack *queue)
 	return (ret);
 }
 
+int	super_long_if_statement(ssize_t current_node,
+		ssize_t prev_node, t_node *nodes, size_t i)
+{
+	if (!(nodes[current_node].flow && nodes[nodes[current_node].edges[i]].flow
+			&& nodes[current_node].path_id
+			!= nodes[nodes[current_node].edges[i]].path_id)
+		&& !(nodes[current_node].path_id
+			== nodes[nodes[current_node].edges[i]].path_id
+			&& !nodes[current_node].flow
+			&& nodes[nodes[current_node].edges[i]].flow)
+		&& !(nodes[nodes[current_node].edges[i]].prev_node != -1
+			&& !nodes[nodes[current_node].edges[i]].flow)
+		&& !nodes[nodes[current_node].edges[i]].visited
+		&& !nodes[current_node].flows[i]
+		&& (!nodes[current_node].flow
+			|| (nodes[nodes[current_node].edges[i]].flow
+				&& !nodes[prev_node].flow)
+			|| (!nodes[nodes[current_node].edges[i]].flow
+				&& nodes[prev_node].flow)))
+		return (1);
+	else
+		return (0);
+}
+
 int	add_to_queue(ssize_t current_node,
 		ssize_t prev_node, t_node *nodes, t_stack *queue)
 {
@@ -24,20 +60,10 @@ int	add_to_queue(ssize_t current_node,
 	i = 0;
 	while (i != nodes[current_node].edge_count)
 	{
-		if (!(nodes[current_node].flow == true
-				&& nodes[nodes[current_node].edges[i]].flow == true
-				&& nodes[current_node].path_id
-				!= nodes[nodes[current_node].edges[i]].path_id)
-			&& !(nodes[current_node].path_id
-			== nodes[nodes[current_node].edges[i]].path_id
-				&& nodes[current_node].flow == false
-				&& nodes[nodes[current_node].edges[i]].flow == true)
-		&& !(nodes[nodes[current_node].edges[i]].prev_node != -1 && nodes[nodes[current_node].edges[i]].flow == false)
-		&& nodes[nodes[current_node].edges[i]].visited == false && nodes[current_node].flows[i] == 0
-		&& (nodes[current_node].flow == false || (nodes[nodes[current_node].edges[i]].flow == true && nodes[prev_node].flow == false)
-		|| (nodes[nodes[current_node].edges[i]].flow == false && nodes[prev_node].flow == true)))
+		if (super_long_if_statement(current_node, prev_node, nodes, i))
 		{
-			if (!(nodes[current_node].flow && nodes[nodes[current_node].edges[i]].flow))
+			if (!(nodes[current_node].flow
+					&& nodes[nodes[current_node].edges[i]].flow))
 				nodes[current_node].visited = true;
 			nodes[nodes[current_node].edges[i]].prev_node = current_node;
 			queue->data[queue->size++] = nodes[current_node].edges[i];
@@ -52,3 +78,18 @@ int	add_to_queue(ssize_t current_node,
 		return (1);
 }
 
+size_t	cmp_latency(size_t path_count, size_t *sizes, size_t *sizes_copy)
+{
+	size_t	x;
+	size_t	latency;
+
+	x = 1;
+	latency = sizes_copy[0] + sizes[0];
+	while (x != path_count)
+	{
+		if (latency < sizes_copy[x] + sizes[x])
+			latency = sizes_copy[x] + sizes[x];
+		x++;
+	}
+	return (latency);
+}

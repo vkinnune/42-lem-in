@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:33:02 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/05/24 15:43:11 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:41:16 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 
 # define READ_SIZE 2000000
 # define NAME_LENGTH 32
-
 
 enum	e_type
 {
@@ -98,6 +97,7 @@ char	*ft_strcpy(char *dest, const char *src);
 char	*ft_strcat(char *dest, const char *src);
 void	*ft_realloc(void *ptr, size_t new_size, size_t old_size);
 
+char	*make_instruction(ssize_t pos, size_t ant, char *names, ssize_t *path);
 t_path	find_augmenting_paths(t_node *nodes, t_info info);
 void	create_path(t_path paths[2], t_node *nodes, t_info info);
 ssize_t	find_edge_id(ssize_t current_node, ssize_t next_node, t_node *nodes);
@@ -105,16 +105,13 @@ ssize_t	delete_from_queue(t_stack *queue);
 char	*generate_result(t_info info, char *names, t_node *nodes);
 ssize_t	calculate_latency(size_t *sizes, size_t ant_count, size_t path_count);
 size_t	handle_nums(char *str, size_t ant);
-char	*make_instruction(ssize_t pos, size_t ant, char *names, size_t *path);
 char	*result_cat(char *str, char *ins);
 char	*add_newline(char *str);
 size_t	cmp_latency(size_t path_count, size_t *sizes, size_t *sizes_copy);
 char	*build_result(t_path path, size_t ant_count, char *names);
 t_path	stuff_ants(t_path path, t_info info);
-int	bfs(t_node *nodes, t_info info);
+int		bfs(t_node *nodes, t_info info);
 void	augment(t_node *nodes, t_info info);
-int	add_to_queue(ssize_t current_node,
-		ssize_t prev_node, t_node *nodes, t_stack *queue);
-
+int		add_to_queue(ssize_t current_node,
+			ssize_t prev_node, t_node *nodes, t_stack *queue);
 #endif
-

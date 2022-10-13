@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algorithm2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 14:06:52 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/10/13 14:25:53 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 ssize_t	calculate_latency(size_t *sizes, size_t ant_count, size_t path_count)
@@ -76,7 +88,7 @@ int	bfs(t_node *nodes, t_info info)
 	ssize_t	current_node;
 	t_stack	queue;
 	ssize_t	prev_node;
-	int	ret;
+	int		ret;
 
 	queue.data = (size_t *)malloc((sizeof(size_t) * info.node_count * 300));
 	queue.size = 0;
@@ -84,19 +96,17 @@ int	bfs(t_node *nodes, t_info info)
 	nodes[current_node].prev_node = info.start;
 	nodes[current_node].path_id = info.start;
 	prev_node = -1;
-	while (1)
+	while (ret != 2)
 	{
 		prev_node = nodes[current_node].prev_node;
-		if (!(nodes[current_node].flow == true && nodes[prev_node].flow == false))
+		if (!(nodes[current_node].flow == true
+				&& nodes[prev_node].flow == false))
 			nodes[current_node].path_id = nodes[prev_node].path_id;
 		ret = add_to_queue(current_node, prev_node, nodes, &queue);
 		if (ret == 0)
 			return (0);
-		if (ret == 2)
-			break ;
 		current_node = delete_from_queue(&queue);
 	}
 	free(queue.data);
 	return (1);
 }
-

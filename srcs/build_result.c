@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_result.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 14:07:07 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/10/13 14:19:06 by vkinnune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 size_t	add_ants(size_t *flow, size_t path_index)
@@ -57,7 +69,7 @@ char	*build_result(t_path path, size_t ant_count, char *names)
 	return (str);
 }
 
-char	*make_instruction(ssize_t pos, size_t ant, char *names, size_t *path)
+char	*make_instruction(ssize_t pos, size_t ant, char *names, ssize_t *path)
 {
 	char	str[1000];
 	size_t	i;
