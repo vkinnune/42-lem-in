@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:33:02 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 15:05:10 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:42:55 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ enum	e_type
 
 typedef struct s_node {
 	size_t	edge_count;
-	size_t	*edges;
+	ssize_t	*edges;
 	ssize_t	*flows;
 	bool	visited;
 	bool	flow;
@@ -55,8 +55,8 @@ typedef struct s_info {
 typedef struct s_path {
 	ssize_t	latency;
 	ssize_t	**data;
-	size_t	*size;
-	size_t	*flow;
+	ssize_t	*size;
+	ssize_t	*flow;
 	size_t	path_count;
 }	t_path;
 
@@ -67,7 +67,7 @@ typedef struct s_stack {
 
 typedef struct s_data {
 	char	*str;
-	size_t	tick;
+	ssize_t	tick;
 }	t_data;
 
 void	read_input(char *input_str, int argc, char **argv);
@@ -108,15 +108,15 @@ void	create_path(t_path paths[2], t_node *nodes, t_info info);
 ssize_t	find_edge_id(ssize_t current_node, ssize_t next_node, t_node *nodes);
 ssize_t	delete_from_queue(t_stack *queue);
 char	*generate_result(t_info info, char *names, t_node *nodes);
-ssize_t	calculate_latency(size_t *sizes, size_t ant_count, size_t path_count);
 size_t	handle_nums(char *str, size_t ant);
 char	*result_cat(char *str, char *ins);
 char	*add_newline(char *str);
-size_t	cmp_latency(size_t path_count, size_t *sizes, size_t *sizes_copy);
-char	*build_result(t_path path, size_t ant_count, char *names);
+char	*build_result(t_path path, char *names);
 t_path	stuff_ants(t_path path, t_info info);
 int		bfs(t_node *nodes, t_info info);
 void	augment(t_node *nodes, t_info info);
 int		add_to_queue(ssize_t current_node,
 			ssize_t prev_node, t_node *nodes, t_stack *queue);
+ssize_t	calculate_latency(ssize_t *sizes, size_t ant_count, size_t path_count);
+size_t	cmp_latency(size_t path_count, ssize_t *sizes, ssize_t *sizes_copy);
 #endif

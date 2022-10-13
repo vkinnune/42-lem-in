@@ -6,13 +6,13 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:07:07 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 15:06:53 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:41:43 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-size_t	add_ants(size_t *flow, size_t path_index)
+size_t	add_ants(ssize_t *flow, size_t path_index)
 {
 	size_t	res;
 	size_t	i;
@@ -30,7 +30,7 @@ size_t	add_ants(size_t *flow, size_t path_index)
 char	*loop_flows(t_path path,
 		char *names, size_t path_index, t_data data)
 {
-	size_t	ant;
+	ssize_t	ant;
 	ssize_t	pos;
 
 	ant = 1;
@@ -47,7 +47,7 @@ char	*loop_flows(t_path path,
 	return (data.str);
 }
 
-char	*build_result(t_path path, size_t ant_count, char *names)
+char	*build_result(t_path path, char *names)
 {
 	size_t	path_index;
 	t_data	data;

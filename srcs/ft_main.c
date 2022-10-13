@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:49 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 14:44:43 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:42:24 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*generate_result(t_info info, char *names, t_node *nodes)
 
 	path = find_augmenting_paths(nodes, info);
 	path = stuff_ants(path, info);
-	res = build_result(path, info.ant_count, names);
+	res = build_result(path, names);
 	return (res);
 }
 
@@ -80,7 +80,7 @@ t_path	stuff_ants(t_path path, t_info info)
 	size_t	save_index;
 
 	ant_count = info.ant_count;
-	path.flow = (size_t *)malloc(path.path_count * sizeof(size_t *));
+	path.flow = (ssize_t *)malloc(path.path_count * sizeof(size_t *));
 	ft_bzero(path.flow, path.path_count * sizeof(size_t *));
 	while (ant_count)
 	{

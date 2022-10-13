@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:58 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 14:36:21 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:40:10 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ int	add_to_queue(ssize_t current_node,
 		return (1);
 }
 
-size_t	cmp_latency(size_t path_count, size_t *sizes, size_t *sizes_copy)
+size_t	cmp_latency(size_t path_count, ssize_t *sizes, ssize_t *sizes_copy)
 {
 	size_t	x;
-	size_t	latency;
+	ssize_t	latency;
 
 	x = 1;
 	latency = sizes_copy[0] + sizes[0];

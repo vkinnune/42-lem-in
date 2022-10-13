@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:42 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 14:22:32 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:34:05 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,14 @@ t_path	init_alloc_path(t_info info, size_t path_count,
 
 t_path	alloc_path(t_node *nodes, t_info info, size_t path_count, size_t i)
 {
-	size_t	current_node;
+	ssize_t	current_node;
 	size_t	len;
 	size_t	x;
 	t_path	paths;
 
 	len = 2;
 	current_node = nodes[info.start].edges[i];
+	ft_bzero(&paths, sizeof(t_path));
 	paths = init_alloc_path(info, path_count, current_node, paths);
 	while (current_node != info.end)
 	{

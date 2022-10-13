@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:31:35 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 14:43:22 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:36:02 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,19 @@ t_node	*parse_edges(char *p, char *names, size_t node_count)
 
 void	add_edges(size_t in, size_t out, t_node *nodes)
 {
-	size_t	*edges;
+	ssize_t	*edges;
 
 	if (nodes[in].edge_count == 0)
 	{
-		nodes[in].edges = (size_t *)malloc(sizeof(size_t) * 1);
-		ft_bzero(nodes[in].edges, sizeof(size_t) * 1);
+		nodes[in].edges = (ssize_t *)malloc(sizeof(ssize_t) * 1);
+		ft_bzero(nodes[in].edges, sizeof(ssize_t) * 1);
 	}
 	else
 	{
-		edges = (size_t *)malloc(sizeof(size_t) * (nodes[in].edge_count + 1));
-		ft_bzero(edges, sizeof(size_t) * (nodes[in].edge_count + 1));
+		edges = (ssize_t *)malloc(sizeof(ssize_t) * (nodes[in].edge_count + 1));
+		ft_bzero(edges, sizeof(ssize_t) * (nodes[in].edge_count + 1));
 		ft_memcpy(edges, nodes[in].edges, (nodes[in].edge_count
-				* sizeof(size_t)));
+				* sizeof(ssize_t)));
 		free(nodes[in].edges);
 		nodes[in].edges = edges;
 	}
@@ -68,8 +68,6 @@ size_t	read_node_a(char **p, char *names, size_t node_count)
 	size_t	i;
 	char	*save;
 	size_t	size;
-	size_t	name_size;
-	size_t	name_size2;
 
 	i = 0;
 	if (**p == '-')
@@ -96,8 +94,6 @@ size_t	read_node_b(char **p, char *names, size_t node_count)
 	size_t	i;
 	char	*save;
 	size_t	size;
-	ssize_t	name_size;
-	ssize_t	name_size2;
 
 	i = 0;
 	save = *p;
