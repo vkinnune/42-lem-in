@@ -41,6 +41,7 @@ char	*build_result(t_path path, size_t ant_count, char *names)
 	char	*str;
 
 	tick = 0;
+	//str = (char *)malloc(sizeof(char) * 50000);
 	str = 0;
 	while (tick <= path.latency - 1)
 	{
