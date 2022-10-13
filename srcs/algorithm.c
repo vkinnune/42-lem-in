@@ -78,7 +78,6 @@ t_path	alloc_path(t_node *nodes, t_info info, size_t path_count, size_t i)
 
 	len = 2;
 	current_node = nodes[info.start].edges[i];
-	ft_bzero(&paths, sizeof(t_path));
 	paths = init_alloc_path(info, path_count, current_node, paths);
 	while (current_node != info.end)
 	{
@@ -117,3 +116,4 @@ void	create_path(t_path paths[2], t_node *nodes, t_info info)
 	paths[1].latency = calculate_latency(paths[1].size,
 			info.ant_count, path_count);
 }
+

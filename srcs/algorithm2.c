@@ -44,11 +44,9 @@ void	augment(t_node *nodes, t_info info)
 {
 	ssize_t	current_node;
 	ssize_t	next_node;
-	size_t	i;
 	ssize_t	path_id;
 
 	current_node = info.end;
-	i = 0;
 	path_id = nodes[current_node].prev_node;
 	while (current_node != info.start)
 	{
@@ -111,3 +109,4 @@ int	bfs(t_node *nodes, t_info info)
 	free(queue.data);
 	return (1);
 }
+
