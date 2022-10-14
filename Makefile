@@ -17,7 +17,6 @@ C_FLAGS			=	-Wall -Wextra -Werror -g
 all: $(NAME)
 
 $(NAME): pre_requisites $(OBJ_PATHS)
-	@touch pre_requisites
 	cc $(C_FLAGS) -I $(H_FOLDER) -o $@ $(OBJ_PATHS)
 
 $(OBJ_PATHS): $(OBJ_FOLDER)/%.o:$(C_FOLDER)/%.c $(H_PATHS)
@@ -51,7 +50,6 @@ clean:
 fclean: clean
 	-@rm -f $(NAME)
 	-@rm -fd $(OBJ_FOLDER)
-	-@rm -f pre_requisites
 	@echo "$(NAME) file is removed!"
 
 .PHONY: re

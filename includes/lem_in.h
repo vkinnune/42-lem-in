@@ -15,11 +15,10 @@
 
 # include <stdint.h>
 # include <stdlib.h>
-# include <unistd.h>
+# include <unistd.h> //delete unused
 # include <limits.h>
 # include <stdbool.h>
 # include <fcntl.h>
-# include <stdio.h>
 
 # define READ_SIZE 2000000
 # define NAME_LENGTH 32
@@ -120,3 +119,4 @@ int		add_to_queue(ssize_t current_node,
 ssize_t	calculate_latency(ssize_t *sizes, size_t ant_count, size_t path_count);
 size_t	cmp_latency(size_t path_count, ssize_t *sizes, ssize_t *sizes_copy);
 #endif
+
