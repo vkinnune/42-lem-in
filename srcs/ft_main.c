@@ -98,3 +98,4 @@ t_path	stuff_ants(t_path path, t_info info)
 	}
 	return (path);
 }
+
