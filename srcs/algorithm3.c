@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:58 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 15:40:10 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/14 14:06:19 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	add_to_queue(ssize_t current_node,
 		}
 		i++;
 	}
-	if (queue->size == 0)
+	if (queue->size <= 0)
 		return (0);
 	else
 		return (1);

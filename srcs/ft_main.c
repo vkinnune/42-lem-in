@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:49 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/14 14:01:43 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/14 14:10:48 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	main(int argc, char **argv)
 
 	read_input(input_str, argc, argv);
 	parse_input(input_str, &info, &names, &nodes);
-	write (1, input_str, ft_strlen(input_str));
 	res = generate_result(info, names, nodes);
+	write (1, input_str, ft_strlen(input_str));
 	write (1, res, ft_strlen(res));
 }
 
@@ -67,6 +67,8 @@ char	*generate_result(t_info info, char *names, t_node *nodes)
 	t_path	path;
 
 	path = find_augmenting_paths(nodes, info);
+	if (path.latency == INT_MAX)
+		ft_out("ERROR");
 	path = stuff_ants(path, info);
 	res = build_result(path, names);
 	return (res);
