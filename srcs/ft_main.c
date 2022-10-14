@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:49 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/14 13:46:39 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/14 14:01:43 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 	read_input(input_str, argc, argv);
 	parse_input(input_str, &info, &names, &nodes);
 	write (1, input_str, ft_strlen(input_str));
-	info.global_names = names;
 	res = generate_result(info, names, nodes);
 	write (1, res, ft_strlen(res));
 }

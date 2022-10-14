@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:33:02 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 15:42:55 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/14 14:01:24 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_info {
 	size_t	node_count;
 	ssize_t	start;
 	ssize_t	end;
-	char	*global_names;
+	size_t	i;
 }	t_info;
 
 typedef struct s_path {

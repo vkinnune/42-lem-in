@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:42 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/14 13:46:31 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/14 14:01:00 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,15 @@ t_path	init_alloc_path(t_info info, size_t path_count,
 	return (paths);
 }
 
-t_path	alloc_path(t_node *nodes, t_info info, size_t path_count, size_t i)
+t_path	alloc_path(t_node *nodes, t_info info, size_t path_count, t_path paths)
 {
 	ssize_t	current_node;
 	size_t	len;
 	size_t	x;
-	t_path	paths;
+	size_t	i;
 
 	len = 2;
+	i = info.i;
 	current_node = nodes[info.start].edges[i];
 	paths = init_alloc_path(info, path_count, current_node, paths);
 	while (current_node != info.end)
@@ -107,7 +108,8 @@ void	create_path(t_path paths[2], t_node *nodes, t_info info)
 	{
 		if (nodes[info.start].flows[i] == 1)
 		{
-			paths[1] = alloc_path(nodes, info, path_count, i);
+			info.i = i;
+			paths[1] = alloc_path(nodes, info, path_count, paths[1]);
 			path_count++;
 		}
 		i++;
