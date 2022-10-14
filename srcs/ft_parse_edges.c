@@ -112,3 +112,4 @@ size_t	read_node_b(char **p, char *names, size_t node_count)
 	(*p)++;
 	return (i);
 }
+

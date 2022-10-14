@@ -26,6 +26,7 @@ char	*parse_ant_count(const char *input_str, t_info *info)
 		{
 			while (*p != '\n')
 				p++;
+			p++;
 			continue ;
 		}
 		break ;
@@ -49,3 +50,4 @@ char	*ant_num(char *p, t_info *info)
 	}
 	return (p);
 }
+
