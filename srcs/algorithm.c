@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:42 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 15:34:05 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/14 13:46:31 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,3 @@ void	create_path(t_path paths[2], t_node *nodes, t_info info)
 	paths[1].latency = calculate_latency(paths[1].size,
 			info.ant_count, path_count);
 }
-

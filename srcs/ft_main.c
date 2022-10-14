@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:49 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 15:42:24 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/14 13:46:39 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,3 @@ t_path	stuff_ants(t_path path, t_info info)
 	}
 	return (path);
 }
-

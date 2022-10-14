@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:52 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 15:39:59 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/14 13:46:35 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,3 @@ int	bfs(t_node *nodes, t_info info)
 	free(queue.data);
 	return (1);
 }
-
