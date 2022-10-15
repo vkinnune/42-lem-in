@@ -37,6 +37,7 @@ ssize_t	calculate_latency(ssize_t *sizes, size_t ant_count, size_t path_count)
 		i++;
 	}
 	latency = cmp_latency(path_count, sizes, sizes_copy);
+	free(sizes_copy);
 	return (latency);
 }
 
@@ -103,9 +104,28 @@ int	bfs(t_node *nodes, t_info info)
 			nodes[current_node].path_id = nodes[prev_node].path_id;
 		ret = add_to_queue(current_node, prev_node, nodes, &queue);
 		if (ret == 0)
-			return (0);
+			break;
 		current_node = delete_from_queue(&queue);
 	}
 	free(queue.data);
+	if (ret == 0)
+		return (0);
 	return (1);
 }
+
+void	free_stuff(t_node *nodes, char *names, char *res, size_t node_count)
+{
+	size_t	i;
+
+	i = 0;
+	while (i != node_count)
+	{
+		free(nodes[i].edges);
+		free(nodes[i].flows);
+		i++;
+	}
+	free(names);
+	free(res);
+	free(nodes);
+}
+

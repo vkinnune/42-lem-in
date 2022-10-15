@@ -93,3 +93,20 @@ size_t	cmp_latency(size_t path_count, ssize_t *sizes, ssize_t *sizes_copy)
 	}
 	return (latency);
 }
+
+t_path	free_paths(t_path old_path, t_path new_path)
+{
+	size_t	i;
+
+	i = 0;
+	free(old_path.flow);
+	free(old_path.size);
+	while (i != old_path.path_count)
+	{
+		free(old_path.data[i]);
+		i++;
+	}
+	free(old_path.data);
+	return (new_path);
+}
+

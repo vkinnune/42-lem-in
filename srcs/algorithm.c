@@ -53,7 +53,7 @@ t_path	find_augmenting_paths(t_node *nodes, t_info info)
 		augment(nodes, info);
 		create_path(paths, nodes, info);
 		if (paths[1].latency < paths[0].latency)
-			paths[0] = paths[1];
+			paths[0] = free_paths(paths[0], paths[1]);
 	}
 	return (paths[0]);
 }
@@ -61,7 +61,8 @@ t_path	find_augmenting_paths(t_node *nodes, t_info info)
 t_path	init_alloc_path(t_info info, size_t path_count,
 		size_t current_node, t_path paths)
 {
-	paths.data = ft_realloc(paths.data, 8 * (path_count + 1), 8 * path_count);
+	paths.data = ft_realloc(paths.data, 8 * (path_count + 1), 8 * path_count); //wtf is this TODO leaks???
+	//paths.data = (ssize_t **)malloc(8 * (path_count + 1));
 	paths.data[path_count] = (ssize_t *)malloc(sizeof(ssize_t)
 			* info.node_count);
 	paths.data[path_count][0] = info.start;
@@ -118,3 +119,4 @@ void	create_path(t_path paths[2], t_node *nodes, t_info info)
 	paths[1].latency = calculate_latency(paths[1].size,
 			info.ant_count, path_count);
 }
+

@@ -15,8 +15,8 @@
 
 # include <stdint.h>
 # include <stdlib.h>
-# include <unistd.h> //delete unused
 # include <limits.h>
+# include <unistd.h>
 # include <stdbool.h>
 # include <fcntl.h>
 
@@ -118,5 +118,7 @@ int		add_to_queue(ssize_t current_node,
 			ssize_t prev_node, t_node *nodes, t_stack *queue);
 ssize_t	calculate_latency(ssize_t *sizes, size_t ant_count, size_t path_count);
 size_t	cmp_latency(size_t path_count, ssize_t *sizes, ssize_t *sizes_copy);
+t_path	free_paths(t_path old_path, t_path new_path);
+void	free_stuff(t_node *nodes, char *names, char *res, size_t node_count);
 #endif
 
