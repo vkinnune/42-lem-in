@@ -61,10 +61,8 @@ t_path	find_augmenting_paths(t_node *nodes, t_info info)
 t_path	init_alloc_path(t_info info, size_t path_count,
 		size_t current_node, t_path paths)
 {
-	paths.data = ft_realloc(paths.data, 8 * (path_count + 1), 8 * path_count); //wtf is this TODO leaks???
-	//paths.data = (ssize_t **)malloc(8 * (path_count + 1));
-	paths.data[path_count] = (ssize_t *)malloc(sizeof(ssize_t)
-			* info.node_count);
+	paths.data = ft_realloc(paths.data, 8 * (path_count + 1), 8 * path_count);
+	paths.data[path_count] = (ssize_t *)malloc(sizeof(ssize_t) * info.node_count);
 	paths.data[path_count][0] = info.start;
 	paths.data[path_count][1] = current_node;
 	return (paths);
@@ -105,6 +103,7 @@ void	create_path(t_path paths[2], t_node *nodes, t_info info)
 
 	path_count = 0;
 	i = 0;
+	ft_bzero(&paths[1], sizeof(t_path));
 	while (i != nodes[info.start].edge_count)
 	{
 		if (nodes[info.start].flows[i] == 1)
