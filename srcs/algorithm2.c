@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:52 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/14 13:46:35 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:12:36 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,13 @@ ssize_t	find_edge_id(ssize_t current_node, ssize_t next_node, t_node *nodes)
 	return (i);
 }
 
+void	init_bfs(t_node *nodes, t_info info, ssize_t *current_node)
+{
+	*current_node = info.start;
+	nodes[*current_node].prev_node = info.start;
+	nodes[*current_node].path_id = info.start;
+}
+
 int	bfs(t_node *nodes, t_info info)
 {
 	ssize_t	current_node;
@@ -91,9 +98,7 @@ int	bfs(t_node *nodes, t_info info)
 
 	queue.data = (size_t *)malloc((sizeof(size_t) * info.node_count * 300));
 	queue.size = 0;
-	current_node = info.start;
-	nodes[current_node].prev_node = info.start;
-	nodes[current_node].path_id = info.start;
+	init_bfs(nodes, info, &current_node);
 	prev_node = -1;
 	ret = 0;
 	while (ret != 2)
@@ -104,7 +109,7 @@ int	bfs(t_node *nodes, t_info info)
 			nodes[current_node].path_id = nodes[prev_node].path_id;
 		ret = add_to_queue(current_node, prev_node, nodes, &queue);
 		if (ret == 0)
-			break;
+			break ;
 		current_node = delete_from_queue(&queue);
 	}
 	free(queue.data);
@@ -112,20 +117,3 @@ int	bfs(t_node *nodes, t_info info)
 		return (0);
 	return (1);
 }
-
-void	free_stuff(t_node *nodes, char *names, char *res, size_t node_count)
-{
-	size_t	i;
-
-	i = 0;
-	while (i != node_count)
-	{
-		free(nodes[i].edges);
-		free(nodes[i].flows);
-		i++;
-	}
-	free(names);
-	free(res);
-	free(nodes);
-}
-

@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:49 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/14 14:10:48 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:10:53 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char	*generate_result(t_info info, char *names, t_node *nodes)
 	path = stuff_ants(path, info);
 	res = build_result(path, names);
 	free_paths(path, path);
+	free(path.flow);
 	return (res);
 }
 
@@ -104,4 +105,3 @@ t_path	stuff_ants(t_path path, t_info info)
 	}
 	return (path);
 }
-

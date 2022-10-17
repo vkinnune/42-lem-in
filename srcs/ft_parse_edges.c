@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:31:35 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 15:36:02 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:06:32 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,3 @@ size_t	read_node_b(char **p, char *names, size_t node_count)
 	(*p)++;
 	return (i);
 }
-

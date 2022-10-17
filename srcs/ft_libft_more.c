@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:54:33 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 14:44:51 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:10:31 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,20 @@ char	*ft_strdup(const char *s)
 	if (ns == 0)
 		return (0);
 	return ((char *)ft_memcpy(ns, s, len));
+}
+
+void	free_stuff(t_node *nodes, char *names, char *res, size_t node_count)
+{
+	size_t	i;
+
+	i = 0;
+	while (i != node_count)
+	{
+		free(nodes[i].edges);
+		free(nodes[i].flows);
+		i++;
+	}
+	free(names);
+	free(res);
+	free(nodes);
 }

@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:58 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/14 14:06:19 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:10:20 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,17 @@ size_t	cmp_latency(size_t path_count, ssize_t *sizes, ssize_t *sizes_copy)
 t_path	free_paths(t_path old_path, t_path new_path)
 {
 	size_t	i;
+	t_path	temp;
 
 	i = 0;
-	if (old_path.path_count != 0)
+	if (new_path.latency > old_path.latency)
 	{
-		free(old_path.flow);
+		temp = new_path;
+		new_path = old_path;
+		old_path = temp;
+	}
+	if (old_path.path_count)
+	{
 		free(old_path.size);
 		while (i != old_path.path_count)
 		{
@@ -112,4 +118,3 @@ t_path	free_paths(t_path old_path, t_path new_path)
 	}
 	return (new_path);
 }
-
