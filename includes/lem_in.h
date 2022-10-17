@@ -121,4 +121,3 @@ size_t	cmp_latency(size_t path_count, ssize_t *sizes, ssize_t *sizes_copy);
 t_path	free_paths(t_path old_path, t_path new_path);
 void	free_stuff(t_node *nodes, char *names, char *res, size_t node_count);
 #endif
-
