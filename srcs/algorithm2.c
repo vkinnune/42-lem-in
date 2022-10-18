@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <stdio.h>
 
 int64_t	calculate_latency(int64_t *sizes, uint64_t ant_count, uint64_t path_count)
 {
@@ -60,9 +61,9 @@ void	augment(t_node *nodes, t_info info)
 					current_node, nodes)] == 1)
 		{
 			nodes[current_node].flows[find_edge_id(next_node,
-					current_node, nodes)] = 0;
+					current_node, nodes)] = -1;
 			nodes[next_node].flows[find_edge_id(current_node,
-					next_node, nodes)] = 0;
+					next_node, nodes)] = -1;
 		}
 		current_node = next_node;
 	}
@@ -107,7 +108,7 @@ int	bfs(t_node *nodes, t_info info)
 		if (!(nodes[current_node].flow == true
 				&& nodes[prev_node].flow == false))
 			nodes[current_node].path_id = nodes[prev_node].path_id;
-		ret = add_to_queue(current_node, prev_node, nodes, &queue);
+		ret = add_to_queue(current_node, prev_node, nodes, &queue, info);
 		if (ret == 0)
 			break ;
 		current_node = delete_from_queue(&queue);

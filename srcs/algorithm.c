@@ -53,6 +53,7 @@ t_path	find_augmenting_paths(t_node *nodes, t_info info)
 		augment(nodes, info);
 		create_path(paths, nodes, info);
 		paths[0] = free_paths(paths[0], paths[1]);
+		//printf("\n");
 	}
 	return (paths[0]);
 }

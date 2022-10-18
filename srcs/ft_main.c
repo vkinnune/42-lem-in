@@ -22,6 +22,7 @@ int	main(int argc, char **argv)
 
 	read_input(input_str, argc, argv);
 	parse_input(input_str, &info, &names, &nodes);
+	info.names = names;
 	res = generate_result(info, names, nodes);
 	write (1, input_str, ft_strlen(input_str));
 	write (1, res, ft_strlen(res));

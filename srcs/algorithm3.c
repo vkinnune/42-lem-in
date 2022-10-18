@@ -46,6 +46,8 @@ int	super_long_if_statement(int64_t current_node,
 			|| (nodes[nodes[current_node].edges[i]].flow
 				&& !nodes[prev_node].flow)
 			|| (!nodes[nodes[current_node].edges[i]].flow
+				&& nodes[prev_node].flow)
+			|| (nodes[nodes[current_node].edges[i]].flow
 				&& nodes[prev_node].flow)))
 		return (1);
 	else
@@ -53,11 +55,13 @@ int	super_long_if_statement(int64_t current_node,
 }
 
 int	add_to_queue(int64_t current_node,
-		int64_t prev_node, t_node *nodes, t_stack *queue)
+		int64_t prev_node, t_node *nodes, t_stack *queue, t_info info)
 {
 	uint64_t	i;
 
 	i = 0;
+	//printf("\n");
+	//printf("%s: ", &info.names[current_node * 32]);
 	while (i != nodes[current_node].edge_count)
 	{
 		if (super_long_if_statement(current_node, prev_node, nodes, i))
@@ -67,6 +71,8 @@ int	add_to_queue(int64_t current_node,
 				nodes[current_node].visited = true;
 			nodes[nodes[current_node].edges[i]].prev_node = current_node;
 			queue->data[queue->size++] = nodes[current_node].edges[i];
+			//printf("%s ", &info.names[nodes[current_node].edges[i] * 32]);
+			//sleep(1);
 			if (nodes[nodes[current_node].edges[i]].is_end)
 				return (2);
 		}

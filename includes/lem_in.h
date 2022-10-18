@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 # define READ_SIZE 2000000
 # define NAME_LENGTH 32
@@ -49,6 +50,7 @@ typedef struct s_info {
 	int64_t	start;
 	int64_t	end;
 	uint64_t	i;
+	char	*names;
 }	t_info;
 
 typedef struct s_path {
@@ -114,7 +116,7 @@ t_path	stuff_ants(t_path path, t_info info);
 int		bfs(t_node *nodes, t_info info);
 void	augment(t_node *nodes, t_info info);
 int		add_to_queue(int64_t current_node,
-			int64_t prev_node, t_node *nodes, t_stack *queue);
+			int64_t prev_node, t_node *nodes, t_stack *queue, t_info info);
 int64_t	calculate_latency(int64_t *sizes, uint64_t ant_count, uint64_t path_count);
 uint64_t	cmp_latency(uint64_t path_count, int64_t *sizes, int64_t *sizes_copy);
 t_path	free_paths(t_path old_path, t_path new_path);
