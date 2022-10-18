@@ -12,12 +12,12 @@
 
 #include "lem_in.h"
 
-t_node	*parse_edges(char *p, char *names, size_t node_count)
+t_node	*parse_edges(char *p, char *names, uint64_t node_count)
 {
 	t_node		*nodes;
 	enum e_type	line_type;
-	size_t		node_a;
-	size_t		node_b;
+	uint64_t		node_a;
+	uint64_t		node_b;
 
 	nodes = (t_node *)malloc(sizeof(t_node) * node_count);
 	ft_bzero(nodes, sizeof(t_node) * node_count);
@@ -41,21 +41,21 @@ t_node	*parse_edges(char *p, char *names, size_t node_count)
 	return (nodes);
 }
 
-void	add_edges(size_t in, size_t out, t_node *nodes)
+void	add_edges(uint64_t in, uint64_t out, t_node *nodes)
 {
-	ssize_t	*edges;
+	int64_t	*edges;
 
 	if (nodes[in].edge_count == 0)
 	{
-		nodes[in].edges = (ssize_t *)malloc(sizeof(ssize_t) * 1);
-		ft_bzero(nodes[in].edges, sizeof(ssize_t) * 1);
+		nodes[in].edges = (int64_t *)malloc(sizeof(int64_t) * 1);
+		ft_bzero(nodes[in].edges, sizeof(int64_t) * 1);
 	}
 	else
 	{
-		edges = (ssize_t *)malloc(sizeof(ssize_t) * (nodes[in].edge_count + 1));
-		ft_bzero(edges, sizeof(ssize_t) * (nodes[in].edge_count + 1));
+		edges = (int64_t *)malloc(sizeof(int64_t) * (nodes[in].edge_count + 1));
+		ft_bzero(edges, sizeof(int64_t) * (nodes[in].edge_count + 1));
 		ft_memcpy(edges, nodes[in].edges, (nodes[in].edge_count
-				* sizeof(ssize_t)));
+				* sizeof(int64_t)));
 		free(nodes[in].edges);
 		nodes[in].edges = edges;
 	}
@@ -63,11 +63,11 @@ void	add_edges(size_t in, size_t out, t_node *nodes)
 	nodes[in].edge_count++;
 }
 
-size_t	read_node_a(char **p, char *names, size_t node_count)
+uint64_t	read_node_a(char **p, char *names, uint64_t node_count)
 {
-	size_t	i;
+	uint64_t	i;
 	char	*save;
-	size_t	size;
+	uint64_t	size;
 
 	i = 0;
 	if (**p == '-')
@@ -89,11 +89,11 @@ size_t	read_node_a(char **p, char *names, size_t node_count)
 	return (i);
 }
 
-size_t	read_node_b(char **p, char *names, size_t node_count)
+uint64_t	read_node_b(char **p, char *names, uint64_t node_count)
 {
-	size_t	i;
+	uint64_t	i;
 	char	*save;
-	size_t	size;
+	uint64_t	size;
 
 	i = 0;
 	save = *p;
@@ -112,3 +112,4 @@ size_t	read_node_b(char **p, char *names, size_t node_count)
 	(*p)++;
 	return (i);
 }
+

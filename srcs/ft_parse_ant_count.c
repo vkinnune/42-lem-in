@@ -50,3 +50,4 @@ char	*ant_num(char *p, t_info *info)
 	}
 	return (p);
 }
+

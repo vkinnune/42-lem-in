@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, uint64_t n)
 {
 	while (n-- != 0)
 		if (*((const unsigned char *)s1++) != *((const unsigned char *)s2++))
@@ -40,7 +40,7 @@ int	ft_isdigit(int c)
 char	*ft_strdup(const char *s)
 {
 	void	*ns;
-	size_t	len;
+	uint64_t	len;
 
 	len = ft_strlen((void *)s) + 1;
 	ns = (char *)malloc(len);
@@ -49,9 +49,9 @@ char	*ft_strdup(const char *s)
 	return ((char *)ft_memcpy(ns, s, len));
 }
 
-void	free_stuff(t_node *nodes, char *names, char *res, size_t node_count)
+void	free_stuff(t_node *nodes, char *names, char *res, uint64_t node_count)
 {
-	size_t	i;
+	uint64_t	i;
 
 	i = 0;
 	while (i != node_count)
@@ -64,3 +64,4 @@ void	free_stuff(t_node *nodes, char *names, char *res, size_t node_count)
 	free(res);
 	free(nodes);
 }
+

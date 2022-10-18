@@ -26,3 +26,4 @@ void	*ft_realloc(void *ptr, size_t new_size, size_t old_size)
 	}
 	return (new_ptr);
 }
+

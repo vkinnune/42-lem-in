@@ -12,10 +12,10 @@
 
 #include "lem_in.h"
 
-size_t	add_ants(ssize_t *flow, size_t path_index)
+uint64_t	add_ants(int64_t *flow, uint64_t path_index)
 {
-	size_t	res;
-	size_t	i;
+	uint64_t	res;
+	uint64_t	i;
 
 	res = 0;
 	i = 0;
@@ -28,10 +28,10 @@ size_t	add_ants(ssize_t *flow, size_t path_index)
 }
 
 char	*loop_flows(t_path path,
-		char *names, size_t path_index, t_data data)
+		char *names, uint64_t path_index, t_data data)
 {
-	ssize_t	ant;
-	ssize_t	pos;
+	int64_t	ant;
+	int64_t	pos;
 
 	ant = 1;
 	while (ant <= path.flow[path_index])
@@ -49,7 +49,7 @@ char	*loop_flows(t_path path,
 
 char	*build_result(t_path path, char *names)
 {
-	size_t	path_index;
+	uint64_t	path_index;
 	t_data	data;
 
 	data.tick = 0;
@@ -68,10 +68,10 @@ char	*build_result(t_path path, char *names)
 	return (data.str);
 }
 
-char	*make_instruction(ssize_t pos, size_t ant, char *names, ssize_t *path)
+char	*make_instruction(int64_t pos, uint64_t ant, char *names, int64_t *path)
 {
 	char	str[1000];
-	size_t	i;
+	uint64_t	i;
 
 	i = 0;
 	str[i++] = 'L';
@@ -86,8 +86,8 @@ char	*make_instruction(ssize_t pos, size_t ant, char *names, ssize_t *path)
 
 char	*result_cat(char *str, char *ins)
 {
-	size_t	oldlen;
-	size_t	newlen;
+	uint64_t	oldlen;
+	uint64_t	newlen;
 
 	oldlen = ft_strlen(str);
 	newlen = oldlen + (ft_strlen(ins) + 1);
@@ -96,3 +96,4 @@ char	*result_cat(char *str, char *ins)
 	free(ins);
 	return (str);
 }
+

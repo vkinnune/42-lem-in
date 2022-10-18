@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-size_t	handle_nums(char *str, size_t ant)
+uint64_t	handle_nums(char *str, uint64_t ant)
 {
 	char	num[100];
 	char	*p_num;
@@ -33,7 +33,7 @@ size_t	handle_nums(char *str, size_t ant)
 
 char	*add_newline(char *str)
 {
-	size_t	size;
+	uint64_t	size;
 
 	if (str == 0)
 		return (0);
@@ -43,3 +43,4 @@ char	*add_newline(char *str)
 	str[size - 1] = 0;
 	return (str);
 }
+

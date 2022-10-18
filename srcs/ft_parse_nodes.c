@@ -18,7 +18,7 @@ char	*parse_nodes(const char *input_str, t_info *info, char **names)
 	enum e_type	last_line_type;
 	char		*p;
 	char		*res;
-	size_t		node_count;
+	uint64_t		node_count;
 
 	node_count = 0;
 	line_type = UNKNOWN;
@@ -60,7 +60,7 @@ int	skip_comment_or_command(char **p, enum e_type line_type)
 	return (0);
 }
 
-char	*save_name(char *p, char *save, char **names, size_t node_count)
+char	*save_name(char *p, char *save, char **names, uint64_t node_count)
 {
 	while (ft_isascii(*p) && *p != ' ' && *p != '-' && *p != '\0')
 		p++;
@@ -77,7 +77,7 @@ char	*save_name(char *p, char *save, char **names, size_t node_count)
 	return (p);
 }
 
-char	*name_alloc(char **names, size_t node_count)
+char	*name_alloc(char **names, uint64_t node_count)
 {
 	char	*p;
 
@@ -111,3 +111,4 @@ char	*skip_cords(char *p)
 		ft_out("ERROR");
 	return (p);
 }
+

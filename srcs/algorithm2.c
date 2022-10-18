@@ -12,18 +12,18 @@
 
 #include "lem_in.h"
 
-ssize_t	calculate_latency(ssize_t *sizes, size_t ant_count, size_t path_count)
+int64_t	calculate_latency(int64_t *sizes, uint64_t ant_count, uint64_t path_count)
 {
-	size_t	i;
-	size_t	x;
-	size_t	save;
-	size_t	latency;
-	ssize_t	*sizes_copy;
+	uint64_t	i;
+	uint64_t	x;
+	uint64_t	save;
+	uint64_t	latency;
+	int64_t	*sizes_copy;
 
 	i = 0;
 	save = 0;
-	sizes_copy = (ssize_t *)malloc(sizeof(size_t *) * path_count);
-	ft_bzero(sizes_copy, sizeof(size_t *) * path_count);
+	sizes_copy = (int64_t *)malloc(sizeof(uint64_t *) * path_count);
+	ft_bzero(sizes_copy, sizeof(uint64_t *) * path_count);
 	while (i != ant_count)
 	{
 		x = 0;
@@ -43,9 +43,9 @@ ssize_t	calculate_latency(ssize_t *sizes, size_t ant_count, size_t path_count)
 
 void	augment(t_node *nodes, t_info info)
 {
-	ssize_t	current_node;
-	ssize_t	next_node;
-	ssize_t	path_id;
+	int64_t	current_node;
+	int64_t	next_node;
+	int64_t	path_id;
 
 	current_node = info.end;
 	path_id = nodes[current_node].prev_node;
@@ -68,9 +68,9 @@ void	augment(t_node *nodes, t_info info)
 	}
 }
 
-ssize_t	find_edge_id(ssize_t current_node, ssize_t next_node, t_node *nodes)
+int64_t	find_edge_id(int64_t current_node, int64_t next_node, t_node *nodes)
 {
-	size_t	i;
+	uint64_t	i;
 
 	i = 0;
 	while (i != nodes[next_node].edge_count)
@@ -82,7 +82,7 @@ ssize_t	find_edge_id(ssize_t current_node, ssize_t next_node, t_node *nodes)
 	return (i);
 }
 
-void	init_bfs(t_node *nodes, t_info info, ssize_t *current_node)
+void	init_bfs(t_node *nodes, t_info info, int64_t *current_node)
 {
 	*current_node = info.start;
 	nodes[*current_node].prev_node = info.start;
@@ -91,12 +91,12 @@ void	init_bfs(t_node *nodes, t_info info, ssize_t *current_node)
 
 int	bfs(t_node *nodes, t_info info)
 {
-	ssize_t	current_node;
+	int64_t	current_node;
 	t_stack	queue;
-	ssize_t	prev_node;
+	int64_t	prev_node;
 	int		ret;
 
-	queue.data = (size_t *)malloc((sizeof(size_t) * info.node_count * 300));
+	queue.data = (uint64_t *)malloc((sizeof(uint64_t) * info.node_count * 300));
 	queue.size = 0;
 	init_bfs(nodes, info, &current_node);
 	prev_node = -1;
@@ -117,3 +117,4 @@ int	bfs(t_node *nodes, t_info info)
 		return (0);
 	return (1);
 }
+

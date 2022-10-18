@@ -82,13 +82,13 @@ char	*generate_result(t_info info, char *names, t_node *nodes)
 
 t_path	stuff_ants(t_path path, t_info info)
 {
-	size_t	ant_count;
-	size_t	i;
-	size_t	save_index;
+	uint64_t	ant_count;
+	uint64_t	i;
+	uint64_t	save_index;
 
 	ant_count = info.ant_count;
-	path.flow = (ssize_t *)malloc(path.path_count * sizeof(size_t *));
-	ft_bzero(path.flow, path.path_count * sizeof(size_t *));
+	path.flow = (int64_t *)malloc(path.path_count * sizeof(uint64_t *));
+	ft_bzero(path.flow, path.path_count * sizeof(uint64_t *));
 	while (ant_count)
 	{
 		i = 0;
@@ -105,3 +105,4 @@ t_path	stuff_ants(t_path path, t_info info)
 	}
 	return (path);
 }
+

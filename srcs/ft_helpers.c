@@ -51,7 +51,7 @@ int	comment_or_command(char *p)
 }
 
 void	check_last_type(enum e_type last_line_type,
-		t_info *p_info, size_t *room_count)
+		t_info *p_info, uint64_t *room_count)
 {
 	if (last_line_type == START)
 		p_info->start = *room_count;
@@ -76,3 +76,4 @@ char	*ft_strcat(char *dest, const char *src)
 	ft_strcpy(dest + ft_strlen (dest), src);
 	return (dest);
 }
+
