@@ -6,13 +6,13 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:54:33 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/17 15:10:31 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:01:44 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int	ft_strncmp(const char *s1, const char *s2, uint64_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	while (n-- != 0)
 		if (*((const unsigned char *)s1++) != *((const unsigned char *)s2++))

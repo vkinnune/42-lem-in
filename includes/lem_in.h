@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:33:02 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/14 14:01:24 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:01:10 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*save_name(char *p, char *save, char **names, uint64_t node_count);
 char	*name_alloc(char **names, uint64_t node_count);
 char	*skip_cords(char *p);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
-uint64_t	ft_strlen(const char *str);
+size_t	ft_strlen(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
