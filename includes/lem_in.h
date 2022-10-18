@@ -69,6 +69,10 @@ typedef struct s_stack {
 typedef struct s_data {
 	char	*str;
 	int64_t	tick;
+	int64_t	allocated;
+	int64_t	len;
+	int64_t	newlen;
+	int64_t *path;
 }	t_data;
 
 void	read_input(char *input_str, int argc, char **argv);
@@ -102,14 +106,14 @@ char	*ft_strcpy(char *dest, const char *src);
 char	*ft_strcat(char *dest, const char *src);
 void	*ft_realloc(void *ptr, size_t new_size, size_t old_size);
 
-char	*make_instruction(int64_t pos, uint64_t ant, char *names, int64_t *path);
+char	*make_instruction(int64_t pos, uint64_t ant, char *names, t_data *data);
 t_path	find_augmenting_paths(t_node *nodes, t_info info);
 void	create_path(t_path paths[2], t_node *nodes, t_info info);
 int64_t	find_edge_id(int64_t current_node, int64_t next_node, t_node *nodes);
 int64_t	delete_from_queue(t_stack *queue);
 char	*generate_result(t_info info, char *names, t_node *nodes);
 uint64_t	handle_nums(char *str, uint64_t ant);
-char	*result_cat(char *str, char *ins);
+char	*result_cat(char *str, char *ins, t_data *data);
 char	*add_newline(char *str);
 char	*build_result(t_path path, char *names);
 t_path	stuff_ants(t_path path, t_info info);

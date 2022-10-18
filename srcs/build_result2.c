@@ -31,16 +31,3 @@ uint64_t	handle_nums(char *str, uint64_t ant)
 	return (ft_strlen(p_num));
 }
 
-char	*add_newline(char *str)
-{
-	uint64_t	size;
-
-	if (str == 0)
-		return (0);
-	size = ft_strlen(str) + 1;
-	str = ft_realloc(str, size + 1, size);
-	str[size - 2] = '\n';
-	str[size - 1] = 0;
-	return (str);
-}
-
