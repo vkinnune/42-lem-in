@@ -6,12 +6,12 @@ OBJ_FOLDER		=	obj
 FOLDER_LIST		=	$(H_FOLDER) $(C_FOLDER) $(OBJ_FOLDER)
 
 H_FILES			=	lem_in.h
-C_FILES			=	ft_main.c ft_parse_ant_count.c ft_parse_nodes.c ft_parse_edges.c ft_helpers.c ft_libft.c ft_libft_more.c algorithm.c ft_realloc.c algorithm2.c algorithm3.c build_result.c build_result2.c
+C_FILES			=	main.c superlongifstatement.c parse_ant_count.c parse_nodes.c parse_edges.c helpers.c libft.c libft_more.c algorithm.c realloc.c bfs.c build_result.c build_result2.c
 H_PATHS			=	$(addprefix $(H_FOLDER)/, $(H_FILES))
 C_PATHS			=	$(addprefix $(C_FOLDER)/, $(C_FILES))
 OBJ_PATHS		=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(C_FILES)))
 
-C_FLAGS			=	-g -Wall -Wextra -Werror
+C_FLAGS			=	-Wall -Wextra -Werror
 
 .PHONY: all
 all: $(NAME)
