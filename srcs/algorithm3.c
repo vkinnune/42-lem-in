@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:58 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/17 15:10:20 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:38:03 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int64_t	delete_from_queue(t_stack *queue)
 {
 	uint64_t	i;
-	int64_t	ret;
+	int64_t		ret;
 
 	i = 0;
 	ret = queue->data[0];
@@ -31,17 +31,21 @@ int64_t	delete_from_queue(t_stack *queue)
 int	super_long_if_statement(int64_t current_node,
 		int64_t prev_node, t_node *nodes, uint64_t i)
 {
-	if (!(nodes[current_node].flow && nodes[nodes[current_node].edges[i]].flow
-			&& nodes[current_node].path_id
-			!= nodes[nodes[current_node].edges[i]].path_id)
-		&& !(nodes[current_node].path_id
+	if (!(nodes[current_node].path_id
 			== nodes[nodes[current_node].edges[i]].path_id
 			&& !nodes[current_node].flow
 			&& nodes[nodes[current_node].edges[i]].flow)
-		&& !(nodes[nodes[current_node].edges[i]].prev_node != -1
-			&& !nodes[nodes[current_node].edges[i]].flow)
-		&& !nodes[nodes[current_node].edges[i]].visited
+		&& !(nodes[current_node].flow
+			&& nodes[nodes[current_node].edges[i]].flow
+			&& nodes[current_node].path_id
+			!= nodes[nodes[current_node].edges[i]].path_id)
+		&& nodes[nodes[current_node].edges[i]].is_queue == false
 		&& !nodes[current_node].flows[i]
+		&& !nodes[nodes[current_node].edges[i]].visited
+		&& (nodes[current_node].is_start
+			|| nodes[prev_node].path_id == nodes[current_node].path_id
+			|| nodes[current_node].path_id
+			== nodes[nodes[current_node].edges[i]].path_id)
 		&& (!nodes[current_node].flow
 			|| (nodes[nodes[current_node].edges[i]].flow
 				&& !nodes[prev_node].flow)
@@ -55,24 +59,23 @@ int	super_long_if_statement(int64_t current_node,
 }
 
 int	add_to_queue(int64_t current_node,
-		int64_t prev_node, t_node *nodes, t_stack *queue, t_info info)
+		int64_t prev_node, t_node *nodes, t_stack *queue)
 {
 	uint64_t	i;
 
 	i = 0;
-	//printf("\n");
-	//printf("%s: ", &info.names[current_node * 32]);
 	while (i != nodes[current_node].edge_count)
 	{
 		if (super_long_if_statement(current_node, prev_node, nodes, i))
 		{
 			if (!(nodes[current_node].flow
-					&& nodes[nodes[current_node].edges[i]].flow))
+					&& nodes[nodes[current_node].edges[i]].flow
+					&& nodes[current_node].path_id
+					== nodes[nodes[current_node].edges[i]].path_id))
 				nodes[current_node].visited = true;
 			nodes[nodes[current_node].edges[i]].prev_node = current_node;
+			nodes[nodes[current_node].edges[i]].is_queue = true;
 			queue->data[queue->size++] = nodes[current_node].edges[i];
-			//printf("%s ", &info.names[nodes[current_node].edges[i] * 32]);
-			//sleep(1);
 			if (nodes[nodes[current_node].edges[i]].is_end)
 				return (2);
 		}
@@ -84,10 +87,11 @@ int	add_to_queue(int64_t current_node,
 		return (1);
 }
 
-uint64_t	cmp_latency(uint64_t path_count, int64_t *sizes, int64_t *sizes_copy)
+uint64_t	cmp_latency(uint64_t path_count, int64_t *sizes,
+				int64_t *sizes_copy)
 {
 	uint64_t	x;
-	int64_t	latency;
+	int64_t		latency;
 
 	x = 1;
 	latency = sizes_copy[0] + sizes[0];
@@ -103,7 +107,7 @@ uint64_t	cmp_latency(uint64_t path_count, int64_t *sizes, int64_t *sizes_copy)
 t_path	free_paths(t_path old_path, t_path new_path)
 {
 	uint64_t	i;
-	t_path	temp;
+	t_path		temp;
 
 	i = 0;
 	if (new_path.latency > old_path.latency)
@@ -124,4 +128,3 @@ t_path	free_paths(t_path old_path, t_path new_path)
 	}
 	return (new_path);
 }
-

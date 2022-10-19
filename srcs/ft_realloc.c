@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:41:27 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 14:41:28 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:03:16 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,3 @@ void	*ft_realloc(void *ptr, size_t new_size, size_t old_size)
 	}
 	return (new_ptr);
 }
-

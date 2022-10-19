@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:52 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/17 15:12:36 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:11:35 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include <stdio.h>
 
-int64_t	calculate_latency(int64_t *sizes, uint64_t ant_count, uint64_t path_count)
+int64_t	calculate_latency(int64_t *sizes, uint64_t ant_count,
+			uint64_t path_count)
 {
 	uint64_t	i;
 	uint64_t	x;
 	uint64_t	save;
 	uint64_t	latency;
-	int64_t	*sizes_copy;
+	int64_t		*sizes_copy;
 
 	i = 0;
 	save = 0;
@@ -105,17 +106,16 @@ int	bfs(t_node *nodes, t_info info)
 	while (ret != 2)
 	{
 		prev_node = nodes[current_node].prev_node;
-		if (!(nodes[current_node].flow == true
-				&& nodes[prev_node].flow == false))
+		if (nodes[current_node].flow == false)
 			nodes[current_node].path_id = nodes[prev_node].path_id;
-		ret = add_to_queue(current_node, prev_node, nodes, &queue, info);
+		ret = add_to_queue(current_node, prev_node, nodes, &queue);
 		if (ret == 0)
 			break ;
 		current_node = delete_from_queue(&queue);
+		nodes[current_node].is_queue = false;
 	}
 	free(queue.data);
 	if (ret == 0)
 		return (0);
 	return (1);
 }
-

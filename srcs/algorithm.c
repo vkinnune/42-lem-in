@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:42 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/17 15:11:22 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:56:15 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ void	alloc_flows(t_node *nodes, t_info info)
 		i++;
 	}
 	nodes[info.end].is_end = true;
+	nodes[info.start].is_start = true;
 }
 
 t_path	find_augmenting_paths(t_node *nodes, t_info info)
 {
-	t_path	paths[2];
+	t_path		paths[2];
 	uint64_t	i;
 
 	ft_bzero(paths, sizeof(t_path) * 2);
@@ -46,6 +47,7 @@ t_path	find_augmenting_paths(t_node *nodes, t_info info)
 			nodes[i].prev_node = -1;
 			nodes[info.start].path_id = -1;
 			nodes[info.end].path_id = -1;
+			nodes[i].is_queue = false;
 			i++;
 		}
 		if (!bfs(nodes, info))
@@ -53,13 +55,12 @@ t_path	find_augmenting_paths(t_node *nodes, t_info info)
 		augment(nodes, info);
 		create_path(paths, nodes, info);
 		paths[0] = free_paths(paths[0], paths[1]);
-		//printf("\n");
 	}
 	return (paths[0]);
 }
 
 t_path	init_alloc_path(t_info info, uint64_t path_count,
-		uint64_t current_node, t_path paths)
+			uint64_t current_node, t_path paths)
 {
 	paths.data = ft_realloc(paths.data, 8 * (path_count + 1), 8 * path_count);
 	paths.data[path_count] = (int64_t *)malloc(sizeof(int64_t)
@@ -69,9 +70,10 @@ t_path	init_alloc_path(t_info info, uint64_t path_count,
 	return (paths);
 }
 
-t_path	alloc_path(t_node *nodes, t_info info, uint64_t path_count, t_path paths)
+t_path	alloc_path(t_node *nodes, t_info info,
+			uint64_t path_count, t_path paths)
 {
-	int64_t	current_node;
+	int64_t		current_node;
 	uint64_t	len;
 	uint64_t	x;
 	uint64_t	i;
@@ -119,4 +121,3 @@ void	create_path(t_path paths[2], t_node *nodes, t_info info)
 	paths[1].latency = calculate_latency(paths[1].size,
 			info.ant_count, path_count);
 }
-

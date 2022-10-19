@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_nodes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:32:10 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 14:41:40 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:03:14 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*parse_nodes(const char *input_str, t_info *info, char **names)
 	enum e_type	last_line_type;
 	char		*p;
 	char		*res;
-	uint64_t		node_count;
+	uint64_t	node_count;
 
 	node_count = 0;
 	line_type = UNKNOWN;
@@ -111,4 +111,3 @@ char	*skip_cords(char *p)
 		ft_out("ERROR");
 	return (p);
 }
-

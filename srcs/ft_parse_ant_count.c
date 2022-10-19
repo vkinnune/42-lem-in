@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_ant_count.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:31:29 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/17 15:06:46 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:02:00 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,3 @@ char	*ant_num(char *p, t_info *info)
 	}
 	return (p);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_helpers.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:38 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 14:40:17 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:01:17 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,3 @@ char	*ft_strcat(char *dest, const char *src)
 	ft_strcpy(dest + ft_strlen (dest), src);
 	return (dest);
 }
-

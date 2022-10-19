@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_result.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:07:07 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/13 15:41:43 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:00:52 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*loop_flows(t_path path,
 char	*build_result(t_path path, char *names)
 {
 	uint64_t	path_index;
-	t_data	data;
+	t_data		data;
 
 	data.tick = 2;
 	data.allocated = 10000;
@@ -74,7 +74,7 @@ char	*build_result(t_path path, char *names)
 
 char	*make_instruction(int64_t pos, uint64_t ant, char *names, t_data *data)
 {
-	char	str[1000];
+	char		str[1000];
 	uint64_t	i;
 
 	i = 0;
@@ -104,4 +104,3 @@ char	*result_cat(char *str, char *ins, t_data *data)
 	free(ins);
 	return (str);
 }
-

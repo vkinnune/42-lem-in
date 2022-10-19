@@ -11,7 +11,7 @@ H_PATHS			=	$(addprefix $(H_FOLDER)/, $(H_FILES))
 C_PATHS			=	$(addprefix $(C_FOLDER)/, $(C_FILES))
 OBJ_PATHS		=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(C_FILES)))
 
-C_FLAGS			=	-g
+C_FLAGS			=	-g -Wall -Wextra -Werror
 
 .PHONY: all
 all: $(NAME)

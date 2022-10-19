@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_edges.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:31:35 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/17 15:06:32 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:02:55 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_node	*parse_edges(char *p, char *names, uint64_t node_count)
 {
 	t_node		*nodes;
 	enum e_type	line_type;
-	uint64_t		node_a;
-	uint64_t		node_b;
+	uint64_t	node_a;
+	uint64_t	node_b;
 
 	nodes = (t_node *)malloc(sizeof(t_node) * node_count);
 	ft_bzero(nodes, sizeof(t_node) * node_count);
@@ -66,7 +66,7 @@ void	add_edges(uint64_t in, uint64_t out, t_node *nodes)
 uint64_t	read_node_a(char **p, char *names, uint64_t node_count)
 {
 	uint64_t	i;
-	char	*save;
+	char		*save;
 	uint64_t	size;
 
 	i = 0;
@@ -92,7 +92,7 @@ uint64_t	read_node_a(char **p, char *names, uint64_t node_count)
 uint64_t	read_node_b(char **p, char *names, uint64_t node_count)
 {
 	uint64_t	i;
-	char	*save;
+	char		*save;
 	uint64_t	size;
 
 	i = 0;
@@ -112,4 +112,3 @@ uint64_t	read_node_b(char **p, char *names, uint64_t node_count)
 	(*p)++;
 	return (i);
 }
-

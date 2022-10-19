@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_libft.c                                         :+:      :+:    :+:   */
+/*   ft_libft_more.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:54:33 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/18 16:01:44 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:01:37 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_isdigit(int c)
 
 char	*ft_strdup(const char *s)
 {
-	void	*ns;
+	void		*ns;
 	uint64_t	len;
 
 	len = ft_strlen((void *)s) + 1;
@@ -64,4 +64,3 @@ void	free_stuff(t_node *nodes, char *names, char *res, uint64_t node_count)
 	free(res);
 	free(nodes);
 }
-
