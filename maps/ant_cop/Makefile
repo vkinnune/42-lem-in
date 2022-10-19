@@ -6,13 +6,13 @@
 #    By: wdonnell <wdonnell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/11 15:06:38 by wdonnell          #+#    #+#              #
-#    Updated: 2022/08/11 16:25:05 by wdonnell         ###   ########.fr        #
+#    Updated: 2022/09/15 14:06:40 by wdonnell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= ant_cop
 CC 		= gcc
-CFLAGS	= -g -O3
+CFLAGS	= -O3
 SRCS	= ant_cop.c functions.c ft_strsplit.c
 OBJS	= $(SRCS:.c=.o)
 
@@ -26,7 +26,6 @@ $(OBJS): $(SRCS)
 
 clean:
 	rm -f *.o
-
 
 fclean: clean
 	rm -f $(NAME)

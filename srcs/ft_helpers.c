@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_helpers.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:38 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/05/24 15:55:08 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:01:17 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	comment_or_command(char *p)
 }
 
 void	check_last_type(enum e_type last_line_type,
-		t_info *p_info, size_t *room_count)
+		t_info *p_info, uint64_t *room_count)
 {
 	if (last_line_type == START)
 		p_info->start = *room_count;
@@ -76,4 +76,3 @@ char	*ft_strcat(char *dest, const char *src)
 	ft_strcpy(dest + ft_strlen (dest), src);
 	return (dest);
 }
-

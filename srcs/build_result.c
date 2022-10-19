@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_result.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 14:07:07 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/10/19 17:00:52 by jrummuka         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
-size_t	add_ants(size_t *flow, size_t path_index)
+uint64_t	add_ants(int64_t *flow, uint64_t path_index)
 {
-	size_t	res;
-	size_t	i;
+	uint64_t	res;
+	uint64_t	i;
 
 	res = 0;
 	i = 0;
@@ -15,74 +27,80 @@ size_t	add_ants(size_t *flow, size_t path_index)
 	return (res);
 }
 
-char	*loop_flows(t_path path, size_t tick, char *names, size_t path_index, char *str)
+char	*loop_flows(t_path path,
+		char *names, uint64_t path_index, t_data *data)
 {
-	size_t	ant;
-	ssize_t	pos;
+	int64_t	ant;
+	int64_t	pos;
 
 	ant = 1;
 	while (ant <= path.flow[path_index])
 	{
-		pos = tick - ant;
+		pos = data->tick - ant;
+		data->path = path.data[path_index];
 		if (pos > 0 && pos < path.size[path_index])
-			str = result_cat(str,
+			data->str = result_cat(data->str,
 					make_instruction(pos,
 						ant + add_ants(path.flow,
-							path_index), names, path.data[path_index]));
+							path_index), names, data), data);
 		ant++;
 	}
-	return (str);
-
+	return (data->str);
 }
 
-char	*build_result(t_path path, size_t ant_count, char *names)
+char	*build_result(t_path path, char *names)
 {
-	size_t	tick;
-	size_t	path_index;
-	char	*str;
+	uint64_t	path_index;
+	t_data		data;
 
-	tick = 0;
-	str = 0;
-	while (tick <= path.latency - 1)
+	data.tick = 2;
+	data.allocated = 10000;
+	data.len = 0;
+	data.str = (char *)malloc(10000);
+	while (data.tick <= path.latency - 1)
 	{
 		path_index = 0;
 		while (path_index != path.path_count)
 		{
-			str = loop_flows(path, tick, names, path_index, str);
+			data.str = loop_flows(path, names, path_index, &data);
 			path_index++;
 		}
-		str = add_newline(str);
-		tick++;
+		if (data.len)
+			data.str[data.len - 1] = '\n';
+		data.tick++;
 	}
-	return (str);
+	return (data.str);
 }
 
-char	*make_instruction(ssize_t pos, size_t ant, char *names, size_t *path)
+char	*make_instruction(int64_t pos, uint64_t ant, char *names, t_data *data)
 {
-	char	str[1000];
-	size_t	i;
+	char		str[1000];
+	uint64_t	i;
 
 	i = 0;
 	str[i++] = 'L';
 	i += handle_nums(&str[i], ant);
 	str[i++] = '-';
-	ft_strcpy(&str[i], &names[path[pos] * NAME_LENGTH]);
-	i += ft_strlen(&names[path[pos] * NAME_LENGTH]);
+	ft_strcpy(&str[i], &names[data->path[pos] * NAME_LENGTH]);
+	i += ft_strlen(&names[data->path[pos] * NAME_LENGTH]);
 	str[i++] = ' ';
 	str[i] = 0;
+	data->newlen = i;
 	return (ft_strdup(str));
 }
 
-char	*result_cat(char *str, char *ins)
+char	*result_cat(char *str, char *ins, t_data *data)
 {
-	size_t	oldlen;
-	size_t	newlen;
+	int64_t	oldalloc;
 
-	oldlen = ft_strlen(str);
-	newlen = oldlen + (ft_strlen(ins) + 1);
-	str = ft_realloc(str, newlen, oldlen);
-	ft_strcpy(&str[oldlen], ins);
+	if ((data->len + data->newlen) > data->allocated)
+	{
+		oldalloc = data->allocated;
+		data->allocated *= 2;
+		str = ft_realloc(str, data->allocated, oldalloc);
+	}
+	ft_strcpy(&str[data->len], ins);
+	data->len += data->newlen;
 	free(ins);
 	return (str);
 }
-

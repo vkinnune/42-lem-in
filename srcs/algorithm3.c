@@ -1,32 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algorithm3.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 14:06:58 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/10/19 17:38:03 by jrummuka         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
-size_t	get_depth(t_node *nodes, ssize_t current_node)
+int64_t	delete_from_queue(t_stack *queue)
 {
-	size_t	i;
-	size_t	depth;
-
-	i = 0;
-	depth = INT_MAX;
-	while (i != nodes[current_node].edge_count)
-	{
-		if (nodes[nodes[current_node].edges[i]].depth < depth
-			&& nodes[nodes[current_node].edges[i]].visited == true
-			&& nodes[nodes[current_node].edges[i]].flows
-			[find_edge_id(current_node, nodes[current_node].edges[i],
-					nodes)] != 1)
-			depth = nodes[nodes[current_node].edges[i]].depth;
-		i++;
-	}
-	if (depth == INT_MAX)
-		return (0);
-	else
-		return (depth + 1);
-}
-
-ssize_t	delete_from_queue(t_stack *queue)
-{
-	size_t	i;
-	ssize_t	ret;
+	uint64_t	i;
+	int64_t		ret;
 
 	i = 0;
 	ret = queue->data[0];
@@ -39,39 +28,103 @@ ssize_t	delete_from_queue(t_stack *queue)
 	return (ret);
 }
 
-int	not_in_queue(t_stack *queue, ssize_t current_node)
+int	super_long_if_statement(int64_t current_node,
+		int64_t prev_node, t_node *nodes, uint64_t i)
 {
-	size_t	i;
-
-	i = 0;
-	while (i != queue->size)
-	{
-		if (queue->data[i] == current_node)
-			return (0);
-		i++;
-	}
-	return (1);
+	if (!(nodes[current_node].path_id
+			== nodes[nodes[current_node].edges[i]].path_id
+			&& !nodes[current_node].flow
+			&& nodes[nodes[current_node].edges[i]].flow)
+		&& !(nodes[current_node].flow
+			&& nodes[nodes[current_node].edges[i]].flow
+			&& nodes[current_node].path_id
+			!= nodes[nodes[current_node].edges[i]].path_id)
+		&& nodes[nodes[current_node].edges[i]].is_queue == false
+		&& !nodes[current_node].flows[i]
+		&& !nodes[nodes[current_node].edges[i]].visited
+		&& (nodes[current_node].is_start
+			|| nodes[prev_node].path_id == nodes[current_node].path_id
+			|| nodes[current_node].path_id
+			== nodes[nodes[current_node].edges[i]].path_id)
+		&& (!nodes[current_node].flow
+			|| (nodes[nodes[current_node].edges[i]].flow
+				&& !nodes[prev_node].flow)
+			|| (!nodes[nodes[current_node].edges[i]].flow
+				&& nodes[prev_node].flow)
+			|| (nodes[nodes[current_node].edges[i]].flow
+				&& nodes[prev_node].flow)))
+		return (1);
+	else
+		return (0);
 }
 
-int	add_to_queue(ssize_t current_node,
-		ssize_t prev_node, t_node *nodes, t_stack *queue, t_info info)
+int	add_to_queue(int64_t current_node,
+		int64_t prev_node, t_node *nodes, t_stack *queue)
 {
-	size_t	i;
+	uint64_t	i;
+
 	i = 0;
 	while (i != nodes[current_node].edge_count)
 	{
-		if (	nodes[nodes[current_node].edges[i]].visited == false && nodes[current_node].flows[i] == 0 && (prev_node == -1 || nodes[current_node].flow == false
-			|| (nodes[nodes[current_node].edges[i]].flows[find_edge_id(nodes[current_node].edges[i], current_node, nodes)] == true
-			&& nodes[nodes[current_node].edges[i]].flow == true) || nodes[prev_node].flow == true))
+		if (super_long_if_statement(current_node, prev_node, nodes, i))
 		{
+			if (!(nodes[current_node].flow
+					&& nodes[nodes[current_node].edges[i]].flow
+					&& nodes[current_node].path_id
+					== nodes[nodes[current_node].edges[i]].path_id))
+				nodes[current_node].visited = true;
 			nodes[nodes[current_node].edges[i]].prev_node = current_node;
+			nodes[nodes[current_node].edges[i]].is_queue = true;
 			queue->data[queue->size++] = nodes[current_node].edges[i];
+			if (nodes[nodes[current_node].edges[i]].is_end)
+				return (2);
 		}
 		i++;
 	}
-	if (queue->size == 0)
+	if (queue->size <= 0)
 		return (0);
 	else
 		return (1);
 }
 
+uint64_t	cmp_latency(uint64_t path_count, int64_t *sizes,
+				int64_t *sizes_copy)
+{
+	uint64_t	x;
+	int64_t		latency;
+
+	x = 1;
+	latency = sizes_copy[0] + sizes[0];
+	while (x != path_count)
+	{
+		if (latency < sizes_copy[x] + sizes[x])
+			latency = sizes_copy[x] + sizes[x];
+		x++;
+	}
+	return (latency);
+}
+
+t_path	free_paths(t_path old_path, t_path new_path)
+{
+	uint64_t	i;
+	t_path		temp;
+
+	i = 0;
+	if (new_path.latency > old_path.latency)
+	{
+		temp = new_path;
+		new_path = old_path;
+		old_path = temp;
+	}
+	if (old_path.path_count)
+	{
+		free(old_path.size);
+		while (i != old_path.path_count)
+		{
+			free(old_path.data[i]);
+			i++;
+		}
+		free(old_path.data);
+	}
+	return (new_path);
+}

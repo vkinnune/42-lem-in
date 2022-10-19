@@ -6,7 +6,7 @@
 /*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:54:33 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/05/24 15:54:35 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:44:58 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 				- *(const unsigned char *)--s2);
 	return (0);
 }
-

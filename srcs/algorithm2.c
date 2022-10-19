@@ -1,17 +1,31 @@
-#include "lem_in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algorithm2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 14:06:52 by vkinnune          #+#    #+#             */
+/*   Updated: 2022/10/19 17:11:35 by jrummuka         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-ssize_t	calculate_latency(size_t *sizes, size_t ant_count, size_t path_count)
+#include "lem_in.h"
+#include <stdio.h>
+
+int64_t	calculate_latency(int64_t *sizes, uint64_t ant_count,
+			uint64_t path_count)
 {
-	size_t	i;
-	size_t	x;
-	size_t	save;
-	size_t	latency;
-	size_t	*sizes_copy;
+	uint64_t	i;
+	uint64_t	x;
+	uint64_t	save;
+	uint64_t	latency;
+	int64_t		*sizes_copy;
 
 	i = 0;
 	save = 0;
-	sizes_copy = (size_t *)malloc(sizeof(size_t *) * path_count);
-	ft_bzero(sizes_copy, sizeof(size_t *) * path_count);
+	sizes_copy = (int64_t *)malloc(sizeof(uint64_t *) * path_count);
+	ft_bzero(sizes_copy, sizeof(uint64_t *) * path_count);
 	while (i != ant_count)
 	{
 		x = 0;
@@ -25,36 +39,40 @@ ssize_t	calculate_latency(size_t *sizes, size_t ant_count, size_t path_count)
 		i++;
 	}
 	latency = cmp_latency(path_count, sizes, sizes_copy);
+	free(sizes_copy);
 	return (latency);
 }
 
-void	convert_route_to_flow(t_node *nodes, t_info info)
+void	augment(t_node *nodes, t_info info)
 {
-	ssize_t	current_node;
-	ssize_t	next_node;
+	int64_t	current_node;
+	int64_t	next_node;
+	int64_t	path_id;
 
 	current_node = info.end;
+	path_id = nodes[current_node].prev_node;
 	while (current_node != info.start)
 	{
+		nodes[current_node].path_id = path_id;
+		next_node = nodes[current_node].prev_node;
 		nodes[current_node].flow = true;
-		next_node = go_deeper(nodes, info, current_node);
 		nodes[next_node].flows[find_edge_id(current_node,
 				next_node, nodes)] = 1;
 		if (nodes[current_node].flows[find_edge_id(next_node,
 					current_node, nodes)] == 1)
 		{
 			nodes[current_node].flows[find_edge_id(next_node,
-					current_node, nodes)] = 0;
+					current_node, nodes)] = -1;
 			nodes[next_node].flows[find_edge_id(current_node,
-					next_node, nodes)] = 0;
+					next_node, nodes)] = -1;
 		}
 		current_node = next_node;
 	}
 }
 
-ssize_t	find_edge_id(ssize_t current_node, ssize_t next_node, t_node *nodes)
+int64_t	find_edge_id(int64_t current_node, int64_t next_node, t_node *nodes)
 {
-	size_t	i;
+	uint64_t	i;
 
 	i = 0;
 	while (i != nodes[next_node].edge_count)
@@ -66,44 +84,38 @@ ssize_t	find_edge_id(ssize_t current_node, ssize_t next_node, t_node *nodes)
 	return (i);
 }
 
-ssize_t	go_deeper(t_node *nodes, t_info info, size_t current_node)
+void	init_bfs(t_node *nodes, t_info info, int64_t *current_node)
 {
-	size_t	i;
-
-	i = 0;
-	while (i != nodes[current_node].edge_count)
-	{
-		if (nodes[nodes[current_node].edges[i]].depth
-			== (nodes[current_node].depth - 1))
-			break ;
-		i++;
-	}
-	return (nodes[current_node].edges[i]);
+	*current_node = info.start;
+	nodes[*current_node].prev_node = info.start;
+	nodes[*current_node].path_id = info.start;
 }
 
-int	augment_path(t_node *nodes, t_info info)
+int	bfs(t_node *nodes, t_info info)
 {
-	ssize_t	current_node;
-	t_stack	visited;
+	int64_t	current_node;
 	t_stack	queue;
-	ssize_t	prev_node;
+	int64_t	prev_node;
+	int		ret;
 
-	queue.data = (size_t *)malloc((sizeof(size_t) * info.node_count * 200));
+	queue.data = (uint64_t *)malloc((sizeof(uint64_t) * info.node_count * 300));
 	queue.size = 0;
-	current_node = info.start;
-	nodes[current_node].prev_node = info.start;
+	init_bfs(nodes, info, &current_node);
 	prev_node = -1;
-	while (1)
+	ret = 0;
+	while (ret != 2)
 	{
-		nodes[current_node].depth = get_depth(nodes, current_node);
-		nodes[current_node].visited = true;
-		if (current_node == info.end)
-			break ;
 		prev_node = nodes[current_node].prev_node;
-		if (!add_to_queue(current_node, prev_node, nodes, &queue, info))
-			return (0);
+		if (nodes[current_node].flow == false)
+			nodes[current_node].path_id = nodes[prev_node].path_id;
+		ret = add_to_queue(current_node, prev_node, nodes, &queue);
+		if (ret == 0)
+			break ;
 		current_node = delete_from_queue(&queue);
+		nodes[current_node].is_queue = false;
 	}
+	free(queue.data);
+	if (ret == 0)
+		return (0);
 	return (1);
 }
-

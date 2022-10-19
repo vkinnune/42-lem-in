@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:49 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/07/06 16:27:03 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:01:57 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int	main(int argc, char **argv)
 
 	read_input(input_str, argc, argv);
 	parse_input(input_str, &info, &names, &nodes);
+	info.names = names;
 	res = generate_result(info, names, nodes);
 	write (1, input_str, ft_strlen(input_str));
 	write (1, res, ft_strlen(res));
+	free_stuff(nodes, names, res, info.node_count);
 }
 
 void	read_input(char *input_str, int argc, char **argv)
@@ -45,13 +47,23 @@ void	read_input(char *input_str, int argc, char **argv)
 void	parse_input(char *input_str, t_info *info,
 		char **names, t_node **nodes)
 {
+	char			*copy;
+	unsigned int	size;
+	char			*og_copy;
+
+	size = ft_strlen(input_str);
+	copy = (char *)malloc(sizeof(char) * (size + 1));
+	og_copy = copy;
+	ft_memcpy(copy, input_str, sizeof(char) * size);
+	copy[size] = 0;
 	info->start = -1;
 	info->end = -1;
-	input_str = parse_ant_count(input_str, info);
-	input_str = parse_nodes(input_str, info, names);
+	copy = parse_ant_count(copy, info);
+	copy = parse_nodes(copy, info, names);
 	if (*names == 0 || info->start == -1 || info->end == -1)
 		ft_out("ERROR");
-	*nodes = parse_edges(input_str, *names, info->node_count);
+	*nodes = parse_edges(copy, *names, info->node_count);
+	free(og_copy);
 }
 
 char	*generate_result(t_info info, char *names, t_node *nodes)
@@ -60,34 +72,24 @@ char	*generate_result(t_info info, char *names, t_node *nodes)
 	t_path	path;
 
 	path = find_augmenting_paths(nodes, info);
+	if (path.latency == INT_MAX)
+		ft_out("ERROR");
 	path = stuff_ants(path, info);
-	/*
-	{
-		for (int i = 0; i != path.path_count; i++)
-		{
-			for (int x = 0; x != path.size[i]; x++)
-			{
-				//printf("%s	", &names[path.data[i][x] * NAME_LENGTH]);
-				printf("%d	", path.data[i][x]);
-			}
-			printf("\n");
-		}
-
-	}
-	*/
-	res = build_result(path, info.ant_count, names);
+	res = build_result(path, names);
+	free_paths(path, path);
+	free(path.flow);
 	return (res);
 }
 
 t_path	stuff_ants(t_path path, t_info info)
 {
-	size_t	ant_count;
-	size_t	i;
-	size_t	save_index;
+	uint64_t	ant_count;
+	uint64_t	i;
+	uint64_t	save_index;
 
 	ant_count = info.ant_count;
-	path.flow = (size_t *)malloc(path.path_count * sizeof(size_t *));
-	ft_bzero(path.flow, path.path_count * sizeof(size_t *));
+	path.flow = (int64_t *)malloc(path.path_count * sizeof(uint64_t *));
+	ft_bzero(path.flow, path.path_count * sizeof(uint64_t *));
 	while (ant_count)
 	{
 		i = 0;
@@ -104,4 +106,3 @@ t_path	stuff_ants(t_path path, t_info info)
 	}
 	return (path);
 }
-

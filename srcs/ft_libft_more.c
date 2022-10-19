@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_libft.c                                         :+:      :+:    :+:   */
+/*   ft_libft_more.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:54:33 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/05/24 16:30:50 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:01:37 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	ft_isdigit(int c)
 
 char	*ft_strdup(const char *s)
 {
-	void	*ns;
-	size_t	len;
+	void		*ns;
+	uint64_t	len;
 
 	len = ft_strlen((void *)s) + 1;
 	ns = (char *)malloc(len);
@@ -49,3 +49,18 @@ char	*ft_strdup(const char *s)
 	return ((char *)ft_memcpy(ns, s, len));
 }
 
+void	free_stuff(t_node *nodes, char *names, char *res, uint64_t node_count)
+{
+	uint64_t	i;
+
+	i = 0;
+	while (i != node_count)
+	{
+		free(nodes[i].edges);
+		free(nodes[i].flows);
+		i++;
+	}
+	free(names);
+	free(res);
+	free(nodes);
+}

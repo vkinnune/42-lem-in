@@ -72,6 +72,13 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start
 	while (ln[i])
 	{
 		ant_room = ft_strsplit(ln[i], '-');
+		//printf("ant_room[0] %s\n", &ant_room[0][1]);
+		if (!ant_room[0][1])
+		{
+			printf("\x1b[31mERROR: EMPTY ANT\x1b[0m\n");
+			printf("%s\n", ln[i]);
+			exit(0);
+		}
 		if (ants_arr[atoi(&ant_room[0][1]) - 1])
 		{
 			printf("\x1b[31mERROR: same ant on same line\x1b[0m\n");
@@ -79,7 +86,6 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start
 			*flag = 1;
 		}
 		ants_arr[atoi(&ant_room[0][1]) - 1] = 1;
-		
 		if (!valid_path(arr[atoi(&ant_room[0][1]) - 1], ant_room[1], head))
 		{
 				printf("%s %s\n",arr[atoi(&ant_room[0][1]) - 1], ant_room[1]);
@@ -132,15 +138,22 @@ int	main()
 	char **start_end;
 	t_list *head = NULL;
 	char **link;
-	int flag = -1;
+	int flag = 0;
 
+	
 	getline(&line, &n, stdin);
+	//printf("line in AC: %s\n", line);
+	if (!line || !strcmp(line, "ERROR\n"))
+	{
+		printf("\x1b[31mERROR in map\x1b[0m\n");
+		free(line);
+		return (0);
+	}
 	num_ants = atoi(line);
 	ants_arr = malloc(sizeof(int) * num_ants);
 	arr = malloc(sizeof(char *) * num_ants + 1);
 	while (getline(&line, &n, stdin) > 0)
 	{
-		
 		if((p = strchr(line, '\n')))
 			*p = '\0';
 		if (line[0] == '#')
@@ -176,7 +189,7 @@ int	main()
 		}
 		else if (line[0] == 'L')
 		{
-			flag = 0;
+			//flag = 0;
 			add_to_arr(line, arr, ants_arr, num_ants, start, end, head, &flag);
 			line_count++;
 		}
@@ -192,19 +205,14 @@ int	main()
 		}
 		i++;
 	}
-	if (flag < 0)
-	{ 
-		printf("\x1b[31mERROR IN MAP\x1b[0m\n");
-		return (0);
-	}
-	else if (!flag)
+
+	if (!flag)
 	{
 		printf("\x1b[32mALL TESTS PASSED\n");
 		printf("line count => %d\n\x1b[0m", line_count);
 	}
 	else if (flag == 2)
 	{
-
 		i = 0;
 		printf("final location of ants:\n");
 		while (i < num_ants)
@@ -218,12 +226,12 @@ int	main()
 			i++;
 		}
 	}
-	free(line);
-	free(start);
-	free(end);
-	free_str_arr(arr);
-	free(ants_arr);
-	free_list(head);
+//	free(line);
+//	free(start);
+//free(end);
+	//free_str_arr(arr);
+//	free(ants_arr);
+//	free_list(head);
 	return (0);
 }
 
