@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:49 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/19 17:01:57 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/20 20:47:51 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	parse_input(char *input_str, t_info *info,
 	info->start = -1;
 	info->end = -1;
 	copy = parse_ant_count(copy, info);
-	copy = parse_nodes(copy, info, names);
+	copy = parse_nodes(copy, info, names, 0);
 	if (*names == 0 || info->start == -1 || info->end == -1)
 		ft_out("ERROR");
 	*nodes = parse_edges(copy, *names, info->node_count);

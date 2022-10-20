@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_nodes.c                                   :+:      :+:    :+:   */
+/*   parse_nodes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:32:10 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/19 17:03:14 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/20 20:48:17 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-char	*parse_nodes(const char *input_str, t_info *info, char **names)
+char	*parse_nodes(const char *input_str, t_info *info,
+			char **names, uint64_t node_count)
 {
 	enum e_type	line_type;
 	enum e_type	last_line_type;
 	char		*p;
 	char		*res;
-	uint64_t	node_count;
 
-	node_count = 0;
 	line_type = UNKNOWN;
 	p = (char *)input_str;
 	while (1)
 	{
 		last_line_type = line_type;
 		line_type = comment_or_command(p);
+		afterstartorend(line_type, last_line_type);
 		if (skip_comment_or_command(&p, line_type))
 			continue ;
 		res = p;

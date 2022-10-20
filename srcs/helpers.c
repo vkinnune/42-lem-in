@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_helpers.c                                       :+:      :+:    :+:   */
+/*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:38 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/19 17:01:17 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:49:48 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ int	comment_or_command(char *p)
 void	check_last_type(enum e_type last_line_type,
 		t_info *p_info, uint64_t *room_count)
 {
+	if ((p_info->start != -1 && last_line_type == START)
+		|| (p_info->end != -1 && last_line_type == END))
+		ft_out("ERROR");
 	if (last_line_type == START)
 		p_info->start = *room_count;
 	else if (last_line_type == END)

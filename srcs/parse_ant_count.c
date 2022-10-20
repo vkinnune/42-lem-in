@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_ant_count.c                               :+:      :+:    :+:   */
+/*   parse_ant_count.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:31:29 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/19 17:02:00 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:40:25 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ char	*ant_num(char *p, t_info *info)
 		info->ant_count += *p - '0';
 		p++;
 	}
+	if (info->ant_count > INT32_MAX)
+		ft_out("ERROR");
 	return (p);
 }

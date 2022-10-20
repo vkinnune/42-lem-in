@@ -11,12 +11,13 @@ H_PATHS			=	$(addprefix $(H_FOLDER)/, $(H_FILES))
 C_PATHS			=	$(addprefix $(C_FOLDER)/, $(C_FILES))
 OBJ_PATHS		=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(C_FILES)))
 
-C_FLAGS			=	-Wall -Wextra -Werror
+C_FLAGS			=	 -Wall -Wextra -Werror
 
 .PHONY: all
 all: $(NAME)
 
 $(NAME): pre_requisites $(OBJ_PATHS)
+	@touch pre_requisites
 	cc $(C_FLAGS) -I $(H_FOLDER) -o $@ $(OBJ_PATHS)
 
 $(OBJ_PATHS): $(OBJ_FOLDER)/%.o:$(C_FOLDER)/%.c $(H_PATHS)

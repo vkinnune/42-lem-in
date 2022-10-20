@@ -1,0 +1,13 @@
+3
+3
+##start
+a 1 0
+##end
+b 5 0
+#if there are two integers following, it is a room name
+a-b 9 0
+3 13 0
+#this is gonna be tricky!
+a-a-b
+a-b-3
+3-a

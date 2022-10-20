@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:33:02 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/19 17:18:41 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/20 20:49:58 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ char		*parse_ant_count(const char *input_str, t_info *info);
 char		*ant_num(char *p, t_info *info);
 t_node		*parse_edges(char *p, char *names, uint64_t node_count);
 void		add_edges(uint64_t in, uint64_t out, t_node *nodes);
-char		*parse_nodes(const char *input_str, t_info *info, char **names);
+char		*parse_nodes(const char *input_str, t_info *info,
+				char **names, uint64_t node_count);
 int			skip_comment_or_command(char **p, enum e_type line_type);
 char		*save_name(char *p, char *save, char **names, uint64_t node_count);
 char		*name_alloc(char **names, uint64_t node_count);
@@ -127,6 +128,7 @@ int64_t		calculate_latency(int64_t *sizes,
 t_path		free_paths(t_path old_path, t_path new_path);
 void		free_stuff(t_node *nodes, char *names,
 				char *res, uint64_t node_count);
+void		afterstartorend(enum e_type line_type, enum e_type last_line_type);
 uint64_t	read_node_a(char **p, char *names, uint64_t node_count);
 uint64_t	read_node_b(char **p, char *names, uint64_t node_count);
 uint64_t	handle_nums(char *str, uint64_t ant);
