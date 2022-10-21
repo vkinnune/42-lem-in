@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:41:27 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/21 14:11:48 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:21:21 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	*ft_realloc(void *ptr, size_t new_size, size_t old_size)
 	return (new_ptr);
 }
 
-void	check_duplicate_edges(int64_t *edges, uint64_t edge_count, int64_t check)
+void	check_duplicate_edges(int64_t *edges,
+			uint64_t edge_count, int64_t check)
 {
 	uint64_t	i;
 

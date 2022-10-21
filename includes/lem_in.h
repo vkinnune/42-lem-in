@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:33:02 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/21 14:12:11 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:21:40 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,6 @@ uint64_t	read_node_b(char **p, char *names, uint64_t node_count);
 uint64_t	handle_nums(char *str, uint64_t ant);
 uint64_t	cmp_latency(uint64_t path_count,
 				int64_t *sizes, int64_t *sizes_copy);
-void		check_duplicate_edges(int64_t *edges, uint64_t edge_count, int64_t check);
+void		check_duplicate_edges(int64_t *edges, uint64_t edge_count,
+				int64_t check);
 #endif
