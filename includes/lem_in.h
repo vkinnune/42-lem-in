@@ -135,4 +135,5 @@ uint64_t	read_node_b(char **p, char *names, uint64_t node_count);
 uint64_t	handle_nums(char *str, uint64_t ant);
 uint64_t	cmp_latency(uint64_t path_count,
 				int64_t *sizes, int64_t *sizes_copy);
+void		check_duplicate_edges(int64_t *edges, uint64_t edge_count, int64_t check);
 #endif

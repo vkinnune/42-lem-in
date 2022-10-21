@@ -48,3 +48,16 @@ void	*ft_realloc(void *ptr, size_t new_size, size_t old_size)
 	}
 	return (new_ptr);
 }
+
+void	check_duplicate_edges(int64_t *edges, uint64_t edge_count, int64_t check)
+{
+	uint64_t	i;
+
+	i = 0;
+	while (i != edge_count)
+	{
+		if (edges[i] == check)
+			ft_out("ERROR");
+		i++;
+	}
+}

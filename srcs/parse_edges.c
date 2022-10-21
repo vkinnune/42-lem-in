@@ -59,6 +59,7 @@ void	add_edges(uint64_t in, uint64_t out, t_node *nodes)
 		free(nodes[in].edges);
 		nodes[in].edges = edges;
 	}
+	check_duplicate_edges(nodes[in].edges, nodes[in].edge_count, out);
 	nodes[in].edges[nodes[in].edge_count] = out;
 	nodes[in].edge_count++;
 }
