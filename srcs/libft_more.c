@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_libft_more.c                                    :+:      :+:    :+:   */
+/*   libft_more.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:54:33 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/19 17:01:37 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:06:52 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_strdup(const char *s)
 	len = ft_strlen((void *)s) + 1;
 	ns = (char *)malloc(len);
 	if (ns == 0)
-		return (0);
+		ft_out("ERROR");
 	return ((char *)ft_memcpy(ns, s, len));
 }
 

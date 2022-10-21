@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithm2.c                                       :+:      :+:    :+:   */
+/*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:52 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/19 17:11:35 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:10:53 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int64_t	calculate_latency(int64_t *sizes, uint64_t ant_count,
 
 	i = 0;
 	save = 0;
-	sizes_copy = (int64_t *)malloc(sizeof(uint64_t *) * path_count);
+	sizes_copy = (int64_t *)ft_mc(sizeof(uint64_t *) * path_count);
 	ft_bzero(sizes_copy, sizeof(uint64_t *) * path_count);
 	while (i != ant_count)
 	{
@@ -98,7 +98,7 @@ int	bfs(t_node *nodes, t_info info)
 	int64_t	prev_node;
 	int		ret;
 
-	queue.data = (uint64_t *)malloc((sizeof(uint64_t) * info.node_count * 300));
+	queue.data = (uint64_t *)ft_mc((sizeof(uint64_t) * info.node_count * 300));
 	queue.size = 0;
 	init_bfs(nodes, info, &current_node);
 	prev_node = -1;

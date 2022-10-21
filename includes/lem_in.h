@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:33:02 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/21 12:43:59 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:12:11 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ t_path		free_paths(t_path old_path, t_path new_path);
 void		free_stuff(t_node *nodes, char *names,
 				char *res, uint64_t node_count);
 void		afterstartorend(enum e_type line_type, enum e_type last_line_type);
+void		*ft_mc(size_t size);
 uint64_t	read_node_a(char **p, char *names, uint64_t node_count);
 uint64_t	read_node_b(char **p, char *names, uint64_t node_count);
 uint64_t	handle_nums(char *str, uint64_t ant);

@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:30:49 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/21 12:44:28 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:11:18 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	parse_input(char *input_str, t_info *info,
 	char			*og_copy;
 
 	size = ft_strlen(input_str);
-	copy = (char *)malloc(sizeof(char) * (size + 1));
+	copy = (char *)ft_mc(sizeof(char) * (size + 1));
 	og_copy = copy;
 	ft_memcpy(copy, input_str, sizeof(char) * size);
 	copy[size] = 0;
@@ -88,7 +88,7 @@ t_path	stuff_ants(t_path path, t_info info)
 	uint64_t	save_index;
 
 	ant_count = info.ant_count;
-	path.flow = (int64_t *)malloc(path.path_count * sizeof(uint64_t *));
+	path.flow = (int64_t *)ft_mc(path.path_count * sizeof(uint64_t *));
 	ft_bzero(path.flow, path.path_count * sizeof(uint64_t *));
 	while (ant_count)
 	{

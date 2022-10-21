@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:32:10 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/20 20:48:17 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:11:41 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ char	*name_alloc(char **names, uint64_t node_count)
 
 	if (node_count == 0)
 	{
-		*names = (char *)malloc(sizeof(char) * NAME_LENGTH);
+		*names = (char *)ft_mc(sizeof(char) * NAME_LENGTH);
 		ft_bzero(*names, sizeof(char) * NAME_LENGTH);
 	}
 	else
 	{
-		p = (char *)malloc((sizeof(char) * NAME_LENGTH) * (node_count + 1));
+		p = (char *)ft_mc((sizeof(char) * NAME_LENGTH) * (node_count + 1));
 		ft_bzero(p, (sizeof(char) * NAME_LENGTH) * (node_count + 1));
 		ft_memcpy(p, *names,
 			(sizeof(char) * NAME_LENGTH) * (node_count));

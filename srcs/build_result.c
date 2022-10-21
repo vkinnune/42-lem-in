@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:07:07 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/19 17:00:52 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:11:00 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*build_result(t_path path, char *names)
 	data.tick = 2;
 	data.allocated = 10000;
 	data.len = 0;
-	data.str = (char *)malloc(10000);
+	data.str = (char *)ft_mc(10000);
 	while (data.tick <= path.latency - 1)
 	{
 		path_index = 0;

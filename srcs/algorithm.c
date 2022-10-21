@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:06:42 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/19 16:56:15 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:10:38 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	alloc_flows(t_node *nodes, t_info info)
 	i = 0;
 	while (i != info.node_count)
 	{
-		nodes[i].flows = (int64_t *)malloc(sizeof(int64_t)
+		nodes[i].flows = (int64_t *)ft_mc(sizeof(int64_t)
 				* nodes[i].edge_count);
 		nodes[i].path_id = -1;
 		nodes[i].is_end = false;
@@ -63,7 +63,7 @@ t_path	init_alloc_path(t_info info, uint64_t path_count,
 			uint64_t current_node, t_path paths)
 {
 	paths.data = ft_realloc(paths.data, 8 * (path_count + 1), 8 * path_count);
-	paths.data[path_count] = (int64_t *)malloc(sizeof(int64_t)
+	paths.data[path_count] = (int64_t *)ft_mc(sizeof(int64_t)
 			* info.node_count);
 	paths.data[path_count][0] = info.start;
 	paths.data[path_count][1] = current_node;

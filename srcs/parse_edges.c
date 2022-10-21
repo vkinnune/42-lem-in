@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_edges.c                                   :+:      :+:    :+:   */
+/*   parse_edges.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:31:35 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/19 17:02:55 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:11:33 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_node	*parse_edges(char *p, char *names, uint64_t node_count)
 	uint64_t	node_a;
 	uint64_t	node_b;
 
-	nodes = (t_node *)malloc(sizeof(t_node) * node_count);
+	nodes = (t_node *)ft_mc(sizeof(t_node) * node_count);
 	ft_bzero(nodes, sizeof(t_node) * node_count);
 	while (*p != 0 && p[1] != 0)
 	{
@@ -47,12 +47,12 @@ void	add_edges(uint64_t in, uint64_t out, t_node *nodes)
 
 	if (nodes[in].edge_count == 0)
 	{
-		nodes[in].edges = (int64_t *)malloc(sizeof(int64_t) * 1);
+		nodes[in].edges = (int64_t *)ft_mc(sizeof(int64_t) * 1);
 		ft_bzero(nodes[in].edges, sizeof(int64_t) * 1);
 	}
 	else
 	{
-		edges = (int64_t *)malloc(sizeof(int64_t) * (nodes[in].edge_count + 1));
+		edges = (int64_t *)ft_mc(sizeof(int64_t) * (nodes[in].edge_count + 1));
 		ft_bzero(edges, sizeof(int64_t) * (nodes[in].edge_count + 1));
 		ft_memcpy(edges, nodes[in].edges, (nodes[in].edge_count
 				* sizeof(int64_t)));
