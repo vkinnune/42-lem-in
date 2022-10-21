@@ -51,6 +51,7 @@ clean:
 fclean: clean
 	-@rm -f $(NAME)
 	-@rm -fd $(OBJ_FOLDER)
+	-@rm -f pre_requisites
 	@echo "$(NAME) file is removed!"
 
 .PHONY: re
